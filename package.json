@@ -1,7 +1,8 @@
 {
   "name": "electionrover",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "The ultimate agentic intelligence platform for voters and candidates. Navigate the world's largest democratic exercise with a Cyber-Tricolor multi-agent system supporting 11 regional languages.",
   "type": "module",
   "scripts": {
     "dev": "vite",
