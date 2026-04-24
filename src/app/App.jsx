@@ -28,7 +28,12 @@ function App() {
     { code: 'ta', label: 'தமிழ்' },
     { code: 'te', label: 'తెలుగు' },
     { code: 'kn', label: 'ಕನ್ನಡ' },
-    { code: 'bn', label: 'বাংলা' }
+    { code: 'bn', label: 'বাংলা' },
+    { code: 'ml', label: 'മലയാളം' },
+    { code: 'mr', label: 'मराठी' },
+    { code: 'gu', label: 'ગુજરાતી' },
+    { code: 'or', label: 'ଓଡ଼ିଆ' },
+    { code: 'pa', label: 'ਪੰਜਾਬੀ' }
   ]
 
   const handleRoleSelect = (selectedRole) => {
