@@ -5,14 +5,16 @@ import React from 'react';
 import '../shared/lib/i18n'; // Init i18n for tests
 
 describe('Election Rover Landing Page', () => {
-  it('renders the welcome message', () => {
+  it('renders the hero title', () => {
     render(<App />);
-    expect(screen.getByText(/Welcome to Election Rover/i)).toBeDefined();
+    expect(screen.getByText(/DEFEND YOUR/i)).toBeDefined();
+    expect(screen.getByText(/DEMOCRACY/i)).toBeDefined();
   });
 
-  it('renders the role selection cards', () => {
+  it('renders the role selection sections', () => {
     render(<App />);
-    expect(screen.getByText(/General Elector/i)).toBeDefined();
-    expect(screen.getByText(/Candidate/i)).toBeDefined();
+    // Check for portal titles specifically
+    expect(screen.getByText(/Voter Portal/i)).toBeDefined();
+    expect(screen.getByText(/Contestant Portal/i)).toBeDefined();
   });
 });
