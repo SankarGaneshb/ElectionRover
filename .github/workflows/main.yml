@@ -59,4 +59,4 @@ jobs:
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
-            --project ${{ vars.GCP_PROJECT_ID }}
+            --project electionrover
