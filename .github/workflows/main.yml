@@ -54,10 +54,8 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v2'
       - name: 'Build and Deploy to Cloud Run'
         run: |
-          gcloud auth configure-docker
-          gcloud builds submit --tag gcr.io/${{ vars.GCP_PROJECT_ID }}/election-rover
           gcloud run deploy election-rover \
-            --image gcr.io/${{ vars.GCP_PROJECT_ID }}/election-rover \
+            --source . \
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
