@@ -51,6 +51,18 @@ Election Rover is built for the entire nation, supporting instant UI transformat
 
 ---
 
+## 🏛️ Core Engineering Pillars
+Election Rover is engineered to the highest standards of production-grade software:
+
+*   **💎 Code Quality**: Implements **Feature-Sliced Design (FSD)** for a modular, readable, and highly maintainable frontend architecture.
+*   **🛡️ Security**: Zero-hardcoding policy. All sensitive orchestration is handled via **Google Cloud Secret Manager**.
+*   **⚡ Efficiency**: Serverless, high-concurrency hosting on **Cloud Run** with PWA-based offline caching.
+*   **🧪 Testing**: Full-stack validation via **Vitest** and **Pytest** integrated into a mandatory "Green-on-Arrival" CI/CD pipeline.
+*   **♿ Accessibility**: **11-Language support** with "Reduce Motion" compliance and high-contrast, WCAG-friendly "Cyber-Tricolor" aesthetics.
+*   **☁️ Google Services**: Deep, meaningful integration of **Gemini 3.1**, **Cloud Run**, **Cloud Build**, and **Secret Manager**.
+
+---
+
 ## 🚀 Deployment & Build Integrity
 Election Rover follows strict **"Green-on-Arrival"** standards. Every push to the `master` branch triggers:
 1.  **Vitest Suite**: Validating the Cyber-Tricolor React components in a JSDOM environment.
