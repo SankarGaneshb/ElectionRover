@@ -63,4 +63,12 @@ Election Rover follows strict **"Green-on-Arrival"** standards. Every push to th
 *   `GEMINI_API_KEY`: Stored securely in Google Cloud Secret Manager.
 
 ---
+
+## ⚠️ Assumptions & Context
+*   **Data Source**: All election protocols and role guidance are based on public ECI (Election Commission of India) documentation as of 2026.
+*   **Connectivity**: Designed as a PWA; initial load requires internet, while subsequent "Democracy Quests" are cached for offline accessibility in rural areas.
+*   **Infrastructure**: Assumes a Google Cloud environment with Secret Manager enabled for secure API orchestration.
+*   **AI Context**: Gemini 3.1 is utilized for real-time linguistic nuance and protocol simplification.
+
+---
 Built with 🇮🇳 for **PromptWars 2026** | **[SankarGaneshb/ElectionRover](https://github.com/SankarGaneshb/ElectionRover)**
