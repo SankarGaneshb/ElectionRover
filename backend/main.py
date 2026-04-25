@@ -18,6 +18,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from backend.sre_agent import sre_agent_instance
+from starlette.requests import Request
+from starlette.responses import JSONResponse
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    # Log the real issue directly to our SRE Agent instance
+    sre_agent_instance.log_real_issue("API", f"Unhandled Exception: {str(exc)}")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal Server Error. Routed to SRE Agent for self-healing."}
+    )
+
 # Serve Static Frontend
 if os.path.exists("dist"):
     app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
@@ -78,6 +91,24 @@ async def chat(request: ChatRequest):
 @app.get("/health")
 def health():
     return {"status": "green", "version": "1.0.0"}
+
+from backend.sre_agent import sre_agent_instance
+
+class SREHealRequest(BaseModel):
+    service: str
+    issue: str
+
+@app.get("/api/v1/sre/logs")
+async def get_sre_logs():
+    return sre_agent_instance.get_logs()
+
+@app.post("/api/v1/sre/heal")
+async def trigger_sre_heal(request: SREHealRequest):
+    return sre_agent_instance.simulate_heal(request.service, request.issue)
+
+@app.get("/api/v1/sre/trigger_error")
+def trigger_intentional_error():
+    raise RuntimeError("Intentional Database connection timeout simulation.")
 
 if __name__ == "__main__":
     import uvicorn

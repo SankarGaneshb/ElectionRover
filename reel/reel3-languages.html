@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reel 3 — 11 Languages, 1 App</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .lang-hero {
+      font-size: 42px;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: -2px;
+      line-height: 1.2;
+      opacity: 0;
+      transition: opacity 0.4s, transform 0.4s;
+      transform: scale(0.9);
+      position: absolute;
+    }
+    .lang-hero.show { opacity: 1; transform: scale(1); }
+    .lang-sub {
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.3);
+      position: absolute;
+      bottom: 180px;
+      text-align: center;
+      opacity: 0;
+    }
+    .lang-sub.show { animation: fadeIn 0.4s ease forwards; }
+    .lang-count {
+      position: absolute;
+      top: 60px;
+      font-size: 80px;
+      font-weight: 900;
+      font-family: monospace;
+      color: rgba(255,255,255,0.04);
+      opacity: 0;
+    }
+    .lang-count.show { animation: fadeIn 0.3s ease forwards; }
+    .flag-bar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--saffron) 33%, #fff 33%, #fff 66%, var(--green) 66%);
+    }
+    .final-card {
+      text-align: center;
+      opacity: 0;
+    }
+    .final-card.show { animation: popIn 0.6s ease forwards; }
+  </style>
+</head>
+<body>
+<div class="reel" id="reel">
+  <div class="scanlines"></div>
+  <div class="progress-bar" id="progress"></div>
+  <div class="flag-bar"></div>
+
+  <div class="scene active" id="langScene" style="position:relative;">
+    <div class="lang-count" id="langNum"></div>
+    <div class="lang-hero" id="langText"></div>
+    <div class="lang-sub" id="langName"></div>
+  </div>
+
+  <div class="scene" id="finalScene">
+    <div class="final-card" id="finalCard">
+      <div style="font-size:80px;font-weight:900;font-family:monospace;background:linear-gradient(135deg,var(--saffron),#fff,var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;">11</div>
+      <div style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:4px;color:rgba(255,255,255,0.5);margin-top:8px;">Languages</div>
+      <div style="font-size:80px;font-weight:900;font-family:monospace;color:var(--saffron);line-height:1;margin-top:24px;">1</div>
+      <div style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:4px;color:rgba(255,255,255,0.5);margin-top:8px;">App</div>
+      <div style="font-size:16px;font-weight:900;margin-top:40px;letter-spacing:-0.5px;">Every Indian. One Platform.</div>
+      <div style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--saffron);margin-top:24px;">Which language is yours?<br>Comment below!</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const TOTAL=15000;
+  let start=Date.now();
+  function progress(){const p=Math.min(((Date.now()-start)/TOTAL)*100,100);$('progress').style.width=p+'%';if(p<100)requestAnimationFrame(progress)}
+  requestAnimationFrame(progress);
+
+  const langs = [
+    { text: 'Your Democracy', name: 'ENGLISH', num: '01' },
+    { text: '\u0906\u092A\u0915\u093E \u0932\u094B\u0915\u0924\u0902\u0924\u094D\u0930', name: '\u0939\u093F\u0928\u094D\u0926\u0940 \u2014 HINDI', num: '02' },
+    { text: '\u0BA8\u0BAE\u0BA4\u0BC1 \u0B9C\u0BA9\u0BA8\u0BBE\u0BAF\u0B95\u0BAE\u0BCD', name: '\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD \u2014 TAMIL', num: '03' },
+    { text: '\u0C2E\u0C40 \u0C2A\u0C4D\u0C30\u0C1C\u0C3E\u0C38\u0C4D\u0C35\u0C3E\u0C2E\u0C4D\u0C2F\u0C02', name: '\u0C24\u0C46\u0C32\u0C41\u0C17\u0C41 \u2014 TELUGU', num: '04' },
+    { text: '\u0CA8\u0CAE\u0CCD\u0CAE \u0CAA\u0CCD\u0CB0\u0C9C\u0CBE\u0CAA\u0CCD\u0CB0\u0CAD\u0CC1\u0CA4\u0CCD\u0CB5', name: '\u0C95\u0CA8\u0CCD\u0CA8\u0CA1 \u2014 KANNADA', num: '05' },
+    { text: '\u0986\u09AE\u09BE\u09A6\u09C7\u09B0 \u0997\u09A3\u09A4\u09A8\u09CD\u09A4\u09CD\u09B0', name: '\u09AC\u09BE\u0982\u09B2\u09BE \u2014 BENGALI', num: '06' },
+    { text: '\u0D28\u0D2E\u0D4D\u0D2E\u0D41\u0D1F\u0D46 \u0D1C\u0D28\u0D3E\u0D27\u0D3F\u0D2A\u0D24\u0D4D\u0D2F\u0D02', name: '\u0D2E\u0D32\u0D2F\u0D3E\u0D33\u0D02 \u2014 MALAYALAM', num: '07' },
+    { text: '\u0906\u092A\u0932\u0947 \u0932\u094B\u0915\u0936\u093E\u0939\u0940', name: '\u092E\u0930\u093E\u0920\u0940 \u2014 MARATHI', num: '08' },
+    { text: '\u0A86\u0AAA\u0AA3\u0AC1\u0A82 \u0AB2\u0ACB\u0A95\u0AB6\u0ABE\u0AB9\u0AC0', name: '\u0A97\u0AC1\u0A9C\u0AB0\u0ABE\u0AA4\u0AC0 \u2014 GUJARATI', num: '09' },
+    { text: '\u0B06\u0B2E\u0B30 \u0B17\u0B23\u0B24\u0B28\u0B4D\u0B24\u0B4D\u0B30', name: '\u0B13\u0B21\u0B3F\u0B06 \u2014 ODIA', num: '10' },
+    { text: '\u0A38\u0A3E\u0A21\u0A3E \u0A32\u0A4B\u0A15\u0A24\u0A70\u0A24\u0A30', name: '\u0A2A\u0A70\u0A1C\u0A3E\u0A2C\u0A40 \u2014 PUNJABI', num: '11' },
+  ];
+
+  const langText = $('langText');
+  const langName = $('langName');
+  const langNum = $('langNum');
+
+  let i = 0;
+  function showLang() {
+    if (i >= langs.length) {
+      // Final card
+      $('langScene').classList.remove('active');
+      $('finalScene').classList.add('active');
+      setTimeout(() => $('finalCard').classList.add('show'), 200);
+      return;
+    }
+    langText.classList.remove('show');
+    langName.classList.remove('show');
+    langNum.classList.remove('show');
+
+    setTimeout(() => {
+      langText.textContent = langs[i].text;
+      langName.textContent = langs[i].name;
+      langNum.textContent = langs[i].num;
+      langText.classList.add('show');
+      langName.classList.add('show');
+      langNum.classList.add('show');
+      i++;
+      setTimeout(showLang, 1000);
+    }, 200);
+  }
+
+  setTimeout(showLang, 500);
+})();
+</script>
+</body>
+</html>

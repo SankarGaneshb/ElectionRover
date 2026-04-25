@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch, MagicMock
 from fastapi.testclient import TestClient
 from backend.main import app
 
@@ -10,14 +11,23 @@ def test_health_check():
     assert response.status_code == 200
     assert response.json() == {"status": "green", "version": "1.0.0"}
 
-def test_chat_payload_validation():
+@patch('backend.graph.workflow.genai.Client')
+def test_chat_payload_validation(mock_client_class):
     """Verify that the chat endpoint correctly validates role input."""
+    # Setup mock
+    mock_client = MagicMock()
+    mock_chat = MagicMock()
+    mock_response = MagicMock()
+    mock_response.text = "Mocked AI response for election protocols."
+    mock_chat.send_message.return_value = mock_response
+    mock_client.chats.create.return_value = mock_chat
+    mock_client_class.return_value = mock_client
+
     response = client.post("/chat", json={
         "message": "Hello",
         "role": "voter",
         "language": "en"
     })
-    # Since we don't have a real Gemini API key in tests, 
-    # it might fail or we'd need to mock it. 
-    # For CI readiness, we just check if it handles the request.
-    assert response.status_code in [200, 500] 
+    assert response.status_code == 200
+    assert "Mocked AI response" in response.text
+ 

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reel 6 — Behind the Code</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .code-block {
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 18px;
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.6);
+      opacity: 0;
+      margin-bottom: 12px;
+    }
+    .code-block.show { animation: popIn 0.5s ease forwards; }
+    .code-block .kw { color: #c084fc; }
+    .code-block .str { color: #86efac; }
+    .code-block .fn { color: #93c5fd; }
+    .code-block .cm { color: rgba(255,255,255,0.2); }
+    .code-block .op { color: #fbbf24; }
+    .code-header {
+      font-size: 9px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+      opacity: 0;
+    }
+    .code-header.show { animation: fadeIn 0.4s ease forwards; }
+    .agent-flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 16px 0;
+      opacity: 0;
+    }
+    .agent-flow.show { animation: fadeIn 0.5s ease forwards; }
+    .agent-node {
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+    }
+    .agent-node.saffron { border-color: rgba(255,153,51,0.3); color: var(--saffron); }
+    .agent-node.green { border-color: rgba(19,136,8,0.3); color: var(--green); }
+    .agent-arrow { color: rgba(255,255,255,0.2); font-size: 16px; }
+  </style>
+</head>
+<body>
+<div class="reel" id="reel">
+  <div class="scanlines"></div>
+  <div class="progress-bar" id="progress"></div>
+
+  <!-- HOOK -->
+  <div class="scene active" id="s1">
+    <div style="font-size:28px;font-weight:900;text-align:center;letter-spacing:-1px;line-height:1.3;opacity:0;" id="hook">
+      4 AI agents.<br>1 graph.<br><span style="color:var(--green);">Zero hallucinations.</span>
+    </div>
+  </div>
+
+  <!-- CODE -->
+  <div class="scene" id="s2">
+    <div class="code-header" id="ch1" style="color:var(--saffron);">workflow.py</div>
+    <div class="code-block" id="cb1">
+      <span class="cm"># Multi-Agent Hive</span><br>
+      <span class="kw">class</span> <span class="fn">AgentState</span>(<span class="fn">TypedDict</span>):<br>
+      &nbsp;&nbsp;messages: <span class="fn">List</span>[<span class="fn">dict</span>]<br>
+      &nbsp;&nbsp;current_role: <span class="fn">str</span><br>
+      &nbsp;&nbsp;language: <span class="fn">str</span><br>
+      &nbsp;&nbsp;points: <span class="fn">int</span><br>
+      &nbsp;&nbsp;badges: <span class="fn">List</span>[<span class="fn">str</span>]
+    </div>
+    <div class="code-block" id="cb2">
+      workflow <span class="op">=</span> <span class="fn">StateGraph</span>(AgentState)<br><br>
+      workflow.<span class="fn">add_node</span>(<span class="str">"educator"</span>, educator_node)<br>
+      workflow.<span class="fn">add_node</span>(<span class="str">"gamemaster"</span>, gamemaster_node)<br><br>
+      workflow.<span class="fn">set_entry_point</span>(<span class="str">"educator"</span>)<br>
+      workflow.<span class="fn">add_edge</span>(<span class="str">"educator"</span>, <span class="str">"gamemaster"</span>)<br>
+      workflow.<span class="fn">add_edge</span>(<span class="str">"gamemaster"</span>, END)<br><br>
+      app_graph <span class="op">=</span> workflow.<span class="fn">compile</span>()
+    </div>
+  </div>
+
+  <!-- FLOW DIAGRAM -->
+  <div class="scene" id="s3">
+    <div class="code-header" id="ch2" style="color:var(--green);">Agent Flow</div>
+    <div class="agent-flow" id="flow1">
+      <div class="agent-node" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.6);">User</div>
+      <div class="agent-arrow">&rarr;</div>
+      <div class="agent-node saffron">Educator</div>
+      <div class="agent-arrow">&rarr;</div>
+      <div class="agent-node green">GameMaster</div>
+      <div class="agent-arrow">&rarr;</div>
+      <div class="agent-node" style="border-color:rgba(255,255,255,0.3);color:rgba(255,255,255,0.6);">Response</div>
+    </div>
+    <div class="code-block" id="cb3" style="margin-top:16px;">
+      <span class="cm"># Powered by</span><br>
+      <span class="fn">genai</span>.<span class="fn">Client</span>(api_key<span class="op">=</span>api_key)<br>
+      model <span class="op">=</span> <span class="str">'gemini-3.1-flash-live-preview'</span><br><br>
+      <span class="cm"># With retry + fallback</span><br>
+      <span class="kw">for</span> attempt <span class="kw">in</span> <span class="fn">range</span>(max_retries):<br>
+      &nbsp;&nbsp;chat <span class="op">=</span> client.chats.<span class="fn">create</span>(<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;model<span class="op">=</span>model_id,<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;history<span class="op">=</span>history<br>
+      &nbsp;&nbsp;)
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="scene" id="s4">
+    <div style="font-size:22px;font-weight:900;text-align:center;letter-spacing:-0.5px;line-height:1.4;opacity:0;" id="ctaText">
+      Fork it.<br>Build on it.<br><span style="color:var(--saffron);">Star it.</span>
+    </div>
+    <div style="margin-top:32px;font-size:10px;color:rgba(255,255,255,0.3);text-align:center;letter-spacing:1px;opacity:0;" id="ctaUrl">
+      github.com/SankarGaneshb/ElectionRover
+    </div>
+    <div style="margin-top:24px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--saffron);text-align:center;opacity:0;" id="ctaBadge">
+      PromptWars 2026
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const show=(el,c='show')=>{if(el)el.classList.add(c)};
+  const TOTAL=30000;
+  let start=Date.now();
+  function progress(){const p=Math.min(((Date.now()-start)/TOTAL)*100,100);$('progress').style.width=p+'%';if(p<100)requestAnimationFrame(progress)}
+  requestAnimationFrame(progress);
+
+  // Hook
+  setTimeout(()=>{$('hook').style.opacity='1';$('hook').style.transition='opacity 0.6s'},400);
+
+  // Code scene
+  setTimeout(()=>{$('s1').classList.remove('active');$('s2').classList.add('active')},5000);
+  setTimeout(()=>show($('ch1')),5400);
+  setTimeout(()=>show($('cb1')),5800);
+  setTimeout(()=>show($('cb2')),7500);
+
+  // Flow scene
+  setTimeout(()=>{$('s2').classList.remove('active');$('s3').classList.add('active')},13000);
+  setTimeout(()=>show($('ch2')),13400);
+  setTimeout(()=>show($('flow1')),13800);
+  setTimeout(()=>show($('cb3')),15000);
+
+  // CTA
+  setTimeout(()=>{$('s3').classList.remove('active');$('s4').classList.add('active')},22000);
+  setTimeout(()=>{$('ctaText').style.opacity='1';$('ctaText').style.transition='opacity 0.6s'},22400);
+  setTimeout(()=>{$('ctaUrl').style.opacity='1';$('ctaUrl').style.transition='opacity 0.5s'},24000);
+  setTimeout(()=>{$('ctaBadge').style.opacity='1';$('ctaBadge').style.transition='opacity 0.5s'},25500);
+})();
+</script>
+</body>
+</html>

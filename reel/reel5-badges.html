@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reel 5 — Earn Badges by Learning Democracy</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .badge-card {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(20px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .badge-card.show { animation: slideUp 0.4s ease forwards; }
+    .badge-card.completed { border-color: rgba(19,136,8,0.3); background: rgba(19,136,8,0.05); }
+    .badge-icon {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      flex-shrink: 0;
+      transition: all 0.5s;
+    }
+    .badge-card.completed .badge-icon {
+      background: rgba(19,136,8,0.2);
+      border-color: var(--green);
+    }
+    .badge-name {
+      font-size: 13px;
+      font-weight: 900;
+      flex: 1;
+      margin-left: 14px;
+    }
+    .badge-pts {
+      font-size: 18px;
+      font-weight: 900;
+      font-family: monospace;
+      color: var(--saffron);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .badge-card.completed .badge-pts { opacity: 1; }
+    .total-counter {
+      font-size: 64px;
+      font-weight: 900;
+      font-family: monospace;
+      text-align: center;
+      color: var(--saffron);
+      opacity: 0;
+    }
+    .total-counter.show { animation: popIn 0.5s ease forwards; }
+    .pov-text {
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 24px;
+      opacity: 0;
+    }
+    .pov-text.show { animation: fadeIn 0.4s ease forwards; }
+  </style>
+</head>
+<body>
+<div class="reel" id="reel">
+  <div class="scanlines"></div>
+  <div class="progress-bar" id="progress"></div>
+
+  <!-- HOOK -->
+  <div class="scene active" id="s1">
+    <div class="pov-text" id="pov">POV: You just learned democracy</div>
+    <div class="badge-card" id="b1">
+      <div class="badge-icon">&#9745;</div>
+      <div class="badge-name">The Registration Trail</div>
+      <div class="badge-pts">+50</div>
+    </div>
+    <div class="badge-card" id="b2">
+      <div class="badge-icon">&#128205;</div>
+      <div class="badge-name">Booth Locator</div>
+      <div class="badge-pts">+30</div>
+    </div>
+    <div class="badge-card" id="b3">
+      <div class="badge-icon">&#128737;</div>
+      <div class="badge-name">The Verification Shield</div>
+      <div class="badge-pts">+75</div>
+    </div>
+    <div class="badge-card" id="b4">
+      <div class="badge-icon">&#128220;</div>
+      <div class="badge-name">The Nomination Quest</div>
+      <div class="badge-pts">+100</div>
+    </div>
+    <div class="badge-card" id="b5">
+      <div class="badge-icon">&#127942;</div>
+      <div class="badge-name">Defend Your Narrative</div>
+      <div class="badge-pts">+120</div>
+    </div>
+  </div>
+
+  <!-- TOTAL -->
+  <div class="scene" id="s2">
+    <div style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--green);margin-bottom:8px;opacity:0;" id="totalLabel">Total Creds Earned</div>
+    <div class="total-counter" id="totalCount">375</div>
+    <div style="margin-top:32px;font-size:20px;font-weight:900;text-align:center;letter-spacing:-0.5px;opacity:0;" id="closeText">
+      Democracy is a game<br>worth <span style="color:var(--green);">winning</span>.
+    </div>
+    <div style="margin-top:24px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--saffron);opacity:0;" id="closeCta">Start your quest &rarr; link in bio</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const show=(el,c='show')=>{if(el)el.classList.add(c)};
+  const TOTAL=20000;
+  let start=Date.now();
+  function progress(){const p=Math.min(((Date.now()-start)/TOTAL)*100,100);$('progress').style.width=p+'%';if(p<100)requestAnimationFrame(progress)}
+  requestAnimationFrame(progress);
+
+  setTimeout(()=>show($('pov')),300);
+
+  const badges=['b1','b2','b3','b4','b5'];
+  badges.forEach((b,i)=>{
+    setTimeout(()=>{show($(b));},800+i*1200);
+    setTimeout(()=>{$(b).classList.add('completed');},1600+i*1200);
+  });
+
+  // Switch to total
+  setTimeout(()=>{
+    $('s1').classList.remove('active');
+    $('s2').classList.add('active');
+  },8000);
+  setTimeout(()=>{$('totalLabel').style.opacity='1';$('totalLabel').style.transition='opacity 0.4s'},8200);
+  setTimeout(()=>show($('totalCount')),8600);
+  setTimeout(()=>{$('closeText').style.opacity='1';$('closeText').style.transition='opacity 0.6s'},10000);
+  setTimeout(()=>{$('closeCta').style.opacity='1';$('closeCta').style.transition='opacity 0.5s'},12000);
+})();
+</script>
+</body>
+</html>

@@ -23,6 +23,12 @@ const resources = {
       voter_reg_desc: "Ensure you are on the electoral roll and ready to vote.",
       voter_booth_title: "Booth Locator",
       voter_booth_desc: "Find where your voice will be heard.",
+      voter_misinfo_title: "The Verification Shield",
+      voter_misinfo_desc: "Learn how AI-powered systems detect and flag election misinformation in real time.",
+      cand_nomination_title: "The Nomination Quest",
+      cand_nomination_desc: "The technical journey to becoming a legal contestant.",
+      cand_misinfo_title: "Defend Your Narrative",
+      cand_misinfo_desc: "Understand how false claims about candidates get reported, clustered, and verified through AI.",
       execute_protocol: "Execute Protocol",
       review_protocol: "Review Protocol"
     }
@@ -48,6 +54,12 @@ const resources = {
       voter_reg_desc: "सुनिश्चित करें कि आप मतदाता सूची में हैं और वोट देने के लिए तैयार हैं।",
       voter_booth_title: "बूথ लोकेटर",
       voter_booth_desc: "पता लगाएं कि आपकी आवाज कहां सुनी जाएगी।",
+      voter_misinfo_title: "सत्यापन कवच",
+      voter_misinfo_desc: "जानें कि AI-संचालित प्रणालियां चुनावी गलत सूचना का पता कैसे लगाती हैं।",
+      cand_nomination_title: "नामांकन अभियान",
+      cand_nomination_desc: "कानूनी प्रतियोगी बनने की तकनीकी यात्रा।",
+      cand_misinfo_title: "अपनी कथा की रक्षा करें",
+      cand_misinfo_desc: "समझें कि उम्मीदवारों के बारे में झूठे दावों की रिपोर्ट और AI द्वारा सत्यापन कैसे होता है।",
       execute_protocol: "प्रोटोकॉल निष्पादित करें",
       review_protocol: "प्रोटोकॉल की समीक्षा करें"
     }
@@ -73,6 +85,12 @@ const resources = {
       voter_reg_desc: "நீங்கள் வாக்காளர் பட்டியலில் இருப்பதை உறுதிசெய்து வாக்களிக்க தயாராகுங்கள்.",
       voter_booth_title: "வாக்குச்சாவடி கண்டறிவான்",
       voter_booth_desc: "உங்கள் வாக்குச்சாவடியைக் கண்டறியுங்கள்.",
+      voter_misinfo_title: "சரிபார்ப்புக் கவசம்",
+      voter_misinfo_desc: "AI அமைப்புகள் தேர்தல் தவறான தகவல்களை எவ்வாறு கண்டறிகின்றன என்பதை அறியுங்கள்.",
+      cand_nomination_title: "வேட்புமனு பயணம்",
+      cand_nomination_desc: "சட்டப்பூர்வ போட்டியாளராக மாறுவதற்கான தொழில்நுட்ப பயணம்.",
+      cand_misinfo_title: "உங்கள் கதையைப் பாதுகாக்கவும்",
+      cand_misinfo_desc: "வேட்பாளர்கள் பற்றிய பொய்யான கூற்றுகள் AI மூலம் எவ்வாறு சரிபார்க்கப்படுகின்றன என்பதைப் புரிந்துகொள்ளுங்கள்.",
       execute_protocol: "தொடங்கவும்",
       review_protocol: "மதிப்பாய்வு செய்க"
     }

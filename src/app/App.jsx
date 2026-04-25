@@ -10,6 +10,10 @@ import {
 import { Timeline } from '../widgets/Timeline/Timeline'
 import { QuestView } from '../pages/Quest/QuestView'
 import { QUESTS } from '../shared/data/quests'
+import { MapView } from '../widgets/MapView/MapView'
+import { MisinfoSimulator } from '../widgets/MisinfoSimulator/MisinfoSimulator'
+import { SREAgentWidget } from '../widgets/SREAgent/SREAgent'
+
 
 function App() {
   const { t, i18n } = useTranslation()
@@ -187,7 +191,20 @@ function App() {
                 <Timeline />
               </div>
 
+              <div className="mb-4 h-[350px] shrink-0">
+                <MapView />
+              </div>
+
+              <div className="mb-4 shrink-0">
+                <MisinfoSimulator />
+              </div>
+
+              <div className="mb-4 shrink-0">
+                <SREAgentWidget />
+              </div>
+
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 flex-1 overflow-hidden">
+
                 {/* Motivation Sidepanel */}
                 <div className="lg:col-span-1 space-y-6">
                   <div className="glass-card p-4 border-national-saffron/10">

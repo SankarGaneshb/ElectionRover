@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reel 2 — The Fake News Test</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .quiz-card {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .quiz-card.show { animation: slideUp 0.5s ease forwards; }
+    .quiz-claim {
+      font-size: 14px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 12px;
+    }
+    .quiz-options {
+      display: flex;
+      gap: 8px;
+    }
+    .quiz-opt {
+      flex: 1;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      opacity: 0.3;
+      transition: all 0.5s;
+    }
+    .quiz-opt.fake { border-color: rgba(239,68,68,0.3); color: var(--red); }
+    .quiz-opt.real { border-color: rgba(19,136,8,0.3); color: var(--green); }
+    .quiz-opt.revealed { opacity: 1; }
+    .quiz-opt.correct { opacity: 1; background: rgba(19,136,8,0.15); transform: scale(1.05); }
+    .quiz-confidence {
+      font-size: 32px;
+      font-weight: 900;
+      font-family: monospace;
+      text-align: center;
+      margin-top: 8px;
+      opacity: 0;
+    }
+    .quiz-confidence.show { animation: popIn 0.4s ease forwards; }
+    .hook-text {
+      font-size: 28px;
+      font-weight: 900;
+      text-align: center;
+      letter-spacing: -1px;
+      line-height: 1.3;
+      opacity: 0;
+    }
+    .hook-text.show { animation: glitchIn 0.6s ease forwards; }
+  </style>
+</head>
+<body>
+<div class="reel" id="reel">
+  <div class="scanlines"></div>
+  <div class="progress-bar" id="progress"></div>
+
+  <!-- HOOK -->
+  <div class="scene active" id="s1">
+    <div class="hook-text" id="hook">Can <span style="color:var(--saffron);">YOU</span><br>spot the fake?</div>
+  </div>
+
+  <!-- QUIZ 1 -->
+  <div class="scene" id="s2">
+    <div style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--amber);margin-bottom:16px;">CLAIM 1 OF 3</div>
+    <div class="quiz-card" id="q1">
+      <div class="quiz-claim">"Candidate Sharma has been arrested for financial fraud and is disqualified."</div>
+      <div class="quiz-options">
+        <div class="quiz-opt fake" id="q1f">FALSE</div>
+        <div class="quiz-opt real" id="q1r">TRUE</div>
+      </div>
+    </div>
+    <div class="quiz-confidence" id="q1c" style="color:var(--red);">FALSE &mdash; 97.3%</div>
+  </div>
+
+  <!-- QUIZ 2 -->
+  <div class="scene" id="s3">
+    <div style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--amber);margin-bottom:16px;">CLAIM 2 OF 3</div>
+    <div class="quiz-card" id="q2">
+      <div class="quiz-claim">"EVM machines in Booth #317 were found pre-loaded with votes."</div>
+      <div class="quiz-options">
+        <div class="quiz-opt fake" id="q2f">FALSE</div>
+        <div class="quiz-opt real" id="q2r">TRUE</div>
+      </div>
+    </div>
+    <div class="quiz-confidence" id="q2c" style="color:var(--red);">FALSE &mdash; 94.8%</div>
+  </div>
+
+  <!-- QUIZ 3 -->
+  <div class="scene" id="s4">
+    <div style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--amber);margin-bottom:16px;">CLAIM 3 OF 3</div>
+    <div class="quiz-card" id="q3">
+      <div class="quiz-claim">"Polling date for constituency #42 has been changed from April 28 to May 5."</div>
+      <div class="quiz-options">
+        <div class="quiz-opt fake" id="q3f">FALSE</div>
+        <div class="quiz-opt real" id="q3r">TRUE</div>
+      </div>
+    </div>
+    <div class="quiz-confidence" id="q3c" style="color:var(--red);">FALSE &mdash; 99.1%</div>
+  </div>
+
+  <!-- CTA -->
+  <div class="scene" id="s5">
+    <div class="hook-text" id="cta-text" style="font-size:22px;">
+      All 3 were <span style="color:var(--red);">FAKE</span>.<br><br>
+      <span style="font-size:14px;color:rgba(255,255,255,0.4);">Election Rover detects them in seconds.</span>
+    </div>
+    <div style="margin-top:32px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--saffron);opacity:0;" id="cta-link">
+      Test yourself &rarr; link in bio
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  const show=(el,c='show')=>{if(el)el.classList.add(c)};
+  const scenes=['s1','s2','s3','s4','s5'];
+  const TOTAL=30000;
+  let start=Date.now();
+
+  function activate(id){scenes.forEach(s=>{const e=$(s);if(e)e.classList.toggle('active',s===id)})}
+  function progress(){const p=Math.min(((Date.now()-start)/TOTAL)*100,100);$('progress').style.width=p+'%';if(p<100)requestAnimationFrame(progress)}
+
+  requestAnimationFrame(progress);
+
+  setTimeout(()=>show($('hook')),400);
+
+  // Quiz 1
+  setTimeout(()=>activate('s2'),4000);
+  setTimeout(()=>show($('q1')),4400);
+  setTimeout(()=>{$('q1f').classList.add('revealed','correct');$('q1r').classList.add('revealed')},6500);
+  setTimeout(()=>show($('q1c')),7000);
+
+  // Quiz 2
+  setTimeout(()=>activate('s3'),10000);
+  setTimeout(()=>show($('q2')),10400);
+  setTimeout(()=>{$('q2f').classList.add('revealed','correct');$('q2r').classList.add('revealed')},12500);
+  setTimeout(()=>show($('q2c')),13000);
+
+  // Quiz 3
+  setTimeout(()=>activate('s4'),16000);
+  setTimeout(()=>show($('q3')),16400);
+  setTimeout(()=>{$('q3f').classList.add('revealed','correct');$('q3r').classList.add('revealed')},18500);
+  setTimeout(()=>show($('q3c')),19000);
+
+  // CTA
+  setTimeout(()=>activate('s5'),23000);
+  setTimeout(()=>show($('cta-text')),23400);
+  setTimeout(()=>{$('cta-link').style.opacity='1';$('cta-link').style.transition='opacity 0.5s'},25000);
+})();
+</script>
+</body>
+</html>

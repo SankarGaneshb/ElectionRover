@@ -1,0 +1,191 @@
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  ShieldCheck, Activity, Terminal, CheckCircle2, 
+  AlertOctagon, RefreshCcw, UserCheck, X
+} from 'lucide-react';
+
+export function SREAgentWidget() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [logs, setLogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [healingService, setHealingService] = useState(null);
+
+  const fetchLogs = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/api/v1/sre/logs');
+      if (res.ok) {
+        const data = await res.json();
+        setLogs(data);
+      }
+    } catch (err) {
+      console.error('Failed to fetch SRE logs:', err);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchLogs();
+      const interval = setInterval(fetchLogs, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [isOpen]);
+
+  const triggerHeal = async (service, issue) => {
+    setHealingService(service);
+    setIsLoading(true);
+    try {
+      await fetch('http://localhost:8000/api/v1/sre/heal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ service, issue })
+      });
+      await fetchLogs();
+    } catch (err) {
+      console.error('Heal attempt failed:', err);
+    } finally {
+      setIsLoading(false);
+      setHealingService(null);
+    }
+  };
+
+  if (!isOpen) {
+    return (
+      <button 
+        onClick={() => setIsOpen(true)}
+        className="w-full h-16 rounded-xl border border-blue-500/20 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest transition-all hover:scale-[1.01] shadow-lg shadow-blue-500/5 group"
+      >
+        <Activity size={18} className="group-hover:animate-pulse" />
+        SRE Autonomous Self-Healing Hub
+        <span className="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded text-[8px] tracking-widest font-mono">HIL-ROVER ACTIVE</span>
+      </button>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-xl flex items-center justify-center p-6 animate-in fade-in duration-200">
+      <div className="bg-slate-900 border border-white/10 rounded-2xl w-full max-w-4xl h-[85vh] flex flex-col overflow-hidden shadow-2xl relative font-mono">
+        
+        {/* Header */}
+        <div className="p-4 bg-slate-950/60 border-b border-white/5 flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-blue-500/10 rounded-xl border border-blue-500/20">
+              <ShieldCheck size={18} className="text-blue-400" />
+            </div>
+            <div>
+              <h3 className="text-sm font-black tracking-tight text-white uppercase">HIL-Rover Control Tower</h3>
+              <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Continuous 24/7 Deployment Oversight</p>
+            </div>
+          </div>
+          <button 
+            onClick={() => setIsOpen(false)}
+            className="p-2 bg-white/5 hover:bg-white/10 rounded-xl text-slate-400 hover:text-white border border-white/10 transition-colors"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Console Content */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-4 custom-scrollbar bg-slate-950/40">
+          
+          {/* Live Issue Test Generator */}
+          <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
+            <h4 className="text-xs font-bold text-red-400 mb-2 uppercase tracking-widest flex items-center gap-2">
+              <AlertOctagon size={14} className="text-red-400 animate-pulse" /> Live Chaos Engineering Simulator
+            </h4>
+            <p className="text-[10px] text-slate-400 mb-3">Trigger an intentional production crash to watch the SRE agent ingest the exception in real-time.</p>
+            <button
+              onClick={async () => {
+                try {
+                  await fetch('http://localhost:8000/api/v1/sre/trigger_error');
+                } catch (e) {
+                  // The exception is trapped in the handler but naturally logged
+                }
+                fetchLogs();
+              }}
+              className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg text-[10px] font-bold border border-red-500/30 uppercase tracking-widest transition-all"
+            >
+              Inject Runtime Error
+            </button>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="bg-white/[0.02] border border-white/5 rounded-xl p-4">
+            <h4 className="text-xs font-bold text-slate-400 mb-3 uppercase tracking-widest flex items-center gap-2">
+              <Terminal size={14} className="text-blue-400" /> Manual Override Injectors
+            </h4>
+            <div className="grid grid-cols-3 gap-3">
+              <button
+                disabled={isLoading}
+                onClick={() => triggerHeal('Database', 'Manual HIL Check')}
+                className="p-3 rounded-lg border border-blue-500/20 bg-blue-500/5 hover:bg-blue-500/15 text-blue-400 text-[10px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+              >
+                <RefreshCcw size={14} className={healingService === 'Database' ? 'animate-spin' : ''} />
+                Reset DB Pool
+              </button>
+              <button
+                disabled={isLoading}
+                onClick={() => triggerHeal('Cache', 'Manual HIL Check')}
+                className="p-3 rounded-lg border border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/15 text-purple-400 text-[10px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+              >
+                <RefreshCcw size={14} className={healingService === 'Cache' ? 'animate-spin' : ''} />
+                Purge Cache
+              </button>
+              <button
+                disabled={isLoading}
+                onClick={() => triggerHeal('API', 'Manual HIL Check')}
+                className="p-3 rounded-lg border border-emerald-500/20 bg-emerald-500/5 hover:bg-emerald-500/15 text-emerald-400 text-[10px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+              >
+                <UserCheck size={14} />
+                Audit Verify
+              </button>
+            </div>
+          </div>
+
+          {/* Audit Logs */}
+          <div className="space-y-2">
+            <h4 className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest flex items-center gap-2">
+              <CheckCircle2 size={14} className="text-emerald-400" /> SRE Action Audit Trail
+            </h4>
+            <div className="space-y-2">
+              {logs.map((log, i) => (
+                <div key={i} className="bg-slate-900 border border-white/5 rounded-lg p-3 text-xs leading-relaxed flex items-start gap-3">
+                  <div className="p-1.5 bg-emerald-500/10 rounded border border-emerald-500/20 mt-0.5">
+                    <AlertOctagon size={14} className="text-emerald-400" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[10px] text-blue-400 font-bold uppercase">{log.service}</span>
+                      <span className="text-[9px] text-slate-600">{new Date(log.timestamp * 1000).toLocaleTimeString()}</span>
+                    </div>
+                    <p className="text-slate-300"><span className="text-slate-500">Issue:</span> {log.issue}</p>
+                    <p className={log.status === 'Healed' ? 'text-emerald-400' : 'text-amber-400'}>
+                      <span className="text-slate-500">Action:</span> {log.action_taken}
+                    </p>
+                    <div className="flex items-center gap-2 mt-2">
+                      {log.status === 'Healed' ? (
+                        <span className="text-[8px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded tracking-widest font-black uppercase">
+                          HEALED
+                        </span>
+                      ) : (
+                        <span className="text-[8px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-1.5 py-0.5 rounded tracking-widest font-black uppercase animate-pulse">
+                          PENDING HIL
+                        </span>
+                      )}
+                      {log.is_hil_notified && (
+                        <span className="text-[8px] bg-white/5 text-slate-400 px-1.5 py-0.5 rounded tracking-widest uppercase">
+                          HIL Informed
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
