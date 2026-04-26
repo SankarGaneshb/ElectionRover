@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { MapPin, Accessibility, Navigation, ShieldCheck, Maximize2, X } from 'lucide-react'
 
 const MOCK_BOOTHS = [
@@ -7,8 +8,24 @@ const MOCK_BOOTHS = [
   { id: 3, name: "Sarojini Nagar Senior Sec School", lat: 28.5741, lng: 77.1945, pwd: false, details: "Standard accessibility parameters." },
   { id: 4, name: "Chanakyapuri Cultural Center", lat: 28.5991, lng: 77.1843, pwd: true, details: "Assisted voting support protocols." }
 ]
+const MAP_I18N = {
+  en: { title: "Constituency Boundaries: New Delhi", subtitle: "Zero-Scroll Geospatial Mapping", fallback: "Protected Fallback Protocol", live: "Live Satellite Integration", init: "Initializing GIS", offline_btn: "🔴 Using Offline GIS", live_btn: "🟢 Using Live Maps", pwd_only: "PWD Only", show_pwd: "Show PWD Accessible", standalone: "Standalone Verification Mode", select_booth: "Select Polling Station", close: "Close", walkthrough: "♿ 360° Accessibility Walkthrough" },
+  hi: { title: "निर्वाचन क्षेत्र सीमाएं: नई दिल्ली", subtitle: "शून्य-स्क्रॉल भू-स्थानिक मानचित्रण", fallback: "सुरक्षित फॉलबैक प्रोटोकॉल", live: "लाइव उपग्रह एकीकरण", init: "GIS प्रारंभ हो रहा है", offline_btn: "🔴 ऑफलाइन GIS उपयोग", live_btn: "🟢 लाइव मानचित्र उपयोग", pwd_only: "केवल दिव्यांग", show_pwd: "दिव्यांग सुलभ दिखाएं", standalone: "स्वतंत्र सत्यापन मोड", select_booth: "मतदान केंद्र चुनें", close: "बंद करें", walkthrough: "♿ 360° पहुंच भ्रमण" },
+  ta: { title: "தொகுதி எல்லைகள்: புது டெல்லி", subtitle: "பூஜ்ய-உருட்டல் புவி வரைபடம்", fallback: "பாதுகாக்கப்பட்ட பின்னணி நெறிமுறை", live: "நேரடி செயற்கைக்கோள் ஒருங்கிணைப்பு", init: "GIS தொடங்குகிறது", offline_btn: "🔴 ஆஃப்லைன் GIS பயன்படுத்துகிறது", live_btn: "🟢 நேரடி வரைபடங்கள் பயன்படுத்துகிறது", pwd_only: "மாற்றுத்திறனாளிகள் மட்டும்", show_pwd: "அணுகல் தகுதியானவை காட்டு", standalone: "தனி சரிபார்ப்பு முறை", select_booth: "வாக்குச்சாவடி தேர்ந்தெடுக்கவும்", close: "மூடு", walkthrough: "♿ 360° அணுகல் நடை" },
+  te: { title: "నియోజకవర్గ సరిహద్దులు: న్యూ ఢిల్లీ", subtitle: "జీరో-స్క్రోల్ భూస్థాన మ్యాపింగ్", fallback: "రక్షిత ఫాల్‌బ్యాక్ ప్రోటోకాల్", live: "లైవ్ శాటిలైట్ ఏకీకరణ", init: "GIS ప్రారంభమవుతోంది", offline_btn: "🔴 ఆఫ్‌లైన్ GIS ఉపయోగిస్తోంది", live_btn: "🟢 లైవ్ మ్యాప్‌లు ఉపయోగిస్తోంది", pwd_only: "వికలాంగులు మాత్రమే", show_pwd: "వికలాంగ అనుకూల చూపు", standalone: "స్వతంత్ర ధృవీకరణ మోడ్", select_booth: "పోలింగ్ స్టేషన్ ఎంచుకోండి", close: "మూసివేయి", walkthrough: "♿ 360° అందుబాటు నడక" },
+  kn: { title: "ಕ್ಷೇತ್ರ ಗಡಿಗಳು: ನವದೆಹಲಿ", subtitle: "ಶೂನ್ಯ-ಸ್ಕ್ರೋಲ್ ಭೌಗೋಳಿಕ ಮ್ಯಾಪಿಂಗ್", fallback: "ಸಂರಕ್ಷಿತ ಫಾಲ್‌ಬ್ಯಾಕ್ ಪ್ರೋಟೋಕಾಲ್", live: "ಲೈವ್ ಉಪಗ್ರಹ ಏಕೀಕರಣ", init: "GIS ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತಿದೆ", offline_btn: "🔴 ಆಫ್‌ಲೈನ್ GIS ಬಳಕೆ", live_btn: "🟢 ಲೈವ್ ನಕ್ಷೆಗಳ ಬಳಕೆ", pwd_only: "ವಿಶೇಷಚೇತನರು ಮಾತ್ರ", show_pwd: "ವಿಶೇಷಚೇತನ ಸ್ನೇಹಿ ತೋರಿಸಿ", standalone: "ಸ್ವತಂತ್ರ ಪರಿಶೀಲನಾ ಮೋಡ್", select_booth: "ಮತಗಟ್ಟೆ ಆಯ್ಕೆ ಮಾಡಿ", close: "ಮುಚ್ಚಿ", walkthrough: "♿ 360° ಪ್ರವೇಶ ವಾಕ್‌ಥ್ರೂ" },
+  bn: { title: "নির্বাচনী সীমানা: নতুন দিল্লি", subtitle: "জিরো-স্ক্রোল ভূস্থানিক ম্যাপিং", fallback: "সুরক্ষিত ফলব্যাক প্রোটোকল", live: "লাইভ স্যাটেলাইট ইন্টিগ্রেশন", init: "GIS শুরু হচ্ছে", offline_btn: "🔴 অফলাইন GIS ব্যবহার", live_btn: "🟢 লাইভ ম্যাপ ব্যবহার", pwd_only: "শুধু প্রতিবন্ধী", show_pwd: "প্রতিবন্ধী-বান্ধব দেখান", standalone: "স্বতন্ত্র যাচাই মোড", select_booth: "পোলিং স্টেশন বেছে নিন", close: "বন্ধ", walkthrough: "♿ 360° অ্যাক্সেস ওয়াকথ্রু" },
+  ml: { title: "മണ്ഡല അതിർത്തി: ന്യൂ ഡൽഹി", subtitle: "സീറോ-സ്ക്രോൾ ജിയോസ്പേഷ്യൽ മാപ്പിംഗ്", fallback: "സുരക്ഷിത ഫാൾബ്യാക്ക് പ്രോട്ടോക്കോൾ", live: "തത്സമയ ഉപഗ്രഹ സംയോജനം", init: "GIS ആരംഭിക്കുന്നു", offline_btn: "🔴 ഓഫ്‌ലൈൻ GIS ഉപയോഗിക്കുന്നു", live_btn: "🟢 തത്സമയ മാപ്പ് ഉപയോഗിക്കുന്നു", pwd_only: "ഭിന്നശേഷിക്കാർ മാത്രം", show_pwd: "ഭിന്നശേഷി സൗഹൃദം കാണിക്കുക", standalone: "സ്വതന്ത്ര സ്ഥിരീകരണ മോഡ്", select_booth: "പോളിംഗ് സ്‌റ്റേഷൻ തിരഞ്ഞെടുക്കുക", close: "അടയ്ക്കുക", walkthrough: "♿ 360° ആക്‌സസ് വാക്ക്ത്രൂ" },
+  mr: { title: "मतदारसंघ सीमा: नवी दिल्ली", subtitle: "शून्य-स्क्रोल भू-स्थानिक मॅपिंग", fallback: "संरक्षित फॉलबॅक प्रोटोकॉल", live: "थेट उपग्रह एकीकरण", init: "GIS सुरू होत आहे", offline_btn: "🔴 ऑफलाइन GIS वापरत आहे", live_btn: "🟢 थेट नकाशे वापरत आहे", pwd_only: "केवळ अपंग", show_pwd: "अपंग-अनुकूल दाखवा", standalone: "स्वतंत्र सत्यापन मोड", select_booth: "मतदान केंद्र निवडा", close: "बंद करा", walkthrough: "♿ 360° सुलभता भ्रमण" },
+  gu: { title: "મત વિભાગ સીમા: નવી દિલ્હી", subtitle: "ઝીરો-સ્ક્રોલ ભૂ-અવકાશ મેપિંગ", fallback: "સંરક્ષિત ફોલ્બેક પ્રોટોકોલ", live: "લાઇવ સેટેલાઇટ એકીકરણ", init: "GIS શરૂ થઈ રહ્યું છે", offline_btn: "🔴 ઑફ્‍લાઇન GIS ઉપયોગ", live_btn: "🟢 લાઇવ નકશા ઉપયોગ", pwd_only: "માત્ર દિવ્યાંગ", show_pwd: "દિવ્યાંગ-સ્નેહી બતાવો", standalone: "સ્વતંત્ર ચકાસણી મોડ", select_booth: "મતદાન મથક પસંદ કરો", close: "બંધ", walkthrough: "♿ 360° ઍક્સેસ વૉકથ્રૂ" },
+  or: { title: "ନିର୍ବାଚନ ମଣ୍ଡଳ ସୀମା: ନୂଆ ଦିଲ୍ଲୀ", subtitle: "ଶୂନ୍ୟ-ସ୍କ୍ରୋଲ୍ ଭୌଗୋଳିକ ମ୍ୟାପିଂ", fallback: "ସୁରକ୍ଷିତ ଫଲ୍‌ବ୍ୟାକ୍ ପ୍ରୋଟୋକଲ", live: "ଲାଇଭ୍ ସ୍ୟାଟେଲାଇଟ୍ ଏକୀକରଣ", init: "GIS ଆରଭ ହେଉଛି", offline_btn: "🔴 ଅଫ୍‌ଲାଇନ୍ GIS ବ୍ୟବହାର", live_btn: "🟢 ଲାଇଭ୍ ମ୍ୟାପ ବ୍ୟବହାର", pwd_only: "ବିକଳାଙ୍ଗ ଅଟ", show_pwd: "ବିକଳାଙ୍ଗ-ଅନୁକୂଳ ଦେଖାନ୍ତୁ", standalone: "ସ୍ୱତନ୍ତ୍ର ଯାଞ୍ଚ ମୋଡ", select_booth: "ମତ ଦାନ କେନ୍ଦ୍ର ବାଛନ୍ତୁ", close: "ବନ୍ଦ", walkthrough: "♿ 360° ଅ୍ୟାକ୍ସେସ ୱାକ୍‌ଥ୍ରୁ" },
+  pa: { title: "ਹਲਕਾ ਸੀਮਾਵਾਂ: ਨਵੀਂ ਦਿੱਲੀ", subtitle: "ਜ਼ੀਰੋ-ਸਕ੍ਰੋਲ ਭੂ-ਸਥਾਨਿਕ ਮੈਪਿੰਗ", fallback: "ਸੁਰੱਖਿਅਤ ਫਾਲਬੈਕ ਪ੍ਰੋਟੋਕੋਲ", live: "ਲਾਈਵ ਸੈਟੇਲਾਈਟ ਏਕੀਕਰਨ", init: "GIS ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ", offline_btn: "🔴 ਆਫਲਾਈਨ GIS ਵਰਤੋਂ", live_btn: "🟢 ਲਾਈਵ ਨਕਸ਼ੇ ਵਰਤੋਂ", pwd_only: "ਸਿਰਫ਼ ਅਪਾਹਜ", show_pwd: "ਅਪਾਹਜ-ਅਨੁਕੂਲ ਦਿਖਾਓ", standalone: "ਸੁਤੰਤਰ ਤਸਦੀਕ ਮੋਡ", select_booth: "ਵੋਟਿੰਗ ਸਟੇਸ਼ਨ ਚੁਣੋ", close: "ਬੰਦ ਕਰੋ", walkthrough: "♿ 360° ਪਹੁੰਚ ਵਾਕਥਰੂ" }
+};
 
 export function MapView() {
+  const { t, i18n } = useTranslation()
+  const lang = i18n.language || 'en';
+  const ml = MAP_I18N[lang] || MAP_I18N['en'];
   const [isOpen, setIsOpen] = useState(false)
   const [forceOffline, setForceOffline] = useState(false)
   const [showPwdOnly, setShowPwdOnly] = useState(false)
@@ -133,7 +150,7 @@ export function MapView() {
         className="w-full h-16 rounded-xl border border-national-saffron/20 bg-national-saffron/10 hover:bg-national-saffron/20 text-national-saffron flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest transition-all hover:scale-[1.01] shadow-lg shadow-orange-500/5 group"
       >
         <Navigation size={18} className="group-hover:rotate-45 transition-transform" />
-        Explore Geospatial Polling Maps
+        {t('explore_maps')}
       </button>
     )
   }
@@ -150,15 +167,15 @@ export function MapView() {
           <div>
             <h3 className="text-sm font-black flex items-center gap-2">
               <Navigation size={16} className="text-national-saffron" />
-              Constituency Boundaries: New Delhi
+              {ml.title}
             </h3>
             <p className="text-[10px] text-slate-500 uppercase font-bold tracking-widest mt-0.5">
-              Zero-Scroll Geospatial Mapping
+              {ml.subtitle}
             </p>
             <div className="flex items-center gap-2 mt-2">
               <span className={`w-1.5 h-1.5 rounded-full ${(!forceOffline && mapLoaded) || forceOffline ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`} />
               <span className={`text-[8px] font-black tracking-widest uppercase ${(!forceOffline && mapLoaded) || forceOffline ? 'text-emerald-400' : 'text-amber-400'}`}>
-                {forceOffline ? "Protected Fallback Protocol" : (mapLoaded ? "Live Satellite Integration" : "Initializing GIS")}
+                {forceOffline ? ml.fallback : (mapLoaded ? ml.live : ml.init)}
               </span>
             </div>
           </div>
@@ -172,7 +189,7 @@ export function MapView() {
                   : 'bg-amber-500/10 text-amber-400 border-amber-500/20'
               }`}
             >
-              {forceOffline ? "🔴 Using Offline GIS" : "🟢 Using Live Maps"}
+              {forceOffline ? ml.offline_btn : ml.live_btn}
             </button>
 
             <button 
@@ -184,7 +201,7 @@ export function MapView() {
               }`}
             >
               <Accessibility size={16} />
-              {showPwdOnly ? "PWD Only" : "Show PWD Accessible"}
+              {showPwdOnly ? ml.pwd_only : ml.show_pwd}
             </button>
             <button 
               onClick={() => setIsOpen(false)}
@@ -234,7 +251,7 @@ export function MapView() {
               </svg>
               <div className="absolute bottom-3 left-3 flex items-center gap-2 bg-slate-950/80 px-3 py-1.5 rounded-lg border border-white/5 text-[8px] font-mono text-slate-400">
                 <ShieldCheck size={12} className="text-emerald-500" />
-                Standalone Verification Mode
+                {ml.standalone}
               </div>
             </div>
           )}
@@ -245,7 +262,7 @@ export function MapView() {
           <div className="w-full md:w-80 bg-slate-950/40 backdrop-blur-md p-4 flex flex-col gap-3 overflow-y-auto border-l border-white/5 relative z-20">
 
             <h4 className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">
-              Select Polling Station
+              {ml.select_booth}
             </h4>
             {filteredBooths.map(booth => (
               <div 
@@ -284,14 +301,14 @@ export function MapView() {
                   onClick={() => setSelectedBooth(null)}
                   className="text-xs text-slate-500 hover:text-white font-bold"
                 >
-                  Close
+                  {ml.close}
                 </button>
               </div>
 
               {!forceOffline && (
                 <div className="mt-3">
                   <span className="text-[9px] font-black tracking-widest text-national-saffron uppercase block mb-1">
-                    ♿ 360° Accessibility Walkthrough
+                    {ml.walkthrough}
                   </span>
                   <div id="street-view-pano" className="w-full h-44 bg-slate-900 rounded-lg border border-white/10 overflow-hidden" />
                 </div>

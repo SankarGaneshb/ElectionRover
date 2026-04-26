@@ -63,5 +63,18 @@ export const QUESTS = {
       points: 120,
       badge: "Integrity Champion"
     }
+  ],
+  sre: [
+    {
+      id: "sre_self_heal",
+      title: "Self-Healing Protocols",
+      description: "Monitor and execute autonomous infrastructure self-healing.",
+      steps: [
+        { title: "SRE Health Check", content: "Review container health and active anomalies." },
+        { title: "Apply Auto-Heal", content: "Authorize AI agent to scale up database connections." }
+      ],
+      points: 80,
+      badge: "SRE Guardian"
+    }
   ]
 };

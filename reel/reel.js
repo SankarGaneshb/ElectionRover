@@ -157,11 +157,11 @@
     at(23000, () => cycleLangs());
     at(27000, () => show($('s3f3')));
     at(27800, () => {
-      typewrite(
-        $('typewriter'),
-        'To register, submit Form 6 online at nvsp.in or at your nearest ERO office. You need: Proof of age, address proof, and a passport photo.',
-        30
-      );
+      const lang = document.getElementById('reel').dataset.lang || 'en';
+      const translations = window.REEL_TRANSLATIONS || {};
+      const t = (translations[lang] || translations['en'] || {});
+      const twText = t.typewriter || 'To register, submit Form 6 online at nvsp.in or at your nearest ERO office. You need: Proof of age, address proof, and a passport photo.';
+      typewrite($('typewriter'), twText, 30);
     });
 
     // ---------- SCENE 3C: MISINFO SIMULATOR (32s - 40s) ----------

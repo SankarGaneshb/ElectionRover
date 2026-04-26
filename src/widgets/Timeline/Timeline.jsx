@@ -1,17 +1,19 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { CheckCircle2, Circle, Clock, Activity } from 'lucide-react';
 
 const MILESTONES = [
-  { id: 1, title: "Pre-Poll Prep", date: "Month -6", status: "completed" },
-  { id: 2, title: "Notification", date: "Day 0", status: "current" },
-  { id: 3, title: "Nominations", date: "Day 0 - 7", status: "upcoming" },
-  { id: 4, title: "Campaigning", date: "Day 10 - 25", status: "upcoming" },
-  { id: 5, title: "Polling Day", date: "Day 27", status: "upcoming" },
-  { id: 6, title: "Counting", date: "Day 30", status: "upcoming" },
+  { id: 1, title_key: "timeline_prep", date_key: "timeline_m6", status: "completed" },
+  { id: 2, title_key: "timeline_notif", date_key: "timeline_d0", status: "current" },
+  { id: 3, title_key: "timeline_nom", date_key: "timeline_d0_7", status: "upcoming" },
+  { id: 4, title_key: "timeline_camp", date_key: "timeline_d10_25", status: "upcoming" },
+  { id: 5, title_key: "timeline_poll", date_key: "timeline_d27", status: "upcoming" },
+  { id: 6, title_key: "timeline_count", date_key: "timeline_d30", status: "upcoming" },
 ];
 
 export const Timeline = () => {
+  const { t } = useTranslation();
   return (
     <div className="w-full py-4 overflow-x-auto scrollbar-hide">
       <div className="flex min-w-max items-center justify-between gap-6 px-6 relative">
@@ -44,10 +46,10 @@ export const Timeline = () => {
             </div>
             <div className="text-center">
               <p className={`text-[10px] font-black uppercase tracking-[0.3em] mb-1 ${m.status === 'upcoming' ? 'text-slate-600' : 'text-slate-400'}`}>
-                {m.date}
+                {t(m.date_key)}
               </p>
               <h4 className={`text-sm font-black tracking-tight ${m.status === 'current' ? 'text-national-saffron' : 'text-white'}`}>
-                {m.title}
+                {t(m.title_key)}
               </h4>
             </div>
           </motion.div>

@@ -1,11 +1,93 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ShieldCheck, Activity, Terminal, CheckCircle2, 
   AlertOctagon, RefreshCcw, UserCheck, X
 } from 'lucide-react';
-
+const SRE_I18N = {
+  en: {
+    issue: "Issue:",
+    action: "Action:",
+    healed: "HEALED",
+    pending: "PENDING HIL",
+    informed: "HIL Informed"
+  },
+  hi: {
+    issue: "समस्या:",
+    action: "कार्रवाई:",
+    healed: "स्वस्थ",
+    pending: "लंबित HIL",
+    informed: "HIL को सूचित किया"
+  },
+  ta: {
+    issue: "பிரச்சனை:",
+    action: "நடவடிக்கை:",
+    healed: "குணமடைந்தது",
+    pending: "நிலுவையில் உள்ளது",
+    informed: "HIL க்கு தெரிவிக்கப்பட்டது"
+  },
+  te: {
+    issue: "సమస్య:",
+    action: "చర్య:",
+    healed: "స్వస్థమైంది",
+    pending: "పెండింగ్ HIL",
+    informed: "HIL కి తెలిపారు"
+  },
+  kn: {
+    issue: "ಸಮಸ್ಯೆ:",
+    action: "ಕ್ರಮ:",
+    healed: "ಗುಣಮುಖವಾಯಿತು",
+    pending: "ಬಾಕಿ HIL",
+    informed: "HIL ಗೆ ತಿಳಿಸಲಾಗಿದೆ"
+  },
+  bn: {
+    issue: "সমস্যা:",
+    action: "পদক্ষেপ:",
+    healed: "নিরাময়",
+    pending: "অমীমাংসিত HIL",
+    informed: "HIL কে জানানো হয়েছে"
+  },
+  ml: {
+    issue: "പ്രശ്നം:",
+    action: "നടപടി:",
+    healed: "ഭേദമായി",
+    pending: "HIL കാത്തിരിക്കുന്നു",
+    informed: "HIL അറിയിച്ചു"
+  },
+  mr: {
+    issue: "समस्या:",
+    action: "कृती:",
+    healed: "बरे झाले",
+    pending: "HIL प्रलंबित",
+    informed: "HIL ला सूचित केले"
+  },
+  gu: {
+    issue: "સમસ્યા:",
+    action: "ક્રિયા:",
+    healed: "સ્વસ્થ",
+    pending: "HIL બાકી",
+    informed: "HIL ને જાણ કરી"
+  },
+  or: {
+    issue: "ସମସ୍ୟା:",
+    action: "କ୍ରିୟା:",
+    healed: "ଆରୋଗ୍ୟ",
+    pending: "HIL ଅମ୍ଳ",
+    informed: "HIL କୁ ଜଣାଯାଇଛି"
+  },
+  pa: {
+    issue: "ਸਮੱਸਿਆ:",
+    action: "ਕਾਰਵਾਈ:",
+    healed: "ਠੀਕ ਹੋਇਆ",
+    pending: "HIL ਲੰਬਿਤ",
+    informed: "HIL ਨੂੰ ਸੂਚਿਤ ਕੀਤਾ"
+  }
+};
 export function SREAgentWidget() {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || 'en';
+  const local = SRE_I18N[lang] || SRE_I18N['en'];
   const [isOpen, setIsOpen] = useState(false);
   const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,8 +138,8 @@ export function SREAgentWidget() {
         className="w-full h-16 rounded-xl border border-blue-500/20 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 flex items-center justify-center gap-3 font-black text-xs uppercase tracking-widest transition-all hover:scale-[1.01] shadow-lg shadow-blue-500/5 group"
       >
         <Activity size={18} className="group-hover:animate-pulse" />
-        SRE Autonomous Self-Healing Hub
-        <span className="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded text-[8px] tracking-widest font-mono">HIL-ROVER ACTIVE</span>
+        {t('sre_hub')}
+        <span className="bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded text-[8px] tracking-widest font-mono">{t('sre_hil_active')}</span>
       </button>
     );
   }
@@ -73,8 +155,8 @@ export function SREAgentWidget() {
               <ShieldCheck size={18} className="text-blue-400" />
             </div>
             <div>
-              <h3 className="text-sm font-black tracking-tight text-white uppercase">HIL-Rover Control Tower</h3>
-              <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">Continuous 24/7 Deployment Oversight</p>
+              <h3 className="text-sm font-black tracking-tight text-white uppercase">{t('sre_control_tower')}</h3>
+              <p className="text-[9px] text-slate-500 uppercase tracking-widest font-bold">{t('sre_oversight')}</p>
             </div>
           </div>
           <button 
@@ -91,9 +173,9 @@ export function SREAgentWidget() {
           {/* Live Issue Test Generator */}
           <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4">
             <h4 className="text-xs font-bold text-red-400 mb-2 uppercase tracking-widest flex items-center gap-2">
-              <AlertOctagon size={14} className="text-red-400 animate-pulse" /> Live Chaos Engineering Simulator
+              <AlertOctagon size={14} className="text-red-400 animate-pulse" /> {t('sre_chaos_sim')}
             </h4>
-            <p className="text-[10px] text-slate-400 mb-3">Trigger an intentional production crash to watch the SRE agent ingest the exception in real-time.</p>
+            <p className="text-[10px] text-slate-400 mb-3">{t('sre_chaos_desc')}</p>
             <button
               onClick={async () => {
                 try {
@@ -105,14 +187,14 @@ export function SREAgentWidget() {
               }}
               className="px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg text-[10px] font-bold border border-red-500/30 uppercase tracking-widest transition-all"
             >
-              Inject Runtime Error
+              {t('sre_inject_error')}
             </button>
           </div>
 
           {/* Quick Actions */}
           <div className="bg-white/[0.02] border border-white/5 rounded-xl p-4">
             <h4 className="text-xs font-bold text-slate-400 mb-3 uppercase tracking-widest flex items-center gap-2">
-              <Terminal size={14} className="text-blue-400" /> Manual Override Injectors
+              <Terminal size={14} className="text-blue-400" /> {t('sre_manual_override')}
             </h4>
             <div className="grid grid-cols-3 gap-3">
               <button
@@ -121,7 +203,7 @@ export function SREAgentWidget() {
                 className="p-3 rounded-lg border border-blue-500/20 bg-blue-500/5 hover:bg-blue-500/15 text-blue-400 text-[10px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all disabled:opacity-50"
               >
                 <RefreshCcw size={14} className={healingService === 'Database' ? 'animate-spin' : ''} />
-                Reset DB Pool
+                {t('sre_reset_db')}
               </button>
               <button
                 disabled={isLoading}
@@ -129,7 +211,7 @@ export function SREAgentWidget() {
                 className="p-3 rounded-lg border border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/15 text-purple-400 text-[10px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all disabled:opacity-50"
               >
                 <RefreshCcw size={14} className={healingService === 'Cache' ? 'animate-spin' : ''} />
-                Purge Cache
+                {t('sre_purge_cache')}
               </button>
               <button
                 disabled={isLoading}
@@ -137,7 +219,7 @@ export function SREAgentWidget() {
                 className="p-3 rounded-lg border border-emerald-500/20 bg-emerald-500/5 hover:bg-emerald-500/15 text-emerald-400 text-[10px] font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all disabled:opacity-50"
               >
                 <UserCheck size={14} />
-                Audit Verify
+                {t('sre_audit_verify')}
               </button>
             </div>
           </div>
@@ -145,7 +227,7 @@ export function SREAgentWidget() {
           {/* Audit Logs */}
           <div className="space-y-2">
             <h4 className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest flex items-center gap-2">
-              <CheckCircle2 size={14} className="text-emerald-400" /> SRE Action Audit Trail
+              <CheckCircle2 size={14} className="text-emerald-400" /> {t('sre_audit_trail')}
             </h4>
             <div className="space-y-2">
               {logs.map((log, i) => (
@@ -158,23 +240,23 @@ export function SREAgentWidget() {
                       <span className="text-[10px] text-blue-400 font-bold uppercase">{log.service}</span>
                       <span className="text-[9px] text-slate-600">{new Date(log.timestamp * 1000).toLocaleTimeString()}</span>
                     </div>
-                    <p className="text-slate-300"><span className="text-slate-500">Issue:</span> {log.issue}</p>
+                    <p className="text-slate-300"><span className="text-slate-500">{local.issue}</span> {log.issue}</p>
                     <p className={log.status === 'Healed' ? 'text-emerald-400' : 'text-amber-400'}>
-                      <span className="text-slate-500">Action:</span> {log.action_taken}
+                      <span className="text-slate-500">{local.action}</span> {log.action_taken}
                     </p>
                     <div className="flex items-center gap-2 mt-2">
                       {log.status === 'Healed' ? (
                         <span className="text-[8px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded tracking-widest font-black uppercase">
-                          HEALED
+                          {local.healed}
                         </span>
                       ) : (
                         <span className="text-[8px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-1.5 py-0.5 rounded tracking-widest font-black uppercase animate-pulse">
-                          PENDING HIL
+                          {local.pending}
                         </span>
                       )}
                       {log.is_hil_notified && (
                         <span className="text-[8px] bg-white/5 text-slate-400 px-1.5 py-0.5 rounded tracking-widest uppercase">
-                          HIL Informed
+                          {local.informed}
                         </span>
                       )}
                     </div>

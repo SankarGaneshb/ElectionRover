@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>தேர்தல் ஆய்வூர்தி — ஹீரோ ரீல்</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="reel" id="reel" data-lang="ta">
+  <div class="scanlines"></div>
+  <div class="glitch-overlay" id="glitch"></div>
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="controls">
+    <button class="ctrl-btn" id="playPause" title="நிறுத்து/இயக்கு">||</button>
+    <button class="ctrl-btn" id="restart" title="மீட்டமை">&#8635;</button>
+  </div>
+
+  <!-- ===== SCENE 1: THE HOOK ===== -->
+  <div class="scene active" id="scene1" style="background:#050508;">
+    <div class="s1-whatsapp" id="s1-bubble">
+      <div class="s1-source">வாட்ஸ்அப் ஃபார்வர்ட்</div>
+      <div class="s1-claim">"தொகுதி #42-ன் வாக்குப்பதிவு தேதி ஏப்ரல் 28-இலிருந்து மே 5 ஆக மாற்றப்பட்டுள்ளது."</div>
+    </div>
+    <div class="s1-counter" id="s1-counter">
+      <span id="s1-count">0</span>
+      <span>2 மணி நேரத்தில் பகிர்வுகள்</span>
+    </div>
+    <div class="s1-verdict" id="s1-verdict" style="color:var(--red);">
+      இது போலியானது.
+    </div>
+  </div>
+
+  <!-- ===== SCENE 2: THE PROBLEM ===== -->
+  <div class="scene" id="scene2">
+    <div class="s2-card" id="s2c1">
+      <div class="source">வாட்ஸ்அப் ஃபார்வர்ட் &bull; 2 மணி நேரம் முன்</div>
+      <div class="claim">"வேட்பாளர் சர்மா நிதி மோசடிக்காக கைது செய்யப்பட்டு தகுதி நீக்கம் செய்யப்பட்டார்."</div>
+      <div class="stats">
+        <span class="shares">&#8593; 4,200 பகிர்வுகள்</span>
+        <span class="regions">டெல்லி NCR, உ.பி., ஹரியாணா</span>
+      </div>
+    </div>
+    <div class="s2-card" id="s2c2">
+      <div class="source">ட்விட்டர்/X த்ரெட் &bull; 6 மணி நேரம் முன்</div>
+      <div class="claim">"வாக்குச்சாவடி #317-ல் EVM இயந்திரங்களில் முன்கூட்டியே வாக்குகள் பதிவு செய்யப்பட்டிருந்தன."</div>
+      <div class="stats">
+        <span class="shares">&#8593; 15,600 பகிர்வுகள்</span>
+        <span class="regions">மகாராஷ்டிரா, குஜராத், ராஜஸ்தான்</span>
+      </div>
+    </div>
+    <div class="s2-card" id="s2c3">
+      <div class="source">ஃபேஸ்புக் பதிவு &bull; 45 நிமிடம் முன்</div>
+      <div class="claim">"வாக்குப்பதிவு தேதி ஏப்ரல் 28-இலிருந்து மே 5 ஆக மாற்றப்பட்டது."</div>
+      <div class="stats">
+        <span class="shares">&#8593; 8,100 பகிர்வுகள்</span>
+        <span class="regions">தமிழ்நாடு, கர்நாடகா</span>
+      </div>
+    </div>
+    <div class="s2-question" id="s2q">உங்கள் வாக்கை<br>யார் பாதுகாக்கிறார்?</div>
+  </div>
+
+  <!-- ===== SCENE 3A: PRODUCT REVEAL - DASHBOARD ===== -->
+  <div class="scene" id="scene3a">
+    <div class="s3-shatter" id="s3shatter"></div>
+    <div class="s3-feature" id="s3f1">
+      <div class="s3-label">ஸ்க்ரோல்-இல்லா டாஷ்போர்ட்</div>
+      <div class="s3-dashboard">
+        <div class="s3-role-toggle">
+          <div class="s3-role-btn active">வாக்காளர்</div>
+          <div class="s3-role-btn">வேட்பாளர்</div>
+        </div>
+        <div class="s3-quest-card">
+          <div class="s3-quest-title">பதிவுப் பாதை</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin:4px 0;">நீங்கள் வாக்காளர் பட்டியலில் இருப்பதை உறுதிசெய்யுங்கள்</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="s3-quest-badge">விழிப்புணர்வு வாக்காளர்</div>
+            <div class="s3-points">+50</div>
+          </div>
+          <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:4px;margin-top:8px;overflow:hidden;">
+            <div id="s3-progress" style="height:100%;width:0%;background:linear-gradient(90deg,var(--saffron),var(--green));border-radius:4px;transition:width 1.5s ease;"></div>
+          </div>
+        </div>
+        <div class="s3-quest-card">
+          <div class="s3-quest-title">வாக்குச்சாவடி கண்டறிவான்</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin:4px 0;">உங்கள் குரல் எங்கே கேட்கப்படும் என்பதைக் கண்டறியுங்கள்</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="s3-quest-badge">தயாரான குடிமகன்</div>
+            <div class="s3-points">+30</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px;font-size:16px;font-weight:900;letter-spacing:-0.5px;opacity:0;" id="s3a-text">
+      4 AI முகவர்கள். 1 இலக்கு.
+    </div>
+  </div>
+
+  <!-- ===== SCENE 3B: LANGUAGE + CHAT ===== -->
+  <div class="scene" id="scene3b">
+    <div class="s3-feature" id="s3f2">
+      <div class="s3-label">11 மொழிகள். ஒவ்வொரு இந்தியனும்.</div>
+      <div class="s3-lang-grid" id="langGrid">
+        <div class="s3-lang">English</div>
+        <div class="s3-lang">हिन्दी</div>
+        <div class="s3-lang active">தமிழ்</div>
+        <div class="s3-lang">తెలుగు</div>
+        <div class="s3-lang">ಕನ್ನಡ</div>
+        <div class="s3-lang">বাংলা</div>
+        <div class="s3-lang">മലയാളം</div>
+        <div class="s3-lang">मराठी</div>
+        <div class="s3-lang">ગુજરાતી</div>
+        <div class="s3-lang">ଓଡ଼ିଆ</div>
+        <div class="s3-lang">ਪੰਜਾਬੀ</div>
+      </div>
+    </div>
+
+    <div class="s3-feature" id="s3f3" style="margin-top:20px;">
+      <div class="s3-label">எதையும் கேளுங்கள். நிபுணர் பதில்கள் பெறுங்கள்.</div>
+      <div style="background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:14px;">
+        <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:10px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,153,51,0.15);border:1px solid rgba(255,153,51,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">U</div>
+          <div style="background:rgba(255,153,51,0.08);border:1px solid rgba(255,153,51,0.15);border-radius:12px;border-top-right-radius:2px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,0.8);">
+            வாக்களிக்க பதிவு செய்வது எப்படி?
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:50%;background:rgba(19,136,8,0.15);border:1px solid rgba(19,136,8,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">AI</div>
+          <div id="s3-ai-reply" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;border-top-left-radius:2px;padding:10px 14px;font-size:12px;line-height:1.5;color:rgba(255,255,255,0.7);max-width:260px;overflow:hidden;">
+            <span id="typewriter"></span><span id="cursor" style="animation:pulse 0.8s infinite;">|</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCENE 3C: MISINFO SIMULATOR ===== -->
+  <div class="scene" id="scene3c">
+    <div class="s3-feature" id="s3f4">
+      <div class="s3-label">AI-இயக்கப்படும் உண்மை, நிகழ்நேரத்தில்</div>
+      <div class="s3-title" style="margin-bottom:16px;">தவறான தகவல் கண்டறிதல்</div>
+
+      <div id="pipeline">
+        <div class="pipeline-step" id="ps1"><div class="pipeline-dot"></div>BigQuery-இல் அறிக்கை உள்ளிடப்படுகிறது...</div>
+        <div class="pipeline-step" id="ps2"><div class="pipeline-dot"></div>Gemini-உடன் ML.GENERATE_TEXT இயங்குகிறது...</div>
+        <div class="pipeline-step" id="ps3"><div class="pipeline-dot"></div>ஒத்த அறிக்கைகளுடன் குழுவாக்கம்...</div>
+        <div class="pipeline-step" id="ps4"><div class="pipeline-dot"></div>ECI சரிபார்க்கப்பட்ட தரவுடன் குறுக்கு-குறிப்பு...</div>
+        <div class="pipeline-step" id="ps5"><div class="pipeline-dot"></div>நம்பகத்தன்மை மதிப்பெண் உருவாக்கப்படுகிறது...</div>
+      </div>
+
+      <div id="verdict-result" style="margin-top:20px;opacity:0;transition:opacity 0.5s;">
+        <div style="display:flex;gap:12px;margin-top:8px;">
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;">
+            <div style="font-size:24px;font-weight:900;font-family:monospace;color:var(--green);">97.3%</div>
+            <div style="font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-top:4px;">நம்பகத்தன்மை</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;">
+            <div style="font-size:24px;font-weight:900;font-family:monospace;color:var(--red);">பொய்</div>
+            <div style="font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-top:4px;">தீர்ப்பு</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCENE 4: TECH FLEX ===== -->
+  <div class="scene" id="scene4">
+    <div class="s4-stack" id="s4stack">
+      <div style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--saffron);margin-bottom:12px;">கட்டமைப்பு</div>
+      <div style="text-align:center;margin-bottom:16px;">
+        <div class="s4-chip saffron">LangGraph</div>
+        <div class="s4-chip saffron">Google Gemini 3.1</div>
+        <div class="s4-chip green">FastAPI</div>
+        <div class="s4-chip green">React 19</div>
+        <div class="s4-chip blue">BigQuery ML</div>
+        <div class="s4-chip blue">Cloud Run</div>
+        <div class="s4-chip">Vite</div>
+        <div class="s4-chip">i18next</div>
+        <div class="s4-chip">Framer Motion</div>
+      </div>
+      <div class="s4-code" id="s4code">
+        <span class="comment"># மல்டி-ஏஜெண்ட் ஹைவ்</span><br>
+        <span class="keyword">workflow</span> = <span class="func">StateGraph</span>(AgentState)<br><br>
+        workflow.<span class="func">add_node</span>(<span class="string">"educator"</span>, educator_node)<br>
+        workflow.<span class="func">add_node</span>(<span class="string">"gamemaster"</span>, gamemaster_node)<br><br>
+        workflow.<span class="func">set_entry_point</span>(<span class="string">"educator"</span>)<br>
+        workflow.<span class="func">add_edge</span>(<span class="string">"educator"</span>, <span class="string">"gamemaster"</span>)<br>
+        workflow.<span class="func">add_edge</span>(<span class="string">"gamemaster"</span>, END)<br><br>
+        app_graph = workflow.<span class="func">compile</span>()
+      </div>
+      <div style="text-align:center;margin-top:20px;font-size:14px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);">
+        Built for PromptWars 2026
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCENE 5: EMOTIONAL CLOSE ===== -->
+  <div class="scene" id="scene5">
+    <div class="s5-tagline" id="s5tag">
+      உங்கள் <span class="saffron">ஜனநாயகம்</span>.<br>
+      உங்கள் மொழி.<br>
+      உங்கள் <span class="green">உண்மை</span>.
+    </div>
+    <div class="s5-sub" id="s5sub">தேர்தல் ஆய்வூர்தி</div>
+    <div class="s5-sub" id="s5sub2" style="font-size:8px;margin-top:12px;letter-spacing:5px;">
+      ஏஜெண்டிக் துல்லியத்துடன் உங்கள் ஜனநாயகத்தைப் பாதுகாக்கவும்
+    </div>
+  </div>
+
+  <!-- ===== SCENE 6: LOGO CARD ===== -->
+  <div class="scene" id="scene6">
+    <img class="s6-logo" id="s6logo" src="assets/logo.png" alt="தேர்தல் ஆய்வூர்தி">
+    <div class="s6-name" id="s6name">தேர்தல் ஆய்வூர்தி</div>
+    <button class="s6-cta" id="s6cta">இப்போது முயற்சிக்கவும்</button>
+    <div class="s6-github" id="s6github">github.com/SankarGaneshb/ElectionRover</div>
+    <div class="s6-badge" id="s6badge">PromptWars 2026</div>
+  </div>
+
+</div>
+
+<script src="translations.js"></script>
+<script src="reel.js"></script>
+</body>
+</html>

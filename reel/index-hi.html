@@ -1,82 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Election Rover — Hero Reel</title>
+  <title>इलेक्शन रोवर — हीरो रील</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="reel" id="reel">
+<div class="reel" id="reel" data-lang="hi">
   <div class="scanlines"></div>
   <div class="glitch-overlay" id="glitch"></div>
   <div class="progress-bar" id="progress"></div>
 
   <div class="controls">
-    <button class="ctrl-btn" id="playPause" title="Play/Pause">||</button>
-    <button class="ctrl-btn" id="restart" title="Restart">&#8635;</button>
+    <button class="ctrl-btn" id="playPause" title="रोकें/चलाएं">||</button>
+    <button class="ctrl-btn" id="restart" title="पुनः आरंभ">&#8635;</button>
   </div>
 
   <!-- ===== SCENE 1: THE HOOK ===== -->
   <div class="scene active" id="scene1" style="background:#050508;">
     <div class="s1-whatsapp" id="s1-bubble">
-      <div class="s1-source">WhatsApp Forward</div>
-      <div class="s1-claim">"Polling date for constituency #42 has been changed from April 28 to May 5."</div>
+      <div class="s1-source">व्हाट्सएप फॉरवर्ड</div>
+      <div class="s1-claim">"निर्वाचन क्षेत्र #42 की मतदान तिथि 28 अप्रैल से बदलकर 5 मई कर दी गई है।"</div>
     </div>
     <div class="s1-counter" id="s1-counter">
       <span id="s1-count">0</span>
-      <span>SHARES IN 2 HOURS</span>
+      <span>2 घंटे में शेयर</span>
     </div>
     <div class="s1-verdict" id="s1-verdict" style="color:var(--red);">
-      It was fake.
+      यह फ़र्ज़ी था।
     </div>
   </div>
 
   <!-- ===== SCENE 2: THE PROBLEM ===== -->
   <div class="scene" id="scene2">
     <div class="s2-card" id="s2c1">
-      <div class="source">WHATSAPP FORWARD &bull; 2 hours ago</div>
-      <div class="claim">"Candidate Sharma arrested for financial fraud and disqualified."</div>
+      <div class="source">व्हाट्सएप फॉरवर्ड &bull; 2 घंटे पहले</div>
+      <div class="claim">"उम्मीदवार शर्मा वित्तीय धोखाधड़ी के लिए गिरफ्तार और अयोग्य घोषित।"</div>
       <div class="stats">
-        <span class="shares">&#8593; 4,200 shares</span>
-        <span class="regions">Delhi NCR, UP, Haryana</span>
+        <span class="shares">&#8593; 4,200 शेयर</span>
+        <span class="regions">दिल्ली NCR, उत्तर प्रदेश, हरियाणा</span>
       </div>
     </div>
     <div class="s2-card" id="s2c2">
-      <div class="source">TWITTER/X THREAD &bull; 6 hours ago</div>
-      <div class="claim">"EVM machines in Booth #317 found pre-loaded with votes."</div>
+      <div class="source">ट्विटर/X थ्रेड &bull; 6 घंटे पहले</div>
+      <div class="claim">"बूथ #317 में EVM मशीनों में पहले से वोट भरे मिले।"</div>
       <div class="stats">
-        <span class="shares">&#8593; 15,600 shares</span>
-        <span class="regions">Maharashtra, Gujarat, Rajasthan</span>
+        <span class="shares">&#8593; 15,600 शेयर</span>
+        <span class="regions">महाराष्ट्र, गुजरात, राजस्थान</span>
       </div>
     </div>
     <div class="s2-card" id="s2c3">
-      <div class="source">FACEBOOK POST &bull; 45 min ago</div>
-      <div class="claim">"Polling date changed from April 28 to May 5."</div>
+      <div class="source">फेसबुक पोस्ट &bull; 45 मिनट पहले</div>
+      <div class="claim">"मतदान की तारीख 28 अप्रैल से बदलकर 5 मई कर दी गई।"</div>
       <div class="stats">
-        <span class="shares">&#8593; 8,100 shares</span>
-        <span class="regions">Tamil Nadu, Karnataka</span>
+        <span class="shares">&#8593; 8,100 शेयर</span>
+        <span class="regions">तमिलनाडु, कर्नाटक</span>
       </div>
     </div>
-    <div class="s2-question" id="s2q">Who's protecting<br>your vote?</div>
+    <div class="s2-question" id="s2q">आपके वोट की रक्षा<br>कौन कर रहा है?</div>
   </div>
 
   <!-- ===== SCENE 3A: PRODUCT REVEAL - DASHBOARD ===== -->
   <div class="scene" id="scene3a">
     <div class="s3-shatter" id="s3shatter"></div>
     <div class="s3-feature" id="s3f1">
-      <div class="s3-label">Zero-Scroll Dashboard</div>
+      <div class="s3-label">शून्य-स्क्रॉल डैशबोर्ड</div>
       <div class="s3-dashboard">
         <div class="s3-role-toggle">
-          <div class="s3-role-btn active">Voter</div>
-          <div class="s3-role-btn">Candidate</div>
+          <div class="s3-role-btn active">मतदाता</div>
+          <div class="s3-role-btn">उम्मीदवार</div>
         </div>
         <div class="s3-quest-card">
-          <div class="s3-quest-title">The Registration Trail</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin:4px 0;">Ensure you are on the electoral roll</div>
+          <div class="s3-quest-title">पंजीकरण मार्ग</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin:4px 0;">सुनिश्चित करें कि आप मतदाता सूची में हैं</div>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div class="s3-quest-badge">Informed Voter</div>
+            <div class="s3-quest-badge">जागरूक मतदाता</div>
             <div class="s3-points">+50</div>
           </div>
           <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:4px;margin-top:8px;overflow:hidden;">
@@ -84,46 +84,46 @@
           </div>
         </div>
         <div class="s3-quest-card">
-          <div class="s3-quest-title">Booth Locator</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin:4px 0;">Find where your voice will be heard</div>
+          <div class="s3-quest-title">बूथ लोकेटर</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin:4px 0;">पता लगाएं कि आपकी आवाज कहां सुनी जाएगी</div>
           <div style="display:flex;justify-content:space-between;align-items:center;">
-            <div class="s3-quest-badge">Ready Citizen</div>
+            <div class="s3-quest-badge">तैयार नागरिक</div>
             <div class="s3-points">+30</div>
           </div>
         </div>
       </div>
     </div>
     <div style="text-align:center;margin-top:16px;font-size:16px;font-weight:900;letter-spacing:-0.5px;opacity:0;" id="s3a-text">
-      4 AI Agents. 1 Mission.
+      4 AI एजेंट। 1 मिशन।
     </div>
   </div>
 
   <!-- ===== SCENE 3B: LANGUAGE + CHAT ===== -->
   <div class="scene" id="scene3b">
     <div class="s3-feature" id="s3f2">
-      <div class="s3-label">11 Languages. Every Indian.</div>
+      <div class="s3-label">11 भाषाएं। हर भारतीय।</div>
       <div class="s3-lang-grid" id="langGrid">
-        <div class="s3-lang active">English</div>
-        <div class="s3-lang">&#2361;&#2367;&#2344;&#2381;&#2342;&#2368;</div>
-        <div class="s3-lang">&#2980;&#2990;&#3007;&#2996;&#3021;</div>
-        <div class="s3-lang">&#3108;&#3142;&#3122;&#3137;&#3095;&#3137;</div>
-        <div class="s3-lang">&#3221;&#3240;&#3277;&#3240;&#3233;</div>
-        <div class="s3-lang">&#2476;&#2494;&#2434;&#2482;&#2494;</div>
-        <div class="s3-lang">&#3374;&#3378;&#3375;&#3390;&#3379;&#3330;</div>
-        <div class="s3-lang">&#2350;&#2352;&#2366;&#2336;&#2368;</div>
-        <div class="s3-lang">&#2711;&#2753;&#2716;&#2736;&#2750;&#2724;&#2752;</div>
-        <div class="s3-lang">&#2835;&#2849;&#2879;&#2822;</div>
-        <div class="s3-lang">&#2602;&#2672;&#2588;&#2622;&#2604;&#2624;</div>
+        <div class="s3-lang">English</div>
+        <div class="s3-lang active">हिन्दी</div>
+        <div class="s3-lang">தமிழ்</div>
+        <div class="s3-lang">తెలుగు</div>
+        <div class="s3-lang">ಕನ್ನಡ</div>
+        <div class="s3-lang">বাংলা</div>
+        <div class="s3-lang">മലയാളം</div>
+        <div class="s3-lang">मराठी</div>
+        <div class="s3-lang">ગુજરાતી</div>
+        <div class="s3-lang">ଓଡ଼ିଆ</div>
+        <div class="s3-lang">ਪੰਜਾਬੀ</div>
       </div>
     </div>
 
     <div class="s3-feature" id="s3f3" style="margin-top:20px;">
-      <div class="s3-label">Ask Anything. Get Expert Answers.</div>
+      <div class="s3-label">कुछ भी पूछें। विशेषज्ञ उत्तर पाएं।</div>
       <div style="background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:14px;">
         <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:10px;">
           <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,153,51,0.15);border:1px solid rgba(255,153,51,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">U</div>
           <div style="background:rgba(255,153,51,0.08);border:1px solid rgba(255,153,51,0.15);border-radius:12px;border-top-right-radius:2px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,0.8);">
-            How do I register to vote?
+            वोट देने के लिए रजिस्टर कैसे करें?
           </div>
         </div>
         <div style="display:flex;gap:8px;align-items:flex-start;">
@@ -139,26 +139,26 @@
   <!-- ===== SCENE 3C: MISINFO SIMULATOR ===== -->
   <div class="scene" id="scene3c">
     <div class="s3-feature" id="s3f4">
-      <div class="s3-label">AI-Powered Truth, In Real-Time</div>
-      <div class="s3-title" style="margin-bottom:16px;">Misinformation Detection</div>
+      <div class="s3-label">AI-संचालित सत्य, रीयल-टाइम में</div>
+      <div class="s3-title" style="margin-bottom:16px;">भ्रामक जानकारी पहचान</div>
 
       <div id="pipeline">
-        <div class="pipeline-step" id="ps1"><div class="pipeline-dot"></div>Ingesting report into BigQuery...</div>
-        <div class="pipeline-step" id="ps2"><div class="pipeline-dot"></div>Running ML.GENERATE_TEXT with Gemini...</div>
-        <div class="pipeline-step" id="ps3"><div class="pipeline-dot"></div>Clustering with similar reports...</div>
-        <div class="pipeline-step" id="ps4"><div class="pipeline-dot"></div>Cross-referencing ECI verified data...</div>
-        <div class="pipeline-step" id="ps5"><div class="pipeline-dot"></div>Generating confidence score...</div>
+        <div class="pipeline-step" id="ps1"><div class="pipeline-dot"></div>BigQuery में रिपोर्ट प्रविष्ट हो रही है...</div>
+        <div class="pipeline-step" id="ps2"><div class="pipeline-dot"></div>Gemini के साथ ML.GENERATE_TEXT चल रहा है...</div>
+        <div class="pipeline-step" id="ps3"><div class="pipeline-dot"></div>समान रिपोर्टों के साथ क्लस्टरिंग...</div>
+        <div class="pipeline-step" id="ps4"><div class="pipeline-dot"></div>ECI सत्यापित डेटा से क्रॉस-रेफरेंसिंग...</div>
+        <div class="pipeline-step" id="ps5"><div class="pipeline-dot"></div>विश्वास स्कोर जनरेट हो रहा है...</div>
       </div>
 
       <div id="verdict-result" style="margin-top:20px;opacity:0;transition:opacity 0.5s;">
         <div style="display:flex;gap:12px;margin-top:8px;">
           <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;">
             <div style="font-size:24px;font-weight:900;font-family:monospace;color:var(--green);">97.3%</div>
-            <div style="font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-top:4px;">Confidence</div>
+            <div style="font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-top:4px;">विश्वसनीयता</div>
           </div>
           <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;">
-            <div style="font-size:24px;font-weight:900;font-family:monospace;color:var(--red);">FALSE</div>
-            <div style="font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-top:4px;">Verdict</div>
+            <div style="font-size:24px;font-weight:900;font-family:monospace;color:var(--red);">झूठा</div>
+            <div style="font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-top:4px;">फैसला</div>
           </div>
         </div>
       </div>
@@ -168,7 +168,7 @@
   <!-- ===== SCENE 4: TECH FLEX ===== -->
   <div class="scene" id="scene4">
     <div class="s4-stack" id="s4stack">
-      <div style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--saffron);margin-bottom:12px;">Architecture</div>
+      <div style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--saffron);margin-bottom:12px;">वास्तुकला</div>
       <div style="text-align:center;margin-bottom:16px;">
         <div class="s4-chip saffron">LangGraph</div>
         <div class="s4-chip saffron">Google Gemini 3.1</div>
@@ -181,7 +181,7 @@
         <div class="s4-chip">Framer Motion</div>
       </div>
       <div class="s4-code" id="s4code">
-        <span class="comment"># Multi-Agent Hive</span><br>
+        <span class="comment"># मल्टी-एजेंट हाइव</span><br>
         <span class="keyword">workflow</span> = <span class="func">StateGraph</span>(AgentState)<br><br>
         workflow.<span class="func">add_node</span>(<span class="string">"educator"</span>, educator_node)<br>
         workflow.<span class="func">add_node</span>(<span class="string">"gamemaster"</span>, gamemaster_node)<br><br>
@@ -199,21 +199,21 @@
   <!-- ===== SCENE 5: EMOTIONAL CLOSE ===== -->
   <div class="scene" id="scene5">
     <div class="s5-tagline" id="s5tag">
-      Your <span class="saffron">democracy</span>.<br>
-      Your language.<br>
-      Your <span class="green">truth</span>.
+      आपका <span class="saffron">लोकतंत्र</span>।<br>
+      आपकी भाषा।<br>
+      आपका <span class="green">सत्य</span>।
     </div>
-    <div class="s5-sub" id="s5sub">Election Rover</div>
+    <div class="s5-sub" id="s5sub">इलेक्शन रोवर</div>
     <div class="s5-sub" id="s5sub2" style="font-size:8px;margin-top:12px;letter-spacing:5px;">
-      Defend Your Democracy with Agentic Precision
+      एजेंटिक सटीकता के साथ अपने लोकतंत्र की रक्षा करें
     </div>
   </div>
 
   <!-- ===== SCENE 6: LOGO CARD ===== -->
   <div class="scene" id="scene6">
-    <img class="s6-logo" id="s6logo" src="assets/logo.png" alt="Election Rover">
-    <div class="s6-name" id="s6name">Election Rover</div>
-    <button class="s6-cta" id="s6cta">Try It Now</button>
+    <img class="s6-logo" id="s6logo" src="assets/logo.png" alt="इलेक्शन रोवर">
+    <div class="s6-name" id="s6name">इलेक्शन रोवर</div>
+    <button class="s6-cta" id="s6cta">अभी आज़माएं</button>
     <div class="s6-github" id="s6github">github.com/SankarGaneshb/ElectionRover</div>
     <div class="s6-badge" id="s6badge">PromptWars 2026</div>
   </div>

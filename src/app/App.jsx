@@ -66,7 +66,7 @@ function App() {
   const adoptionLevel = role ? Math.round((badges.length / QUESTS[role].length) * 100) : 0
 
   return (
-    <div className="h-screen flex flex-col bg-premium-slate overflow-hidden selection:bg-national-saffron/30">
+    <div className="min-h-screen flex flex-col bg-premium-slate overflow-y-auto selection:bg-national-saffron/30">
       {/* Dynamic Background Glows */}
       <div className="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-national-saffron/5 blur-[120px] rounded-full pointer-events-none" />
       <div className="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-national-green/5 blur-[120px] rounded-full pointer-events-none" />
@@ -75,12 +75,12 @@ function App() {
       <nav className="fixed top-0 w-full z-50 px-6 py-2">
         <div className="max-w-7xl mx-auto flex justify-between items-center glass-card px-8 py-3 rounded-2xl border-white/5 backdrop-blur-2xl">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setView('home')}>
-            <div className="w-10 h-10 rounded-xl saffron-gradient flex items-center justify-center shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform">
-              <span className="text-white font-black italic">ER</span>
+            <div className="w-10 h-10 rounded-xl bg-black/30 border border-white/5 flex items-center justify-center shadow-md shadow-orange-500/5 group-hover:scale-110 transition-transform overflow-hidden">
+              <img src="/logo.png" alt="Election Rover Logo" className="w-full h-full object-cover" />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-lg font-black tracking-tighter leading-none">ELECTION <span className="text-national-saffron">ROVER</span></h1>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold">Constitutional Intelligence</span>
+              <h1 className="text-lg font-black tracking-tighter leading-none">{t('logo_title')}</h1>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold">{t('logo_subtitle')}</span>
             </div>
           </div>
           
@@ -91,6 +91,7 @@ function App() {
                 <span className="font-mono font-bold text-sm">{points.toLocaleString()} <span className="text-slate-500 text-[10px] uppercase">Pts</span></span>
               </div>
             )}
+            
             <div className="flex items-center gap-2 overflow-x-auto max-w-[200px] md:max-w-none no-scrollbar">
               {languages.map((lang) => (
                 <button 
@@ -110,7 +111,7 @@ function App() {
         </div>
       </nav>
 
-      <div className="flex-1 pt-24 pb-2 px-6 overflow-hidden flex flex-col">
+      <div className="flex-1 pt-24 pb-8 px-6 flex flex-col">
         <AnimatePresence mode="wait">
           {view === 'home' && (
             <motion.main 
@@ -137,7 +138,7 @@ function App() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                 <HeroRoleCard 
                   icon={<Vote size={40} />}
                   title={t('voter')}
@@ -154,6 +155,14 @@ function App() {
                   color="green"
                   onClick={() => handleRoleSelect('candidate')}
                 />
+                <HeroRoleCard 
+                  icon={<Activity size={40} />}
+                  title={t('sre_role')}
+                  subtitle={t('sre_portal')}
+                  description={t('sre_desc')}
+                  color="navy"
+                  onClick={() => handleRoleSelect('sre')}
+                />
               </div>
             </motion.main>
           )}
@@ -163,10 +172,10 @@ function App() {
               key="exploratory"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="max-w-7xl w-full mx-auto flex-1 flex flex-col overflow-hidden"
+              className="max-w-7xl w-full mx-auto flex-1 flex flex-col"
             >
               {/* Dashboard Header */}
-              <div className="flex flex-col md:flex-row justify-between items-end gap-2 mb-6">
+              <div className="flex flex-col md:flex-row justify-between items-end gap-2 mb-2">
                 <div>
                   <div className="flex items-center gap-2 text-national-saffron mb-1">
                     <LayoutDashboard size={14} />
@@ -183,32 +192,33 @@ function App() {
                       ))}
                     </div>
                   </div>
-                  <StatMini label="Active Quests" value={QUESTS[role].length} icon={<Zap size={12} />} />
+                  <StatMini label={t('active_quests')} value={QUESTS[role].length} icon={<Zap size={12} />} />
                 </div>
               </div>
               
-              <div className="glass-card p-2 mb-4 border-white/5 relative overflow-hidden bg-gradient-to-br from-white/[0.03] to-transparent shrink-0">
+              <div className="glass-card p-2 mb-2 border-white/5 relative overflow-hidden bg-gradient-to-br from-white/[0.03] to-transparent shrink-0">
                 <Timeline />
               </div>
 
-              <div className="mb-4 h-[350px] shrink-0">
-                <MapView />
-              </div>
+              {role !== 'sre' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 shrink-0">
+                  <MapView />
+                  <MisinfoSimulator />
+                </div>
+              )}
 
-              <div className="mb-4 shrink-0">
-                <MisinfoSimulator />
-              </div>
+              {role === 'sre' && (
+                <div className="mb-4 shrink-0">
+                  <SREAgentWidget />
+                </div>
+              )}
 
-              <div className="mb-4 shrink-0">
-                <SREAgentWidget />
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 flex-1 overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 flex-1 overflow-visible">
 
                 {/* Motivation Sidepanel */}
-                <div className="lg:col-span-1 space-y-6">
+                <div className="lg:col-span-1 space-y-3">
                   <div className="glass-card p-4 border-national-saffron/10">
-                    <h3 className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-500 mb-2">Integrity Level</h3>
+                    <h3 className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-500 mb-2">{t('integrity_level')}</h3>
                     <div className="relative w-20 h-20 mx-auto mb-2">
                       <svg className="w-full h-full transform -rotate-90">
                         <circle cx="40" cy="40" r="36" stroke="currentColor" strokeWidth="6" fill="transparent" className="text-white/5" />
@@ -221,38 +231,38 @@ function App() {
                       </div>
                     </div>
                     <p className="text-center text-[8px] font-bold text-slate-500 uppercase tracking-widest leading-none">
-                      Guardian Path
+                      {t('guardian_path')}
                     </p>
                   </div>
 
                   <div className="glass-card p-4">
                     <h3 className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-500 mb-2 flex items-center gap-2">
-                      <Award size={12} className="text-national-saffron" /> Top Citizens
+                      <Award size={12} className="text-national-saffron" /> {t('top_citizens')}
                     </h3>
                     <div className="space-y-2">
                       <LeaderEntry name="Arjun V." score={4500} rank={1} />
                       <LeaderEntry name="Sankar G." score={3200} rank={2} />
-                      <LeaderEntry name="You" score={points} rank={3} highlight />
+                      <LeaderEntry name={t('leaderboard_you')} score={points} rank={3} highlight />
                     </div>
                   </div>
                 </div>
 
                 {/* Quests Grid */}
-                <div className="lg:col-span-3 flex flex-col overflow-hidden">
-                  <div className="flex items-center justify-between mb-4 shrink-0">
+                <div className="lg:col-span-3 flex flex-col overflow-visible">
+                  <div className="flex items-center justify-between mb-2 shrink-0">
                     <h3 className="text-lg font-black tracking-tight flex items-center gap-3">
                       <Target className="text-national-green" size={20} />
                       {t('protocols')}
                     </h3>
                     <div className="relative">
                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                       <input type="text" placeholder="Filter..." className="bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-1.5 text-[10px] focus:outline-none focus:border-national-saffron/50 w-32" />
+                       <input type="text" placeholder={t('filter_placeholder')} className="bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-1.5 text-[10px] focus:outline-none focus:border-national-saffron/50 w-32" />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4 flex-1 overflow-hidden">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2 flex-1 overflow-y-auto no-scrollbar">
                     {QUESTS[role].map(q => (
-                      <div key={q.id} className="glass-card p-4 group hover:translate-y-[-2px] transition-all border-white/5 hover:border-national-green/30 flex flex-col justify-between h-full">
+                      <div key={q.id} className="glass-card p-3 group hover:translate-y-[-2px] transition-all border-white/5 hover:border-national-green/30 flex flex-col justify-between h-full">
                         <div>
                           <div className="flex justify-between items-start mb-1">
                             <div className="p-1.5 bg-white/5 rounded-lg group-hover:bg-national-green/10 transition-colors">
@@ -295,11 +305,11 @@ function App() {
 
       <footer className="py-2 px-8 flex justify-between items-center border-t border-white/5 bg-black/40 backdrop-blur-3xl shrink-0">
         <div className="flex items-center gap-4">
-          <p className="text-[8px] text-slate-600 uppercase tracking-[0.2em] font-bold">Election Rover 2026 Protocol</p>
+          <p className="text-[8px] text-slate-600 uppercase tracking-[0.2em] font-bold">{t('footer_protocol')}</p>
         </div>
         <div className="flex gap-4 text-[8px] text-slate-600 uppercase tracking-widest font-black">
-          <a href="#">Privacy</a>
-          <a href="#">Security</a>
+          <a href="#">{t('footer_privacy')}</a>
+          <a href="#">{t('footer_security')}</a>
         </div>
       </footer>
     </div>
@@ -307,6 +317,7 @@ function App() {
 }
 
 function HeroRoleCard({ icon, title, subtitle, description, color, onClick }) {
+  const { t } = useTranslation();
   const isSaffron = color === 'saffron'
   return (
     <motion.div
@@ -324,7 +335,7 @@ function HeroRoleCard({ icon, title, subtitle, description, color, onClick }) {
         {description}
       </p>
       <div className="mt-8 flex items-center gap-2 text-xs font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all">
-        Access System <ArrowUpRight size={14} />
+        {t('access_system')} <ArrowUpRight size={14} />
       </div>
     </motion.div>
   )
