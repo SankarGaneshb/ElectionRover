@@ -43,6 +43,15 @@ if os.path.exists("dist"):
     async def serve_frontend(full_path: str):
         if full_path.startswith("api") or full_path.startswith("chat") or full_path.startswith("health"):
             return None # Let FastAPI handle these
+
+        if full_path.startswith("reel"):
+            clean_path = full_path.replace("reel/", "", 1)
+            if not clean_path or clean_path == "reel":
+                clean_path = "index.html"
+            reel_file = os.path.join("reel", clean_path)
+            if os.path.exists(reel_file) and os.path.isfile(reel_file):
+                return FileResponse(reel_file)
+            return FileResponse("reel/index.html")
         
         file_path = os.path.join("dist", full_path)
         if os.path.exists(file_path) and os.path.isfile(file_path):
