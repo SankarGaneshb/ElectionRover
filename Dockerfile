@@ -20,6 +20,9 @@ RUN pip install --no-cache-dir -r backend/requirements.txt
 # Copy backend source
 COPY backend/ ./backend/
 
+# Copy marketing reels
+COPY reel/ ./reel/
+
 # Copy frontend build output from stage 1
 COPY --from=frontend-builder /app/dist ./dist
 
