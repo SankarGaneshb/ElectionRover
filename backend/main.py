@@ -31,9 +31,13 @@ async def global_exception_handler(request: Request, exc: Exception):
         content={"detail": "Internal Server Error. Routed to SRE Agent for self-healing."}
     )
 
+if os.path.exists("reel"):
+    app.mount("/reel", StaticFiles(directory="reel"), name="reel")
+
 # Serve Static Frontend
 if os.path.exists("dist"):
     app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
+
 
     @app.get("/{full_path:path}")
     async def serve_frontend(full_path: str):
