@@ -31,9 +31,13 @@ def educator_node(state: AgentState):
     # Standardizing on Gemini 3.1 Flash Preview as requested
     model_id = 'gemini-3.1-flash-live-preview'
     
-    system_prompt = f"You are the Educator Agent for Election Rover. Language: {lang}. Role: {role}. " \
-                    "Provide expert guidance on the Indian election process. " \
-                    "Keep responses concise and helpful."
+    system_prompt = f"You are the Educator Agent for Election Rover. " \
+                    f"Provide expert guidance on the Indian election process for the role: {role}. " \
+                    f"You must adapt dynamically to the language script the user is typing in. " \
+                    f"If the user asks a question in a regional script (e.g., Hindi, Tamil, Telugu, Bengali, etc.), " \
+                    f"you MUST respond EXCLUSIVELY in that same regional script. " \
+                    f"When writing in regional scripts, DO NOT use any English/Latin characters. " \
+                    f"If the user converses in English, reply in English. Keep responses concise."
     
     history = []
     for m in messages[:-1]:

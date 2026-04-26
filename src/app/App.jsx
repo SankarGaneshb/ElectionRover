@@ -75,12 +75,12 @@ function App() {
       <nav className="fixed top-0 w-full z-50 px-6 py-2">
         <div className="max-w-7xl mx-auto flex justify-between items-center glass-card px-8 py-3 rounded-2xl border-white/5 backdrop-blur-2xl">
           <div className="flex items-center gap-3 cursor-pointer group" onClick={() => setView('home')}>
-            <div className="w-10 h-10 rounded-xl bg-black/30 border border-white/5 flex items-center justify-center shadow-md shadow-orange-500/5 group-hover:scale-110 transition-transform overflow-hidden">
-              <img src="/logo.png" alt="Election Rover Logo" className="w-full h-full object-cover" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-national-saffron via-white to-national-green p-[1.5px] shadow-lg shadow-orange-500/20 group-hover:scale-110 transition-transform duration-300 relative overflow-hidden">
+              <img src="/logo.png" alt="Election Rover Logo" className="w-full h-full object-cover rounded-[10px]" />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-lg font-black tracking-tighter leading-none">{t('logo_title')}</h1>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-bold">{t('logo_subtitle')}</span>
+              <h1 className="text-lg font-black tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-r from-national-saffron via-white to-national-green drop-shadow-[0_0_15px_rgba(255,153,51,0.2)]">{t('logo_title')}</h1>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-slate-400 font-bold">{t('logo_subtitle')}</span>
             </div>
           </div>
           
@@ -88,7 +88,7 @@ function App() {
             {points > 0 && (
               <div className="hidden md:flex items-center gap-3 bg-white/5 px-4 py-2 rounded-xl border border-white/10">
                 <Trophy size={16} className="text-national-saffron" />
-                <span className="font-mono font-bold text-sm">{points.toLocaleString()} <span className="text-slate-500 text-[10px] uppercase">Pts</span></span>
+                <span className="font-mono font-bold text-sm">{points.toLocaleString()} <span className="text-slate-500 text-[10px] uppercase">{t('pts')}</span></span>
               </div>
             )}
             
@@ -240,8 +240,8 @@ function App() {
                       <Award size={12} className="text-national-saffron" /> {t('top_citizens')}
                     </h3>
                     <div className="space-y-2">
-                      <LeaderEntry name="Arjun V." score={4500} rank={1} />
-                      <LeaderEntry name="Sankar G." score={3200} rank={2} />
+                      <LeaderEntry name={t('leaderboard_name1')} score={4500} rank={1} />
+                      <LeaderEntry name={t('leaderboard_name2')} score={3200} rank={2} />
                       <LeaderEntry name={t('leaderboard_you')} score={points} rank={3} highlight />
                     </div>
                   </div>
@@ -268,7 +268,7 @@ function App() {
                             <div className="p-1.5 bg-white/5 rounded-lg group-hover:bg-national-green/10 transition-colors">
                               <Bookmark size={14} className="text-national-green" />
                             </div>
-                            <span className="font-mono text-[8px] font-bold text-national-saffron">+{q.points} PTS</span>
+                            <span className="font-mono text-[8px] font-bold text-national-saffron">+{q.points} {t('pts')}</span>
                           </div>
                           <h4 className="text-base font-black mb-1 leading-tight">{t(`${q.id.replace('-', '_')}_title`)}</h4>
                           <p className="text-xs text-slate-500 leading-snug line-clamp-2">{t(`${q.id.replace('-', '_')}_desc`)}</p>
