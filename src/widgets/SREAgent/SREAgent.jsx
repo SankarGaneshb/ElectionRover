@@ -95,7 +95,7 @@ export function SREAgentWidget() {
 
   const fetchLogs = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/v1/sre/logs');
+      const res = await fetch('/api/v1/sre/logs');
       if (res.ok) {
         const data = await res.json();
         setLogs(data);
@@ -117,7 +117,7 @@ export function SREAgentWidget() {
     setHealingService(service);
     setIsLoading(true);
     try {
-      await fetch('http://localhost:8000/api/v1/sre/heal', {
+      await fetch('/api/v1/sre/heal', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ service, issue })
@@ -179,7 +179,7 @@ export function SREAgentWidget() {
             <button
               onClick={async () => {
                 try {
-                  await fetch('http://localhost:8000/api/v1/sre/trigger_error');
+                  await fetch('/api/v1/sre/trigger_error');
                 } catch (e) {
                   // The exception is trapped in the handler but naturally logged
                 }
