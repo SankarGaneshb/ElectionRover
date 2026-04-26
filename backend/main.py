@@ -10,6 +10,17 @@ from langchain_core.messages import HumanMessage, AIMessage
 
 app = FastAPI(title="Election Rover Backend")
 
+@app.on_event("startup")
+async def build_integrity_check():
+    required_dirs = ["dist", "reel"]
+    for d in required_dirs:
+        if not os.path.exists(d) or not os.path.isdir(d):
+            print(f"CRITICAL INTEGRITY FAILURE: Required directory '{d}' is missing!")
+        elif not os.listdir(d):
+            print(f"CRITICAL INTEGRITY FAILURE: Required directory '{d}' is empty!")
+        else:
+            print(f"Integrity Check: '{d}' directory validated successfully.")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
