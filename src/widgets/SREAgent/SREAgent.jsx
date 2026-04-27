@@ -15,7 +15,15 @@ const SRE_I18N = {
     db_pool: "Database Pool",
     gemini_gateway: "Gemini AI Gateway",
     cache: "Cache",
-    api: "API"
+    api: "API",
+    issue_db: "Transient connection drop detected.",
+    action_db: "Automated re-pooling initiated. Cache invalidated.",
+    issue_ai: "Latency spike > 2000ms",
+    action_ai: "Traffic re-routed to backup Gemini Flash endpoint.",
+    heal_db: "Executed physical pool refresh on Cloud SQL socket.",
+    heal_cache: "Invoked internal memory cleanup routines.",
+    heal_api: "Synchronized worker threads.",
+    issue_intentional: "Intentional Database connection timeout simulation."
   },
   hi: {
     issue: "समस्या:",
@@ -26,7 +34,15 @@ const SRE_I18N = {
     db_pool: "डेटाबेस पूल",
     gemini_gateway: "जेमिनी एआई गेटवे",
     cache: "कैश",
-    api: "एपीआई"
+    api: "एपीआई",
+    issue_db: "अस्थायी कनेक्शन ड्रॉप पाया गया।",
+    action_db: "स्वचालित डेटाबेस पूल पुनर्गठन शुरू किया गया। कैश अमान्य कर दिया गया।",
+    issue_ai: "विलंबता स्पाइक > 2000ms",
+    action_ai: "ट्रैफ़िक को बैकअप जेमिनी फ्लैश एंडपॉइंट पर भेज दिया गया।",
+    heal_db: "क्लाउड SQL सॉकेट पर भौतिक डेटाबेस पूल रीफ्रेश किया गया।",
+    heal_cache: "आंतरिक मेमोरी क्लीनअप रूटीन लागू किए गए।",
+    heal_api: "वर्कर थ्रेड्स को सिंक्रनाइज़ किया गया।",
+    issue_intentional: "जानबूझकर डेटाबेस कनेक्शन टाइमआउट सिमुलेशन।"
   },
   ta: {
     issue: "பிரச்சனை:",
@@ -37,7 +53,15 @@ const SRE_I18N = {
     db_pool: "தரவுத்தள குளம்",
     gemini_gateway: "ஜெமினி ஏஐ கேட்வே",
     cache: "கேச்",
-    api: "ஏபிஐ"
+    api: "ஏபிஐ",
+    issue_db: "தற்காலிக இணைப்பு துண்டிப்பு கண்டறியப்பட்டது.",
+    action_db: "தானியங்கி தரவுத்தள குளம் சீரமைப்பு தொடங்கப்பட்டது. தற்காலிக சேமிப்பு ரத்து செய்யப்பட்டது.",
+    issue_ai: "தாமத அதிகரிப்பு > 2000ms",
+    action_ai: "போக்குவரத்து மாற்று ஜெமினி பிளாஷ் இறுதிப்புள்ளிக்கு மாற்றப்பட்டது.",
+    heal_db: "கிளவுட் SQL சாக்கெட்டில் தரவுத்தள குளம் புதுப்பித்தல் செயல்படுத்தப்பட்டது.",
+    heal_cache: "உள் நினைவக துப்புரவு நடைமுறைகள் செயல்படுத்தப்பட்டன.",
+    heal_api: "ஒத்திசைக்கப்பட்ட தொழிலாளர் இழைகள்.",
+    issue_intentional: "திட்டமிட்ட தரவுத்தள இணைப்பு காலாவதி உருவகப்படுத்துதல்."
   },
   te: {
     issue: "సమస్య:",
@@ -45,10 +69,15 @@ const SRE_I18N = {
     healed: "స్వస్థమైంది",
     pending: "పెండింగ్ HIL",
     informed: "HIL కి తెలిపారు",
-    db_pool: "డేటాబేస్ పూల్",
-    gemini_gateway: "జెమిని AI గేట్‌వే",
-    cache: "కాష్",
-    api: "API"
+    api: "API",
+    issue_db: "తాత్కాలిక కనెక్షన్ డ్రాప్ గుర్తించబడింది.",
+    action_db: "ఆటోమేటెడ్ డేటాబేస్ పూల్ పునర్వ్యవస్థీకరణ ప్రారంభించబడింది. కాష్ చెల్లదు.",
+    issue_ai: "లేటెన్సీ స్పైక్ > 2000ms",
+    action_ai: "ట్రాఫిక్ బ్యాకప్ జెమిని ఫ్లాష్ ఎండ్‌పాయింట్‌కు మళ్లించబడింది.",
+    heal_db: "క్లౌడ్ SQL సాకెట్‌లో భౌతిక డేటాబేస్ పూల్ రిఫ్రెష్ అమలు చేయబడింది.",
+    heal_cache: "అంతర్గత మెమరీ క్లీనప్ నిత్యకృత్యాలు అమలు చేయబడ్డాయి.",
+    heal_api: "వర్కర్ థ్రెడ్‌లు సమకాలీకరించబడ్డాయి.",
+    issue_intentional: "ఉద్దేశపూర్వక డేటాబేస్ కనెక్షన్ సమయం ముగిసే అనుకరణ."
   },
   kn: {
     issue: "ಸಮಸ್ಯೆ:",
@@ -56,10 +85,15 @@ const SRE_I18N = {
     healed: "ಗುಣಮುಖವಾಯಿತು",
     pending: "ಬಾಕಿ HIL",
     informed: "HIL ಗೆ ತಿಳಿಸಲಾಗಿದೆ",
-    db_pool: "ಡೇಟಾಬೇಸ್ ಪೂಲ್",
-    gemini_gateway: "ಜೆಮಿನಿ AI ಗೇಟ್‌ವೇ",
-    cache: "ಕ್ಯಾಶ್",
-    api: "API"
+    api: "API",
+    issue_db: "ತಾತ್ಕಾಲಿಕ ಸಂಪರ್ಕ ಡ್ರಾಪ್ ಪತ್ತೆಯಾಗಿದೆ.",
+    action_db: "ಸ್ವಯಂಚಾಲಿತ ಡೇಟಾಬೇಸ್ ಪೂಲ್ ಮರುಸಂಘಟನೆ ಪ್ರಾರಂಭಿಸಲಾಗಿದೆ. ಸಂಗ್ರಹವನ್ನು ಅಮಾನ್ಯಗೊಳಿಸಲಾಗಿದೆ.",
+    issue_ai: "ಲೇಟೆನ್ಸಿ ಸ್ಪೈಕ್ > 2000ms",
+    action_ai: "ದಟ್ಟಣೆಯನ್ನು ಬ್ಯಾಕಪ್ ಜೆಮಿನಿ ಫ್ಲ್ಯಾಶ್ ಅಂತಿಮ ಬಿಂದುವಿಗೆ ಮರು-ರೂಟ್ ಮಾಡಲಾಗಿದೆ.",
+    heal_db: "ಕ್ಲೌಡ್ SQL ಸಾಕೆಟ್‌ನಲ್ಲಿ ಭೌತಿಕ ಡೇಟಾಬೇಸ್ ಪೂಲ್ ರಿಫ್ರೆಶ್ ಅನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸಲಾಗಿದೆ.",
+    heal_cache: "ಆಂತರಿಕ ಮೆಮೊರಿ ಕ್ಲೀನಪ್ ವಾಡಿಕೆಯಂತೆ ಆಹ್ವಾನಿಸಲಾಗಿದೆ.",
+    heal_api: "ವರ್ಕರ್ ಥ್ರೆಡ್‌ಗಳನ್ನು ಸಿಂಕ್ರೊನೈಸ್ ಮಾಡಲಾಗಿದೆ.",
+    issue_intentional: "ಉದ್ದೇಶಪೂರ್ವಕ ಡೇಟಾಬೇಸ್ ಸಂಪರ್ಕ ಕಾಲಾವಧಿ ಸಿಮ್ಯುಲೇಶನ್."
   },
   bn: {
     issue: "সমস্যা:",
@@ -67,10 +101,15 @@ const SRE_I18N = {
     healed: "নিরাময়",
     pending: "অমীমাংসিত HIL",
     informed: "HIL কে জানানো হয়েছে",
-    db_pool: "ডেটাবেস পুল",
-    gemini_gateway: "জেমিনি এআই গেটওয়ে",
-    cache: "ক্যাশে",
-    api: "এপিআই"
+    api: "এপিআই",
+    issue_db: "অস্থায়ী সংযোগ ড্রপ সনাক্ত করা হয়েছে।",
+    action_db: "স্বয়ংক্রিয় ডেটাবেস পুল পুনর্গঠন শুরু হয়েছে। ক্যাশে অবৈধ করা হয়েছে।",
+    issue_ai: "বিলম্বিত স্পাইক > 2000ms",
+    action_ai: "ট্র্যাফিক ব্যাকআপ জেমিনি ফ্ল্যাশ এন্ডপয়েন্টে পুনঃনির্দেশিত হয়েছে।",
+    heal_db: "ক্লাউড এসকিউএল সকেটে ফিজিক্যাল ডেটাবেস পুল রিফ্রেশ করা হয়েছে।",
+    heal_cache: "অভ্যন্তরীণ মেমরি ক্লিনআপ রুটিন চালু করা হয়েছে।",
+    heal_api: "কর্মী থ্রেড সিঙ্ক্রোনাইজ করা হয়েছে।",
+    issue_intentional: "ইচ্ছাকৃত ডেটাবেস সংযোগ টাইমআউট সিমুলেশন।"
   },
   ml: {
     issue: "പ്രശ്നം:",
@@ -78,10 +117,15 @@ const SRE_I18N = {
     healed: "ഭേദമായി",
     pending: "HIL കാത്തിരിക്കുന്നു",
     informed: "HIL അറിയിച്ചു",
-    db_pool: "ഡാറ്റാബേസ് പൂൾ",
-    gemini_gateway: "ജെമിനി AI ഗേറ്റ്‌വേ",
-    cache: "കാഷെ",
-    api: "API"
+    api: "API",
+    issue_db: "താൽക്കാലിക കണക്ഷൻ ഡ്രോപ്പ് കണ്ടെത്തി.",
+    action_db: "യാന്ത്രിക ഡാറ്റാബേസ് പൂൾ പുനഃസംഘടന ആരംഭിച്ചു. കാഷെ അസാധുവായി.",
+    issue_ai: "ലേറ്റൻസി സ്പൈക്ക് > 2000ms",
+    action_ai: "ബാക്കപ്പ് ജെമിനി ഫ്ലാഷ് എൻഡ് പോയിന്റിലേക്ക് ട്രാഫിക് വഴിതിരിച്ചുവിട്ടു.",
+    heal_db: "ക്ലൗഡ് SQL സോക്കറ്റിൽ ഫിസിക്കൽ ഡാറ്റാബേസ് പൂൾ പുതുക്കൽ നടപ്പിലാക്കി.",
+    heal_cache: "ആന്തരിക മെമ്മറി ക്ലീനപ്പ് ദിനചര്യകൾ നടപ്പിലാക്കി.",
+    heal_api: "വർക്കർ ത്രെഡുകൾ സമന്വയിപ്പിച്ചു.",
+    issue_intentional: "മനഃപൂർവമായ ഡാറ്റാബേസ് കണക്ഷൻ ടൈംഔട്ട് സിമുലേഷൻ."
   },
   mr: {
     issue: "समस्या:",
@@ -89,10 +133,15 @@ const SRE_I18N = {
     healed: "बरे झाले",
     pending: "HIL प्रलंबित",
     informed: "HIL ला सूचित केले",
-    db_pool: "डेटाबेस पूल",
-    gemini_gateway: "जेमिनी एआय गेटवे",
-    cache: "कॅश",
-    api: "एपीआय"
+    api: "एपीआय",
+    issue_db: "हंगामी कनेक्शन ड्रॉप आढळला.",
+    action_db: "स्वयंचलित डेटाबेस पूल पुनर्रचना सुरू झाली. कॅशे अवैध करण्यात आली.",
+    issue_ai: "विलंबता स्पाइक > 2000ms",
+    action_ai: "रहदारी बॅकअप जेमिनी फ्लॅश एंडपॉईंटवर वळवली.",
+    heal_db: "क्लाउड SQL सॉकेटवर भौतिक डेटाबेस पूल रिफ्रेश चालवले.",
+    heal_cache: "अंतर्गत मेमरी क्लीनअप प्रक्रिया सुरू केली.",
+    heal_api: "वर्कर थ्रेड्स सिंक्रोनाइझ केले.",
+    issue_intentional: "हेतूने डेटाबेस कनेक्शन कालबाह्य सिम्युलेशन."
   },
   gu: {
     issue: "સમસ્યા:",
@@ -100,10 +149,15 @@ const SRE_I18N = {
     healed: "સ્વસ્થ",
     pending: "HIL બાકી",
     informed: "HIL ને જાણ કરી",
-    db_pool: "ડેટાબેઝ પુલ",
-    gemini_gateway: "જેમિની AI ગેટવે",
-    cache: "કેશ",
-    api: "API"
+    api: "API",
+    issue_db: "કામચલાઉ કનેક્શન ડ્રોપ જણાયું.",
+    action_db: "સ્વચાલિત ડેટાબેઝ પૂલ પુનર્ગઠન શરૂ કરાયું. કેશ અમાન્ય કરાઈ.",
+    issue_ai: "લેટન્સી સ્પાઇક > 2000ms",
+    action_ai: "ટ્રાફિકને બેકઅપ જેમિની ફ્લેશ એન્ડપોઇન્ટ પર રી-રૂટ કરવામાં આવ્યો.",
+    heal_db: "ક્લાઉડ એસક્યુએલ સોકેટ પર ફિઝિકલ ડેટาબેઝ પૂલ રિફ્રેશ એક્ઝિક્યુટ થયું.",
+    heal_cache: "આંતરિક મેમરી સફાઇના નિયમો ચલાવાયા.",
+    heal_api: "વર્કર થ્રેડો સુમેળ સાધ્યા.",
+    issue_intentional: "ઇરાદાપૂર્વક ડેટาબેઝ કનેક્શન સમયસમાપ્તિ સિમ્યુલેશન."
   },
   or: {
     issue: "ସମସ୍ୟା:",
@@ -111,10 +165,15 @@ const SRE_I18N = {
     healed: "ଆରୋଗ୍ୟ",
     pending: "HIL ଅମ୍ଳ",
     informed: "HIL କୁ ଜଣାଯାଇଛି",
-    db_pool: "ଡାଟାବେସ୍ ପୁଲ୍",
-    gemini_gateway: "ଜେମିନି AI ଗେଟୱେ",
-    cache: "କ୍ୟାଚ୍",
-    api: "API"
+    api: "API",
+    issue_db: "ଅସ୍ଥାୟୀ ସଂଯୋଗ ଡ୍ରପ୍ ଚିହ୍ନଟ ହୋଇଛି |",
+    action_db: "ସ୍ୱୟଂଚାଳିତ ଡାਟାବେସ୍ ପୁଲ୍ ପୁନର୍ଗଠନ ଆରମ୍ଭ ହେଲା | କ୍ୟାଚ୍ ଅମାନ୍ୟ ହେଲା |",
+    issue_ai: "ଲେଟେନ୍ସି ସ୍ପାଇକ୍ > 2000ms",
+    action_ai: "ଟ୍ରାଫିକ୍ ବ୍ୟାକଅପ୍ ଜେମିନି ଫ୍ଲାସ୍ ଏଣ୍ଡପଏଣ୍ଟକୁ ପୁନ-ନିର୍ଦ્ଦେଶିତ କରାଗଲା |",
+    heal_db: "କ୍ଲାଉଡ୍ SQL ସକେଟରେ ଶାରୀରିକ ଡାਟାବେସ୍ ପୁଲ୍ ସତେଜ କାର୍ଯ୍ୟକାରୀ ହେଲା |",
+    heal_cache: "ଆଭ୍ୟନ୍ତରୀଣ ମେମୋରୀ ସଫା କରିବା କାର୍ଯ୍ୟକ୍ରମ ଆରମ୍ଭ ହେଲା |",
+    heal_api: "କର୍ମୀ ଥ୍ରେଡ୍ ସମକାଳୀନ ହେଲା |",
+    issue_intentional: "ଉଦ୍ଦେଶ୍ୟମୂଳକ ଡାଟାବେସ୍ ସଂଯୋଗ ସମୟ ସମାପ୍ତି ଅନୁକରଣ |"
   },
   pa: {
     issue: "ਸਮੱਸਿਆ:",
@@ -122,10 +181,15 @@ const SRE_I18N = {
     healed: "ਠੀਕ ਹੋਇਆ",
     pending: "HIL ਲੰਬਿਤ",
     informed: "HIL ਨੂੰ ਸੂਚਿਤ ਕੀਤਾ",
-    db_pool: "ਡਾਟਾਬੇਸ ਪੂਲ",
-    gemini_gateway: "ਜੇਮਿਨੀ AI ਗੇਟਵੇ",
-    cache: "ਕੈਸ਼",
-    api: "API"
+    api: "API",
+    issue_db: "ਅਸਥਾਈ ਕਨੈਕਸ਼ਨ ਡਰਾਪ ਦਾ ਪਤਾ ਲੱਗਿਆ ਹੈ।",
+    action_db: "ਆਟੋਮੇਟਿਡ ਡਾਟਾਬੇਸ ਪੂਲ ਪੁਨਰਗਠਨ ਸ਼ੁਰੂ ਕੀਤਾ ਗਿਆ। ਕੈਸ਼ ਅਵੈਧ ਕਰ ਦਿੱਤਾ ਗਿਆ।",
+    issue_ai: "ਲੇਟੈਂਸੀ ਸਪਾਈਕ > 2000ms",
+    action_ai: "ਟ੍ਰੈਫਿਕ ਨੂੰ ਬੈਕਅੱਪ ਜੇਮਿਨੀ ਫਲੈਸ਼ ਐਂਡਪੁਆਇੰਟ 'ਤੇ ਰੀ-ਰੂਟ ਕੀਤਾ ਗਿਆ।",
+    heal_db: "ਕਲਾਉਡ SQL ਸਾਕਟ 'ਤੇ ਭੌਤਿਕ ਡਾਟਾਬੇਸ ਪੂਲ ਰਿਫ੍ਰੈਸ਼ ਚਲਾਇਆ ਗਿਆ।",
+    heal_cache: "ਅੰਦਰੂਨੀ ਮੈਮੋਰੀ ਕਲੀਨਅੱਪ ਰੁਟੀਨ ਸ਼ੁਰੂ ਕੀਤੇ ਗਏ।",
+    heal_api: "ਵਰਕਰ ਥ੍ਰੈੱਡ ਸਮਕਾਲੀ ਕੀਤੇ ਗਏ।",
+    issue_intentional: "ਜਾਣਬੁੱਝ ਕੇ ਡਾਟਾਬੇਸ ਕਨੈਕਸ਼ਨ ਟਾਈਮਆਉਟ ਸਿਮੂਲੇਸ਼ਨ।"
   }
 };
 export function SREAgentWidget() {
@@ -151,6 +215,21 @@ export function SREAgentWidget() {
       return local.api || serviceName;
     }
     return serviceName;
+  };
+
+  const getLogTranslation = (text) => {
+    if (!text) return text;
+    const mapping = {
+      "Transient connection drop detected.": local.issue_db || text,
+      "Automated re-pooling initiated. Cache invalidated.": local.action_db || text,
+      "Latency spike > 2000ms": local.issue_ai || text,
+      "Traffic re-routed to backup Gemini Flash endpoint.": local.action_ai || text,
+      "Executed physical pool refresh on Cloud SQL socket.": local.heal_db || text,
+      "Invoked internal memory cleanup routines.": local.heal_cache || text,
+      "Synchronized worker threads.": local.heal_api || text,
+      "Intentional Database connection timeout simulation.": local.issue_intentional || text
+    };
+    return mapping[text] || text;
   };
 
   const fetchLogs = async () => {
@@ -300,10 +379,10 @@ export function SREAgentWidget() {
                       <span className="text-[10px] text-blue-400 font-bold uppercase">{getServiceTranslation(log.service)}</span>
                       <span className="text-[9px] text-slate-600">{new Date(log.timestamp * 1000).toLocaleTimeString()}</span>
                     </div>
-                    <p className="text-slate-300"><span className="text-slate-500">{local.issue}</span> {log.issue}</p>
-                    <p className={log.status === 'Healed' ? 'text-emerald-400' : 'text-amber-400'}>
-                      <span className="text-slate-500">{local.action}</span> {log.action_taken}
-                    </p>
+                     <p className="text-slate-300"><span className="text-slate-500">{local.issue}</span> {getLogTranslation(log.issue)}</p>
+                     <p className={log.status === 'Healed' ? 'text-emerald-400' : 'text-amber-400'}>
+                       <span className="text-slate-500">{local.action}</span> {getLogTranslation(log.action_taken)}
+                     </p>
                     <div className="flex items-center gap-2 mt-2">
                       {log.status === 'Healed' ? (
                         <span className="text-[8px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded tracking-widest font-black uppercase">
