@@ -56,12 +56,12 @@ jobs:
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
       - name: 'Build and Push Docker Image'
         run: |
-          IMAGE_PATH="us-central1-docker.pkg.dev/electionrover/electionrover/election-rover:${{ github.sha }}"
+          IMAGE_PATH="us-central1-docker.pkg.dev/electionrover/cloud-run-source-deploy/election-rover:${{ github.sha }}"
           docker build -t $IMAGE_PATH .
           docker push $IMAGE_PATH
       - name: 'Deploy to Cloud Run'
         run: |
-          IMAGE_PATH="us-central1-docker.pkg.dev/electionrover/electionrover/election-rover:${{ github.sha }}"
+          IMAGE_PATH="us-central1-docker.pkg.dev/electionrover/cloud-run-source-deploy/election-rover:${{ github.sha }}"
           gcloud run deploy election-rover \
             --image $IMAGE_PATH \
             --region us-central1 \
