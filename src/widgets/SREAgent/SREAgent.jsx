@@ -11,77 +11,121 @@ const SRE_I18N = {
     action: "Action:",
     healed: "HEALED",
     pending: "PENDING HIL",
-    informed: "HIL Informed"
+    informed: "HIL Informed",
+    db_pool: "Database Pool",
+    gemini_gateway: "Gemini AI Gateway",
+    cache: "Cache",
+    api: "API"
   },
   hi: {
     issue: "समस्या:",
     action: "कार्रवाई:",
     healed: "स्वस्थ",
     pending: "लंबित HIL",
-    informed: "HIL को सूचित किया"
+    informed: "HIL को सूचित किया",
+    db_pool: "डेटाबेस पूल",
+    gemini_gateway: "जेमिनी एआई गेटवे",
+    cache: "कैश",
+    api: "एपीआई"
   },
   ta: {
     issue: "பிரச்சனை:",
     action: "நடவடிக்கை:",
     healed: "குணமடைந்தது",
     pending: "நிலுவையில் உள்ளது",
-    informed: "HIL க்கு தெரிவிக்கப்பட்டது"
+    informed: "HIL க்கு தெரிவிக்கப்பட்டது",
+    db_pool: "தரவுத்தள குளம்",
+    gemini_gateway: "ஜெமினி ஏஐ கேட்வே",
+    cache: "கேச்",
+    api: "ஏபிஐ"
   },
   te: {
     issue: "సమస్య:",
     action: "చర్య:",
     healed: "స్వస్థమైంది",
     pending: "పెండింగ్ HIL",
-    informed: "HIL కి తెలిపారు"
+    informed: "HIL కి తెలిపారు",
+    db_pool: "డేటాబేస్ పూల్",
+    gemini_gateway: "జెమిని AI గేట్‌వే",
+    cache: "కాష్",
+    api: "API"
   },
   kn: {
     issue: "ಸಮಸ್ಯೆ:",
     action: "ಕ್ರಮ:",
     healed: "ಗುಣಮುಖವಾಯಿತು",
     pending: "ಬಾಕಿ HIL",
-    informed: "HIL ಗೆ ತಿಳಿಸಲಾಗಿದೆ"
+    informed: "HIL ಗೆ ತಿಳಿಸಲಾಗಿದೆ",
+    db_pool: "ಡೇಟಾಬೇಸ್ ಪೂಲ್",
+    gemini_gateway: "ಜೆಮಿನಿ AI ಗೇಟ್‌ವೇ",
+    cache: "ಕ್ಯಾಶ್",
+    api: "API"
   },
   bn: {
     issue: "সমস্যা:",
     action: "পদক্ষেপ:",
     healed: "নিরাময়",
     pending: "অমীমাংসিত HIL",
-    informed: "HIL কে জানানো হয়েছে"
+    informed: "HIL কে জানানো হয়েছে",
+    db_pool: "ডেটাবেস পুল",
+    gemini_gateway: "জেমিনি এআই গেটওয়ে",
+    cache: "ক্যাশে",
+    api: "এপিআই"
   },
   ml: {
     issue: "പ്രശ്നം:",
     action: "നടപടി:",
     healed: "ഭേദമായി",
     pending: "HIL കാത്തിരിക്കുന്നു",
-    informed: "HIL അറിയിച്ചു"
+    informed: "HIL അറിയിച്ചു",
+    db_pool: "ഡാറ്റാബേസ് പൂൾ",
+    gemini_gateway: "ജെമിനി AI ഗേറ്റ്‌വേ",
+    cache: "കാഷെ",
+    api: "API"
   },
   mr: {
     issue: "समस्या:",
     action: "कृती:",
     healed: "बरे झाले",
     pending: "HIL प्रलंबित",
-    informed: "HIL ला सूचित केले"
+    informed: "HIL ला सूचित केले",
+    db_pool: "डेटाबेस पूल",
+    gemini_gateway: "जेमिनी एआय गेटवे",
+    cache: "कॅश",
+    api: "एपीआय"
   },
   gu: {
     issue: "સમસ્યા:",
     action: "ક્રિયા:",
     healed: "સ્વસ્થ",
     pending: "HIL બાકી",
-    informed: "HIL ને જાણ કરી"
+    informed: "HIL ને જાણ કરી",
+    db_pool: "ડેટાબેઝ પુલ",
+    gemini_gateway: "જેમિની AI ગેટવે",
+    cache: "કેશ",
+    api: "API"
   },
   or: {
     issue: "ସମସ୍ୟା:",
     action: "କ୍ରିୟା:",
     healed: "ଆରୋଗ୍ୟ",
     pending: "HIL ଅମ୍ଳ",
-    informed: "HIL କୁ ଜଣାଯାଇଛି"
+    informed: "HIL କୁ ଜଣାଯାଇଛି",
+    db_pool: "ଡାଟାବେସ୍ ପୁଲ୍",
+    gemini_gateway: "ଜେମିନି AI ଗେଟୱେ",
+    cache: "କ୍ୟାଚ୍",
+    api: "API"
   },
   pa: {
     issue: "ਸਮੱਸਿਆ:",
     action: "ਕਾਰਵਾਈ:",
     healed: "ਠੀਕ ਹੋਇਆ",
     pending: "HIL ਲੰਬਿਤ",
-    informed: "HIL ਨੂੰ ਸੂਚਿਤ ਕੀਤਾ"
+    informed: "HIL ਨੂੰ ਸੂਚਿਤ ਕੀਤਾ",
+    db_pool: "ਡਾਟਾਬੇਸ ਪੂਲ",
+    gemini_gateway: "ਜੇਮਿਨੀ AI ਗੇਟਵੇ",
+    cache: "ਕੈਸ਼",
+    api: "API"
   }
 };
 export function SREAgentWidget() {
@@ -92,6 +136,22 @@ export function SREAgentWidget() {
   const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [healingService, setHealingService] = useState(null);
+
+  const getServiceTranslation = (serviceName) => {
+    if (serviceName === 'Database Pool' || serviceName === 'Database') {
+      return local.db_pool || serviceName;
+    }
+    if (serviceName === 'Gemini AI Gateway') {
+      return local.gemini_gateway || serviceName;
+    }
+    if (serviceName === 'Cache') {
+      return local.cache || serviceName;
+    }
+    if (serviceName === 'API') {
+      return local.api || serviceName;
+    }
+    return serviceName;
+  };
 
   const fetchLogs = async () => {
     try {
@@ -237,7 +297,7 @@ export function SREAgentWidget() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] text-blue-400 font-bold uppercase">{log.service}</span>
+                      <span className="text-[10px] text-blue-400 font-bold uppercase">{getServiceTranslation(log.service)}</span>
                       <span className="text-[9px] text-slate-600">{new Date(log.timestamp * 1000).toLocaleTimeString()}</span>
                     </div>
                     <p className="text-slate-300"><span className="text-slate-500">{local.issue}</span> {log.issue}</p>
