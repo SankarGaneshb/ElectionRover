@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ਚੋਣ ਰੋਵਰ — ਹੀਰੋ ਰੀਲ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="reel" id="reel" data-lang="pa">
+  <div class="scanlines"></div>
+  <div class="glitch-overlay" id="glitch"></div>
+  <div class="progress-bar" id="progress"></div>
+
+  <div class="controls">
+    <button class="ctrl-btn" id="playPause" title="ਪਲੇ/ਪੌਜ਼">||</button>
+    <button class="ctrl-btn" id="restart" title="ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ">&#8635;</button>
+  </div>
+
+  <!-- ===== SCENE 1: THE HOOK ===== -->
+  <div class="scene active" id="scene1" style="background:#050508;">
+    <div class="s1-whatsapp" id="s1-bubble">
+      <div class="s1-source">ਵਟਸਐਪ ਫਾਰਵਰਡ</div>
+      <div class="s1-claim">"ਹਲਕਾ #42 ਲਈ ਪੋਲਿੰਗ ਦੀ ਮਿਤੀ 28 ਅਪ੍ਰੈਲ ਤੋਂ ਬਦਲ ਕੇ 5 ਮਈ ਕਰ ਦਿੱਤੀ ਗਈ ਹੈ।"</div>
+    </div>
+    <div class="s1-counter" id="s1-counter">
+      <span id="s1-count">0</span>
+      <span>2 ਘੰਟਿਆਂ ਵਿੱਚ ਸ਼ੇਅਰ</span>
+    </div>
+    <div class="s1-verdict" id="s1-verdict" style="color:var(--red);">
+      ਇਹ ਝੂਠ ਸੀ।
+    </div>
+  </div>
+
+  <!-- ===== SCENE 2: THE PROBLEM ===== -->
+  <div class="scene" id="scene2">
+    <div class="s2-card" id="s2c1">
+      <div class="source">ਵਟਸਐਪ ਫਾਰਵਰਡ &bull; 2 ਘੰਟੇ ਪਹਿਲਾਂ</div>
+      <div class="claim">"ਉਮੀਦਵਾਰ ਸ਼ਰਮਾ ਵਿੱਤੀ ਧੋਖਾਧੜੀ ਦੇ ਦੋਸ਼ ਵਿੱਚ ਗ੍ਰਿਫਤਾਰ ਅਤੇ ਅਯੋਗ ਕਰਾਰ।"</div>
+      <div class="stats">
+        <span class="shares">&#8593; 4,200 ਸ਼ੇਅਰ</span>
+        <span class="regions">ਦਿੱਲੀ NCR, ਯੂਪੀ, ਹਰਿਆਣਾ</span>
+      </div>
+    </div>
+    <div class="s2-card" id="s2c2">
+      <div class="source">ਟਵਿੱਟਰ/X ਥ੍ਰੈਡ &bull; 6 ਘੰਟੇ ਪਹਿਲਾਂ</div>
+      <div class="claim">"ਬੂਥ #317 ਵਿੱਚ ਈਵੀਐਮ ਮਸ਼ੀਨਾਂ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਵੋਟਾਂ ਨਾਲ ਭਰੀਆਂ ਪਾਈਆਂ ਗਈਆਂ।"</div>
+      <div class="stats">
+        <span class="shares">&#8593; 15,600 ਸ਼ੇਅਰ</span>
+        <span class="regions">ਮਹਾਰਾਸ਼ਟਰ, ਗੁਜਰਾਤ, ਰਾਜਸਥਾਨ</span>
+      </div>
+    </div>
+    <div class="s2-card" id="s2c3">
+      <div class="source">ਫੇਸਬੁੱਕ ਪੋਸਟ &bull; 45 ਮਿੰਟ ਪਹਿਲਾਂ</div>
+      <div class="claim">"ਪੋਲਿੰਗ ਦੀ ਮਿਤੀ 28 ਅਪ੍ਰੈਲ ਤੋਂ ਬਦਲ ਕੇ 5 ਮਈ ਕਰ ਦਿੱਤੀ ਗਈ।"</div>
+      <div class="stats">
+        <span class="shares">&#8593; 8,100 ਸ਼ੇਅਰ</span>
+        <span class="regions">ਤਮਿਲਨਾਡੂ, ਕਰਨਾਟਕ</span>
+      </div>
+    </div>
+    <div class="s2-question" id="s2q">ਤੁਹਾਡੀ ਵੋਟ ਦੀ ਰੱਖਿਆ<br>ਕੌਣ ਕਰ ਰਿਹਾ ਹੈ?</div>
+  </div>
+
+  <!-- ===== SCENE 3A: PRODUCT REVEAL - DASHBOARD ===== -->
+  <div class="scene" id="scene3a">
+    <div class="s3-shatter" id="s3shatter"></div>
+    <div class="s3-feature" id="s3f1">
+      <div class="s3-label">ਜ਼ੀਰੋ-ਸਕਰੋਲ ਡੈਸ਼ਬੋਰਡ</div>
+      <div class="s3-dashboard">
+        <div class="s3-role-toggle">
+          <div class="s3-role-btn active">ਵੋਟਰ</div>
+          <div class="s3-role-btn">ਉਮੀਦਵਾਰ</div>
+        </div>
+        <div class="s3-quest-card">
+          <div class="s3-quest-title">ਰਜਿਸਟ੍ਰੇਸ਼ਨ ਮਾਰਗ</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin:4px 0;">ਯਕੀਨੀ ਬਣਾਓ ਕਿ ਤੁਸੀਂ ਵੋਟਰ ਸੂਚੀ ਵਿੱਚ ਹੋ</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="s3-quest-badge">ਜਾਗਰੂਕ ਵੋਟਰ</div>
+            <div class="s3-points">+50</div>
+          </div>
+          <div style="height:4px;background:rgba(255,255,255,0.05);border-radius:4px;margin-top:8px;overflow:hidden;">
+            <div id="s3-progress" style="height:100%;width:0%;background:linear-gradient(90deg,var(--saffron),var(--green));border-radius:4px;transition:width 1.5s ease;"></div>
+          </div>
+        </div>
+        <div class="s3-quest-card">
+          <div class="s3-quest-title">ਬੂਥ ਲੋਕੇਟਰ</div>
+          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin:4px 0;">ਲੱਭੋ ਕਿ ਤੁਹਾਡੀ ਆਵਾਜ਼ ਕਿੱਥੇ ਸੁਣੀ ਜਾਵੇਗੀ</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="s3-quest-badge">ਤਿਆਰ ਨਾਗਰਿਕ</div>
+            <div class="s3-points">+30</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:16px;font-size:16px;font-weight:900;letter-spacing:-0.5px;opacity:0;" id="s3a-text">
+      4 AI ਏਜੰਟ। 1 ਮਿਸ਼ਨ।
+    </div>
+  </div>
+
+  <!-- ===== SCENE 3B: LANGUAGE + CHAT ===== -->
+  <div class="scene" id="scene3b">
+    <div class="s3-feature" id="s3f2">
+      <div class="s3-label">11 ਭਾਸ਼ਾਵਾਂ। ਹਰ ਭਾਰਤੀ।</div>
+            <div class="s3-lang-grid" id="langGrid">
+        <div class="s3-lang">English</div>
+        <div class="s3-lang">हिन्दी</div>
+        <div class="s3-lang">தமிழ்</div>
+        <div class="s3-lang">తెలుగు</div>
+        <div class="s3-lang">ಕನ್ನಡ</div>
+        <div class="s3-lang">বাংলা</div>
+        <div class="s3-lang">മലയാളം</div>
+        <div class="s3-lang">मराठी</div>
+        <div class="s3-lang">ગુજરાતી</div>
+        <div class="s3-lang">ଓଡ଼ିଆ</div>
+        <div class="s3-lang active">ਪੰਜਾਬੀ</div>
+      </div>
+    </div>
+    </div>
+
+    <div class="s3-feature" id="s3f3" style="margin-top:20px;">
+      <div class="s3-label">ਕੁਝ ਵੀ ਪੁੱਛੋ। ਮਾਹਰ ਜਵਾਬ ਪ੍ਰਾਪਤ ਕਰੋ।</div>
+      <div style="background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:14px;">
+        <div style="display:flex;gap:8px;align-items:flex-start;margin-bottom:10px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:rgba(255,153,51,0.15);border:1px solid rgba(255,153,51,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">U</div>
+          <div style="background:rgba(255,153,51,0.08);border:1px solid rgba(255,153,51,0.15);border-radius:12px;border-top-right-radius:2px;padding:10px 14px;font-size:12px;color:rgba(255,255,255,0.8);">
+            ਮੈਂ ਵੋਟ ਪਾਉਣ ਲਈ ਰਜਿਸਟਰ ਕਿਵੇਂ ਕਰਾਂ?
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:50%;background:rgba(19,136,8,0.15);border:1px solid rgba(19,136,8,0.3);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">AI</div>
+          <div id="s3-ai-reply" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;border-top-left-radius:2px;padding:10px 14px;font-size:12px;line-height:1.5;color:rgba(255,255,255,0.7);max-width:260px;overflow:hidden;">
+            <span id="typewriter"></span><span id="cursor" style="animation:pulse 0.8s infinite;">|</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCENE 3C: MISINFO SIMULATOR ===== -->
+  <div class="scene" id="scene3c">
+    <div class="s3-feature" id="s3f4">
+      <div class="s3-label">AI-ਸੰਚਾਲਿਤ ਸੱਚਾਈ, ਅਸਲ ਸਮੇਂ ਵਿੱਚ</div>
+      <div class="s3-title" style="margin-bottom:16px;">ਗਲਤ ਜਾਣਕਾਰੀ ਦੀ ਪਛਾਣ</div>
+
+      <div id="pipeline">
+        <div class="pipeline-step" id="ps1"><div class="pipeline-dot"></div>BigQuery ਵਿੱਚ ਰਿਪੋਰਟ ਦਰਜ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...</div>
+        <div class="pipeline-step" id="ps2"><div class="pipeline-dot"></div>Gemini ਨਾਲ ML.GENERATE_TEXT ਚੱਲ ਰਿਹਾ ਹੈ...</div>
+        <div class="pipeline-step" id="ps3"><div class="pipeline-dot"></div>ਇਸੇ ਤਰ੍ਹਾਂ ਦੀਆਂ ਰਿਪੋਰਟਾਂ ਨਾਲ ਕਲੱਸਟਰਿੰਗ ਹੋ ਰਹੀ ਹੈ...</div>
+        <div class="pipeline-step" id="ps4"><div class="pipeline-dot"></div>ECI ਪ੍ਰਮਾਣਿਤ ਡੇਟਾ ਦੇ ਨਾਲ ਕਰਾਸ-ਰੈਫਰੈਂਸਿੰਗ...</div>
+        <div class="pipeline-step" id="ps5"><div class="pipeline-dot"></div>ਭਰੋਸੇਯੋਗਤਾ ਸਕੋਰ ਤਿਆਰ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...</div>
+      </div>
+
+      <div id="verdict-result" style="margin-top:20px;opacity:0;transition:opacity 0.5s;">
+        <div style="display:flex;gap:12px;margin-top:8px;">
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;">
+            <div style="font-size:24px;font-weight:900;font-family:monospace;color:var(--green);">97.3%</div>
+            <div style="font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-top:4px;">ਭਰੋਸਾ</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;">
+            <div style="font-size:24px;font-weight:900;font-family:monospace;color:var(--red);">ਝੂਠ</div>
+            <div style="font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-top:4px;">ਫੈਸਲਾ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCENE 4: TECH FLEX ===== -->
+  <div class="scene" id="scene4">
+    <div class="s4-stack" id="s4stack">
+      <div style="font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:3px;color:var(--saffron);margin-bottom:12px;">ਆਰਕੀਟੈਕਚਰ</div>
+      <div style="text-align:center;margin-bottom:16px;">
+        <div class="s4-chip saffron">LangGraph</div>
+        <div class="s4-chip saffron">Google Gemini 3.1</div>
+        <div class="s4-chip green">FastAPI</div>
+        <div class="s4-chip green">React 19</div>
+        <div class="s4-chip blue">BigQuery ML</div>
+        <div class="s4-chip blue">Cloud Run</div>
+        <div class="s4-chip">Vite</div>
+        <div class="s4-chip">i18next</div>
+        <div class="s4-chip">Framer Motion</div>
+      </div>
+      <div class="s4-code" id="s4code">
+        <span class="comment"># ਮਲਟੀ-ਏਜੰਟ ਹਾਈਵ</span><br>
+        <span class="keyword">workflow</span> = <span class="func">StateGraph</span>(AgentState)<br><br>
+        workflow.<span class="func">add_node</span>(<span class="string">"educator"</span>, educator_node)<br>
+        workflow.<span class="func">add_node</span>(<span class="string">"gamemaster"</span>, gamemaster_node)<br><br>
+        workflow.<span class="func">set_entry_point</span>(<span class="string">"educator"</span>)<br>
+        workflow.<span class="func">add_edge</span>(<span class="string">"educator"</span>, <span class="string">"gamemaster"</span>)<br>
+        workflow.<span class="func">add_edge</span>(<span class="string">"gamemaster"</span>, END)<br><br>
+        app_graph = workflow.<span class="func">compile</span>()
+      </div>
+      <div style="text-align:center;margin-top:20px;font-size:14px;font-weight:900;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);">
+        PromptWars 2026 ਲਈ ਬਣਾਇਆ ਗਿਆ
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SCENE 5: EMOTIONAL CLOSE ===== -->
+  <div class="scene" id="scene5">
+    <div class="s5-tagline" id="s5tag">
+      ਤੁਹਾਡੀ <span class="saffron">ਲੋਕਤੰਤਰ</span>।<br>ਤੁਹਾਡੀ ਭਾਸ਼ਾ।<br>ਤੁਹਾਡੀ <span class="green">ਸੱਚਾਈ</span>।
+    </div>
+    <div class="s5-sub" id="s5sub">ਚੋਣ ਰੋਵਰ</div>
+    <div class="s5-sub" id="s5sub2" style="font-size:8px;margin-top:12px;letter-spacing:5px;">
+      ਏਜੰਟਿਕ ਸ਼ੁੱਧਤਾ ਨਾਲ ਆਪਣੇ ਲੋਕਤੰਤਰ ਦੀ ਰੱਖਿਆ ਕਰੋ
+    </div>
+  </div>
+
+  <!-- ===== SCENE 6: LOGO CARD ===== -->
+  <div class="scene" id="scene6">
+    <img class="s6-logo" id="s6logo" src="assets/logo.png" alt="ਚੋਣ ਰੋਵਰ">
+    <div class="s6-name" id="s6name">ਚੋਣ ਰੋਵਰ</div>
+    <button class="s6-cta" id="s6cta">ਹੁਣੇ ਕੋਸ਼ਿਸ਼ ਕਰੋ</button>
+    <div class="s6-github" id="s6github">github.com/SankarGaneshb/ElectionRover</div>
+    <div class="s6-badge" id="s6badge">PromptWars 2026</div>
+  </div>
+
+</div>
+
+<script src="translations.js"></script>
+<script src="reel.js"></script>
+</body>
+</html>
