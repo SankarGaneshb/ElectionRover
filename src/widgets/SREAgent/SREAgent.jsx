@@ -23,7 +23,8 @@ const SRE_I18N = {
     heal_db: "Executed physical pool refresh on Cloud SQL socket.",
     heal_cache: "Invoked internal memory cleanup routines.",
     heal_api: "Synchronized worker threads.",
-    issue_intentional: "Intentional Database connection timeout simulation."
+    issue_intentional: "Intentional Database connection timeout simulation.",
+    manual_hil: "Manual HIL Check"
   },
   hi: {
     issue: "समस्या:",
@@ -42,7 +43,8 @@ const SRE_I18N = {
     heal_db: "क्लाउड SQL सॉकेट पर भौतिक डेटाबेस पूल रीफ्रेश किया गया।",
     heal_cache: "आंतरिक मेमोरी क्लीनअप रूटीन लागू किए गए।",
     heal_api: "वर्कर थ्रेड्स को सिंक्रनाइज़ किया गया।",
-    issue_intentional: "जानबूझकर डेटाबेस कनेक्शन टाइमआउट सिमुलेशन।"
+    issue_intentional: "जानबूझकर डेटाबेस कनेक्शन टाइमआउट सिमुलेशन।",
+    manual_hil: "मैनुअल HIL सत्यापन"
   },
   ta: {
     issue: "பிரச்சனை:",
@@ -61,7 +63,8 @@ const SRE_I18N = {
     heal_db: "கிளவுட் SQL சாக்கெட்டில் தரவுத்தள குளம் புதுப்பித்தல் செயல்படுத்தப்பட்டது.",
     heal_cache: "உள் நினைவக துப்புரவு நடைமுறைகள் செயல்படுத்தப்பட்டன.",
     heal_api: "ஒத்திசைக்கப்பட்ட தொழிலாளர் இழைகள்.",
-    issue_intentional: "திட்டமிட்ட தரவுத்தள இணைப்பு காலாவதி உருவகப்படுத்துதல்."
+    issue_intentional: "திட்டமிட்ட தரவுத்தள இணைப்பு காலாவதி உருவகப்படுத்துதல்.",
+    manual_hil: "மனித-இயந்திர-ஆய்வூர்தி கையேடு சரிபார்ப்பு"
   },
   te: {
     issue: "సమస్య:",
@@ -77,7 +80,8 @@ const SRE_I18N = {
     heal_db: "క్లౌడ్ SQL సాకెట్‌లో భౌతిక డేటాబేస్ పూల్ రిఫ్రెష్ అమలు చేయబడింది.",
     heal_cache: "అంతర్గత మెమరీ క్లీనప్ నిత్యకృత్యాలు అమలు చేయబడ్డాయి.",
     heal_api: "వర్కర్ థ్రెడ్‌లు సమకాలీకరించబడ్డాయి.",
-    issue_intentional: "ఉద్దేశపూర్వక డేటాబేస్ కనెక్షన్ సమయం ముగిసే అనుకరణ."
+    issue_intentional: "ఉద్దేశపూర్వక డేటాబేస్ కనెక్షన్ సమయం ముగిసే అనుకరణ.",
+    manual_hil: "మాన్యువల్ HIL తనిఖీ"
   },
   kn: {
     issue: "ಸಮಸ್ಯೆ:",
@@ -93,7 +97,8 @@ const SRE_I18N = {
     heal_db: "ಕ್ಲೌಡ್ SQL ಸಾಕೆಟ್‌ನಲ್ಲಿ ಭೌತಿಕ ಡೇಟಾಬೇಸ್ ಪೂಲ್ ರಿಫ್ರೆಶ್ ಅನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸಲಾಗಿದೆ.",
     heal_cache: "ಆಂತರಿಕ ಮೆಮೊರಿ ಕ್ಲೀನಪ್ ವಾಡಿಕೆಯಂತೆ ಆಹ್ವಾನಿಸಲಾಗಿದೆ.",
     heal_api: "ವರ್ಕರ್ ಥ್ರೆಡ್‌ಗಳನ್ನು ಸಿಂಕ್ರೊನೈಸ್ ಮಾಡಲಾಗಿದೆ.",
-    issue_intentional: "ಉದ್ದೇಶಪೂರ್ವಕ ಡೇಟಾಬೇಸ್ ಸಂಪರ್ಕ ಕಾಲಾವಧಿ ಸಿಮ್ಯುಲೇಶನ್."
+    issue_intentional: "ಉದ್ದೇಶಪೂರ್ವಕ ಡೇಟಾಬೇಸ್ ಸಂಪರ್ಕ ಕಾಲಾವಧಿ ಸಿಮ್ಯುಲೇಶನ್.",
+    manual_hil: "ಹಸ್ತಚಾಲಿತ HIL ಪರಿಶೀಲನೆ"
   },
   bn: {
     issue: "সমস্যা:",
@@ -109,7 +114,8 @@ const SRE_I18N = {
     heal_db: "ক্লাউড এসকিউএল সকেটে ফিজিক্যাল ডেটাবেস পুল রিফ্রেশ করা হয়েছে।",
     heal_cache: "অভ্যন্তরীণ মেমরি ক্লিনআপ রুটিন চালু করা হয়েছে।",
     heal_api: "কর্মী থ্রেড সিঙ্ক্রোনাইজ করা হয়েছে।",
-    issue_intentional: "ইচ্ছাকৃত ডেটাবেস সংযোগ টাইমআউট সিমুলেশন।"
+    issue_intentional: "ইচ্ছাকৃত ডেটাবেস সংযোগ টাইমআউট সিমুলেশন।",
+    manual_hil: "ম্যানুয়াল HIL চেক"
   },
   ml: {
     issue: "പ്രശ്നം:",
@@ -125,7 +131,8 @@ const SRE_I18N = {
     heal_db: "ക്ലൗഡ് SQL സോക്കറ്റിൽ ഫിസിക്കൽ ഡാറ്റാബേസ് പൂൾ പുതുക്കൽ നടപ്പിലാക്കി.",
     heal_cache: "ആന്തരിക മെമ്മറി ക്ലീനപ്പ് ദിനചര്യകൾ നടപ്പിലാക്കി.",
     heal_api: "വർക്കർ ത്രെഡുകൾ സമന്വയിപ്പിച്ചു.",
-    issue_intentional: "മനഃപൂർവമായ ഡാറ്റാബേസ് കണക്ഷൻ ടൈംഔട്ട് സിമുലേഷൻ."
+    issue_intentional: "മനഃപൂർവമായ ഡാറ്റാബേസ് കണക്ഷൻ ടൈംഔട്ട് സിമുലേഷൻ.",
+    manual_hil: "മാനുവൽ HIL പരിശോധന"
   },
   mr: {
     issue: "समस्या:",
@@ -141,7 +148,8 @@ const SRE_I18N = {
     heal_db: "क्लाउड SQL सॉकेटवर भौतिक डेटाबेस पूल रिफ्रेश चालवले.",
     heal_cache: "अंतर्गत मेमरी क्लीनअप प्रक्रिया सुरू केली.",
     heal_api: "वर्कर थ्रेड्स सिंक्रोनाइझ केले.",
-    issue_intentional: "हेतूने डेटाबेस कनेक्शन कालबाह्य सिम्युलेशन."
+    issue_intentional: "हेतूने डेटाबेस कनेक्शन कालबाह्य सिम्युलेशन.",
+    manual_hil: "मॅन्युअल HIL तपासणी"
   },
   gu: {
     issue: "સમસ્યા:",
@@ -157,7 +165,8 @@ const SRE_I18N = {
     heal_db: "ક્લાઉડ એસક્યુએલ સોકેટ પર ફિઝિકલ ડેટาબેઝ પૂલ રિફ્રેશ એક્ઝિક્યુટ થયું.",
     heal_cache: "આંતરિક મેમરી સફાઇના નિયમો ચલાવાયા.",
     heal_api: "વર્કર થ્રેડો સુમેળ સાધ્યા.",
-    issue_intentional: "ઇરાદાપૂર્વક ડેટาબેઝ કનેક્શન સમયસમાપ્તિ સિમ્યુલેશન."
+    issue_intentional: "ઇરાદાપૂર્વક ડેટાબેઝ કનેક્શન સમયસમાપ્તિ સિમ્યુલેશન.",
+    manual_hil: "મેન્યુઅલ HIL ચેક"
   },
   or: {
     issue: "ସମସ୍ୟା:",
@@ -173,7 +182,8 @@ const SRE_I18N = {
     heal_db: "କ୍ଲାଉଡ୍ SQL ସକେଟରେ ଶାରୀରିକ ଡାਟାବେସ୍ ପୁଲ୍ ସତେଜ କାର୍ଯ୍ୟକାରୀ ହେଲା |",
     heal_cache: "ଆଭ୍ୟନ୍ତରୀଣ ମେମୋରୀ ସଫା କରିବା କାର୍ଯ୍ୟକ୍ରମ ଆରମ୍ଭ ହେଲା |",
     heal_api: "କର୍ମୀ ଥ୍ରେଡ୍ ସମକାଳୀନ ହେଲା |",
-    issue_intentional: "ଉଦ୍ଦେଶ୍ୟମୂଳକ ଡାଟାବେସ୍ ସଂଯୋଗ ସମୟ ସମାପ୍ତି ଅନୁକରଣ |"
+    issue_intentional: "ଉଦ୍ଦେଶ୍ୟମୂଳକ ଡାଟାବେସ୍ ସଂଯୋଗ ସମୟ ସମାପ୍ତି ଅନୁକରଣ |",
+    manual_hil: "ମାନୁଆଲ୍ HIL ଯାଞ୍ଚ"
   },
   pa: {
     issue: "ਸਮੱਸਿਆ:",
@@ -189,7 +199,8 @@ const SRE_I18N = {
     heal_db: "ਕਲਾਉਡ SQL ਸਾਕਟ 'ਤੇ ਭੌਤਿਕ ਡਾਟਾਬੇਸ ਪੂਲ ਰਿਫ੍ਰੈਸ਼ ਚਲਾਇਆ ਗਿਆ।",
     heal_cache: "ਅੰਦਰੂਨੀ ਮੈਮੋਰੀ ਕਲੀਨਅੱਪ ਰੁਟੀਨ ਸ਼ੁਰੂ ਕੀਤੇ ਗਏ।",
     heal_api: "ਵਰਕਰ ਥ੍ਰੈੱਡ ਸਮਕਾਲੀ ਕੀਤੇ ਗਏ।",
-    issue_intentional: "ਜਾਣਬੁੱਝ ਕੇ ਡਾਟਾਬੇਸ ਕਨੈਕਸ਼ਨ ਟਾਈਮਆਉਟ ਸਿਮੂਲੇਸ਼ਨ।"
+    issue_intentional: "ਜਾਣਬੁੱਝ ਕੇ ਡਾਟਾਬੇਸ ਕਨੈਕਸ਼ਨ ਟਾਈਮਆਉਟ ਸਿਮੂਲੇਸ਼ਨ।",
+    manual_hil: "ਮੈਨੂਅਲ HIL ਚੈੱਕ"
   }
 };
 export function SREAgentWidget() {
@@ -202,16 +213,18 @@ export function SREAgentWidget() {
   const [healingService, setHealingService] = useState(null);
 
   const getServiceTranslation = (serviceName) => {
-    if (serviceName === 'Database Pool' || serviceName === 'Database') {
+    if (!serviceName) return serviceName;
+    const lower = serviceName.toLowerCase();
+    if (lower.includes('database')) {
       return local.db_pool || serviceName;
     }
-    if (serviceName === 'Gemini AI Gateway') {
+    if (lower.includes('gemini')) {
       return local.gemini_gateway || serviceName;
     }
-    if (serviceName === 'Cache') {
+    if (lower.includes('cache')) {
       return local.cache || serviceName;
     }
-    if (serviceName === 'API') {
+    if (lower.includes('api')) {
       return local.api || serviceName;
     }
     return serviceName;
@@ -219,17 +232,36 @@ export function SREAgentWidget() {
 
   const getLogTranslation = (text) => {
     if (!text) return text;
-    const mapping = {
-      "Transient connection drop detected.": local.issue_db || text,
-      "Automated re-pooling initiated. Cache invalidated.": local.action_db || text,
-      "Latency spike > 2000ms": local.issue_ai || text,
-      "Traffic re-routed to backup Gemini Flash endpoint.": local.action_ai || text,
-      "Executed physical pool refresh on Cloud SQL socket.": local.heal_db || text,
-      "Invoked internal memory cleanup routines.": local.heal_cache || text,
-      "Synchronized worker threads.": local.heal_api || text,
-      "Intentional Database connection timeout simulation.": local.issue_intentional || text
-    };
-    return mapping[text] || text;
+    const lower = text.toLowerCase();
+    
+    if (lower.includes('connection drop') || lower.includes('transient')) {
+      return local.issue_db || text;
+    }
+    if (lower.includes('latency spike')) {
+      return local.issue_ai || text;
+    }
+    if (lower.includes('manual hil')) {
+      return local.manual_hil || text;
+    }
+    if (lower.includes('intentional') || lower.includes('timeout')) {
+      return local.issue_intentional || text;
+    }
+    if (lower.includes('automated re-pooling')) {
+      return local.action_db || text;
+    }
+    if (lower.includes('re-routed')) {
+      return local.action_ai || text;
+    }
+    if (lower.includes('physical pool refresh')) {
+      return local.heal_db || text;
+    }
+    if (lower.includes('memory cleanup')) {
+      return local.heal_cache || text;
+    }
+    if (lower.includes('synchronized worker')) {
+      return local.heal_api || text;
+    }
+    return text;
   };
 
   const fetchLogs = async () => {
