@@ -27,6 +27,6 @@ Thumbs.db
 *.json
 !package.json
 !package-lock.json
-!package-lock.json
+!src/shared/locales/*.json
 !eslint.config.js
 .env
