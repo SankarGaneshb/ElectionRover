@@ -6,3 +6,4 @@ langchain-google-genai
 google-cloud-secret-manager
 python-dotenv
 httpx
+google-cloud-firestore

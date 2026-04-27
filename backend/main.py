@@ -120,6 +120,10 @@ def trigger_intentional_error():
 if os.path.exists("dist"):
     @app.get("/{full_path:path}")
     async def serve_frontend(full_path: str):
+        # Explicitly exclude API routes from being caught by the SPA handler
+        if full_path.startswith("api/") or full_path in ["chat", "health"]:
+            raise HTTPException(status_code=404, detail="API Route Not Found")
+
         if full_path.startswith("reel"):
             clean_path = full_path.replace("reel/", "", 1)
             if not clean_path or clean_path == "reel":
