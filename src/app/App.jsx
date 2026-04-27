@@ -183,16 +183,25 @@ function App() {
                   </div>
                   <h2 className="text-2xl font-black tracking-tight leading-none">{t('life_cycle')}</h2>
                 </div>
-                <div className="flex gap-3 items-center">
-                  <div className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 flex items-center gap-3">
-                    <span className="text-[8px] font-bold uppercase text-slate-500 whitespace-nowrap">{t('clarity_index')}</span>
-                    <div className="flex gap-2">
-                      {['🤩', '🙂', '😐', '😕'].map((emoji, i) => (
-                        <button key={i} className="text-xs hover:scale-125 transition-transform">{emoji}</button>
-                      ))}
-                    </div>
-                  </div>
-                  <StatMini label={t('active_quests')} value={QUESTS[role].length} icon={<Zap size={12} />} />
+                 <div className="flex gap-3 items-center">
+                   <a 
+                     href={i18n.language === 'en' ? '/reel/index.html' : `/reel/index-${i18n.language}.html`} 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     className="bg-national-saffron/10 text-national-saffron hover:bg-national-saffron hover:text-slate-900 border border-national-saffron/20 transition-all px-3 py-1.5 rounded-lg flex items-center gap-2 text-[8px] font-black uppercase tracking-widest cursor-pointer shadow-lg shadow-orange-500/5 whitespace-nowrap"
+                   >
+                     <Globe size={12} />
+                     <span>Promo Reel</span>
+                   </a>
+                   <div className="bg-white/5 px-3 py-1.5 rounded-lg border border-white/5 flex items-center gap-3">
+                     <span className="text-[8px] font-bold uppercase text-slate-500 whitespace-nowrap">{t('clarity_index')}</span>
+                     <div className="flex gap-2">
+                       {['🤩', '🙂', '😐', '😕'].map((emoji, i) => (
+                         <button key={i} className="text-xs hover:scale-125 transition-transform">{emoji}</button>
+                       ))}
+                     </div>
+                   </div>
+                   <StatMini label={t('active_quests')} value={QUESTS[role].length} icon={<Zap size={12} />} />
                 </div>
               </div>
               
