@@ -34,7 +34,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/chat': 'http://127.0.0.1:8000',
-      '/api': 'http://127.0.0.1:8000'
+      '/api': 'http://127.0.0.1:8000',
+      '/reel': 'http://127.0.0.1:8000'
     }
   },
   test: {
