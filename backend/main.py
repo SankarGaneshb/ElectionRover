@@ -50,24 +50,7 @@ if os.path.exists("dist"):
     app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
 
 
-    @app.get("/{full_path:path}")
-    async def serve_frontend(full_path: str):
-        if full_path.startswith("api") or full_path.startswith("chat") or full_path.startswith("health"):
-            return None # Let FastAPI handle these
 
-        if full_path.startswith("reel"):
-            clean_path = full_path.replace("reel/", "", 1)
-            if not clean_path or clean_path == "reel":
-                clean_path = "index.html"
-            reel_file = os.path.join("reel", clean_path)
-            if os.path.exists(reel_file) and os.path.isfile(reel_file):
-                return FileResponse(reel_file)
-            return FileResponse("reel/index.html")
-        
-        file_path = os.path.join("dist", full_path)
-        if os.path.exists(file_path) and os.path.isfile(file_path):
-            return FileResponse(file_path)
-        return FileResponse("dist/index.html")
 else:
     @app.get("/")
     def read_root():
@@ -133,6 +116,23 @@ async def trigger_sre_heal(request: SREHealRequest):
 @app.get("/api/v1/sre/trigger_error")
 def trigger_intentional_error():
     raise RuntimeError("Intentional Database connection timeout simulation.")
+
+if os.path.exists("dist"):
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        if full_path.startswith("reel"):
+            clean_path = full_path.replace("reel/", "", 1)
+            if not clean_path or clean_path == "reel":
+                clean_path = "index.html"
+            reel_file = os.path.join("reel", clean_path)
+            if os.path.exists(reel_file) and os.path.isfile(reel_file):
+                return FileResponse(reel_file)
+            return FileResponse("reel/index.html")
+        
+        file_path = os.path.join("dist", full_path)
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            return FileResponse(file_path)
+        return FileResponse("dist/index.html")
 
 if __name__ == "__main__":
     import uvicorn
