@@ -18,6 +18,8 @@ Election Rover is powered by a **LangGraph-orchestrated Multi-Agent System** tha
 | **🌐 The Polyglot** | Linguistic Nuance | Ensures contextual accuracy across 11 regional languages. |
 | **🎮 The Game Master** | Gamification | Manages "Democracy Quests" and validates badge issuance. |
 | **👤 The Role Expert** | Stakeholder RACI | Routes queries based on Voter/Candidate/Official roles. |
+| **🤖 The SRE Agent** | Self-Healing | Monitors system health, executes automated fixes, and persists telemetry via Firestore. |
+
 
 ---
 
@@ -42,12 +44,15 @@ Election Rover is built for the entire nation, supporting instant UI transformat
 ### **Backend**
 *   **Logic**: FastAPI, LangGraph, LangChain.
 *   **AI Engine**: Google Gemini 3.1 (Generative AI).
+*   **Persistence**: Google Cloud Firestore (Autonomous SRE Log Remediation).
 *   **Environment**: Python 3.13-slim.
 
 ### **Infrastructure**
 *   **Deployment**: Google Cloud Run (Serverless).
+*   **Image Storage**: Google Artifact Registry (OCI Image-Based).
 *   **Security**: Google Cloud Secret Manager (API Integrity).
 *   **Automation**: GitHub Actions (Green-on-Arrival CI/CD).
+
 
 ---
 
@@ -78,11 +83,14 @@ Election Rover is designed to demonstrate excellence across all core evaluation 
 Election Rover follows strict **"Green-on-Arrival"** standards. Every push to the `master` branch triggers:
 1.  **Vitest Suite**: Validating the Cyber-Tricolor React components in a JSDOM environment.
 2.  **Pytest Logic**: Verifying the Multi-Agent graph paths and API response schemas.
-3.  **Cloud Build**: Orchestrated deployment to Google Cloud Run.
+3.  **OCI Containerization**: Builds and validates a production Docker package.
+4.  **Google Artifact Registry (GAR)**: Secures versioned builds for deployment.
+5.  **Cloud Run Delivery**: Zero-downtime microservice execution.
 
 ### **Required GitHub Secrets/Variables**
-*   `GCP_SA_KEY` (Secret): JSON key for a Service Account with Cloud Build & Run permissions.
+*   `GCP_SA_KEY` (Secret): JSON key for a Service Account authorized for GAR & Cloud Run.
 *   `GCP_PROJECT_ID` (Variable): Target Google Cloud Project ID.
+
 *   `GEMINI_API_KEY`: Stored securely in Google Cloud Secret Manager.
 
 ---
