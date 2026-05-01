@@ -43,35 +43,35 @@ All 11 regional promo reels (`reel/index-*.html`) have been sanitized to match t
 The following screenshots provide absolute proof of the platform's linguistic and technical excellence across 11 regional languages and 3 specialized roles.
 
 ````carousel
-![English Voter Dashboard](file:///c:/Users/bsank/ElectionRover/screenshot-en-voter.png)
+![English Voter Dashboard](./screenshot-en-voter.png)
 <!-- slide -->
-![Hindi Voter Dashboard](file:///c:/Users/bsank/ElectionRover/screenshot-hi-voter.png)
+![Hindi Voter Dashboard](./screenshot-hi-voter.png)
 <!-- slide -->
-![Tamil Voter Dashboard](file:///c:/Users/bsank/ElectionRover/screenshot-ta-voter.png)
+![Tamil Voter Dashboard](./screenshot-ta-voter.png)
 <!-- slide -->
-![English Candidate Portal](file:///c:/Users/bsank/ElectionRover/screenshot-en-candidate.png)
+![English Candidate Portal](./screenshot-en-candidate.png)
 <!-- slide -->
-![Hindi Candidate Portal](file:///c:/Users/bsank/ElectionRover/screenshot-hi-candidate.png)
+![Hindi Candidate Portal](./screenshot-hi-candidate.png)
 <!-- slide -->
-![English SRE Engineering Portal](file:///c:/Users/bsank/ElectionRover/screenshot-en-sre.png)
+![English SRE Engineering Portal](./screenshot-en-sre.png)
 <!-- slide -->
-![Hindi SRE Engineering Portal](file:///c:/Users/bsank/ElectionRover/screenshot-hi-sre.png)
+![Hindi SRE Engineering Portal](./screenshot-hi-sre.png)
 <!-- slide -->
-![Bengali Regional UI](file:///c:/Users/bsank/ElectionRover/screenshot-bn.png)
+![Bengali Regional UI](./screenshot-bn.png)
 <!-- slide -->
-![Gujarati Regional UI](file:///c:/Users/bsank/ElectionRover/screenshot-gu.png)
+![Gujarati Regional UI](./screenshot-gu.png)
 <!-- slide -->
-![Kannada Regional UI](file:///c:/Users/bsank/ElectionRover/screenshot-kn.png)
+![Kannada Regional UI](./screenshot-kn.png)
 <!-- slide -->
-![Malayalam Regional UI](file:///c:/Users/bsank/ElectionRover/screenshot-ml.png)
+![Malayalam Regional UI](./screenshot-ml.png)
 <!-- slide -->
-![Marathi Regional UI](file:///c:/Users/bsank/ElectionRover/screenshot-mr.png)
+![Marathi Regional UI](./screenshot-mr.png)
 <!-- slide -->
-![Odia Regional UI](file:///c:/Users/bsank/ElectionRover/screenshot-or.png)
+![Odia Regional UI](./screenshot-or.png)
 <!-- slide -->
-![Punjabi Regional UI](file:///c:/Users/bsank/ElectionRover/screenshot-pa.png)
+![Punjabi Regional UI](./screenshot-pa.png)
 <!-- slide -->
-![Telugu Regional UI](file:///c:/Users/bsank/ElectionRover/screenshot-te.png)
+![Telugu Regional UI](./screenshot-te.png)
 ````
 
 ---

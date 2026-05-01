@@ -8,6 +8,7 @@ import os
 import sys
 from dotenv import load_dotenv
 from backend.graph.workflow import app_graph
+from backend.graph.local_expert import get_local_answer
 
 # Enforce UTF-8 for regional script stability
 if sys.stdout.encoding != 'utf-8':
@@ -74,12 +75,23 @@ async def chat(request: ChatRequest):
             }
             
     except Exception as e:
-        # Level 3 Fail-Safe: Critical Runtime Catch-All
+        # Level 3 Fail-Safe: Local Expert Catch-All
         import traceback
-        print("LEVEL 3 CRITICAL ERROR:")
+        print("LEVEL 3 CRITICAL ERROR (Attempting Local Expert):")
         traceback.print_exc()
+        
+        # Try to find a local answer first
+        local_answer = get_local_answer(request.message)
+        if local_answer:
+            return {
+                "response": local_answer,
+                "points": request.points,
+                "badges": request.badges,
+                "status": "local_expert_fallback"
+            }
+            
         return {
-            "response": "The Election Rover is experiencing heavy volume. Please check your Form 6A status directly at voterportal.eci.gov.in.",
+            "response": "The Election Rover is experiencing cloud latency. Please verify your Form 6A status at voterportal.eci.gov.in or ask about 'NRIs', 'DEOs', or 'Eligibility'.",
             "points": request.points,
             "badges": request.badges,
             "status": "critical_error"
