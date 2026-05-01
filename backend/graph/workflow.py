@@ -1,13 +1,17 @@
-import os
-import time
-from typing import TypedDict, List, Annotated, Union
+from typing import Annotated, List, TypedDict
 from langgraph.graph import StateGraph, END
 from google import genai
-from dotenv import load_dotenv
+import os
+import sys
 
-load_dotenv()
+# Enforce UTF-8 for regional script stability
+if sys.stdout.encoding != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except:
+        pass
 
-# State definition
+# Define the state schema
 class AgentState(TypedDict):
     messages: List[dict]
     current_role: str
@@ -27,67 +31,51 @@ def get_client():
         
     return genai.Client(api_key=api_key)
 
-# Node: Educator Agent with Intelligent Multi-Tier Fallback
+# Node: Educator Agent - Transparent & Stable
 def educator_node(state: AgentState):
     client = get_client()
     messages = state['messages']
     role = state['current_role']
-    lang = state['language']
     
-    # Construction of Expert Context
+    # Expert Context
     system_prompt = f"You are the Educator Agent for Election Rover. " \
-                    f"Provide expert guidance on the Indian election process for the role: {role}. " \
-                    f"You must adapt dynamically to the language script the user is typing in. " \
-                    f"If the user asks a question in a regional script, you MUST respond EXCLUSIVELY in that script. " \
-                    f"When writing in regional scripts, DO NOT use any English/Latin characters. " \
-                    f"If the user converses in English, reply in English. Keep responses concise."
+                    f"Provide expert guidance on the Indian election process for: {role}. " \
+                    f"Adapt to the user's script (Hindi/Tamil/English). Keep responses concise."
     
-    # History Purifier: Ensure alternating user/model roles for Gemini compliance
-    history = []
+    # History Purifier
+    history_text = ""
     last_role = None
     for m in messages[:-1]:
-        current_role = "user" if m['role'] == 'user' else "model"
-        # Skip consecutive roles to prevent SDK crash
-        if current_role == last_role:
-            continue
-        history.append({
-            "role": current_role,
-            "parts": [{"text": m.get('content', '')}]
-        })
-        last_role = current_role
+        curr = "user" if m['role'] == 'user' else "model"
+        if curr == last_role: continue
+        history_text += f"{curr}: {m.get('content', '')}\n"
+        last_role = curr
     
-    prompt = f"System Context: {system_prompt}\n\nUser Question: {messages[-1]['content']}"
+    full_prompt = f"System Context: {system_prompt}\n\nRecent History:\n{history_text}\nUser Question: {messages[-1]['content']}"
     
-    # Multi-Tiered Fail-Safe Strategy: Gemini 3 -> Gemini 1.5
-    models_to_try = ['gemini-3-flash-preview', 'gemini-1.5-flash']
-    
-    for current_model in models_to_try:
-        try:
-            chat = client.chats.create(model=current_model, history=history)
-            response = chat.send_message(prompt)
-            return {
-                "messages": messages + [{"role": "assistant", "content": response.text}], 
-                "next_node": "gamemaster"
-            }
-        except Exception as e:
-            print(f"MODEL {current_model} FAILED: {str(e)}")
-            if current_model == models_to_try[-1]:
-                # Final production-safe fallback to ensure user never sees a 'blank' or 'generic' failure
-                return {
-                    "messages": messages + [{"role": "assistant", "content": f"The Educator Agent is currently reviewing the latest Election Commission guidelines for your query. Please verify your status via the official Form 6A portal."}],
-                    "next_node": "gamemaster"
-                }
-            continue
+    try:
+        # Standard transparent generation
+        response = client.models.generate_content(
+            model='gemini-1.5-flash',
+            contents=full_prompt
+        )
+        return {
+            "messages": messages + [{"role": "assistant", "content": response.text}],
+            "next_node": "gamemaster"
+        }
+    except Exception as e:
+        print(f"CRITICAL AI ERROR: {str(e)}")
+        raise e
 
 # Node: GameMaster Agent
 def gamemaster_node(state: AgentState):
-    # Pass-through for current version
+    # Simple logic to award points for engagement
     return {
-        "messages": state['messages'],
+        "points": state.get('points', 0) + 10,
         "next_node": END
     }
 
-# Build Workflow Graph
+# Build the Graph
 workflow = StateGraph(AgentState)
 workflow.add_node("educator", educator_node)
 workflow.add_node("gamemaster", gamemaster_node)
@@ -96,17 +84,13 @@ workflow.set_entry_point("educator")
 workflow.add_edge("educator", "gamemaster")
 workflow.add_edge("gamemaster", END)
 
-# Compatibility Bridge for Legacy Validators
-def get_gemini_response(prompt: str, role: str = "Voter", lang: str = "en"):
-    """Legacy wrapper for direct AI calls used by testing utilities."""
-    client = get_client()
-    models = ['gemini-3-flash-preview', 'gemini-1.5-flash']
-    for m in models:
-        try:
-            response = client.models.generate_content(model=m, contents=prompt)
-            return response.text
-        except:
-            continue
-    return "AI Bridge Failure (Compatibility Mode)"
-
 app_graph = workflow.compile()
+
+# Legacy bridge for direct testing
+def get_gemini_response(prompt: str, role: str = "Voter", lang: str = "en"):
+    client = get_client()
+    try:
+        resp = client.models.generate_content(model='gemini-1.5-flash', contents=prompt)
+        return resp.text
+    except Exception as e:
+        return f"Direct Connection Error: {str(e)}"

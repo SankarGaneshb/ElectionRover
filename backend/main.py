@@ -6,9 +6,9 @@ from pydantic import BaseModel
 from typing import List, Optional
 import os
 import sys
+import traceback
 from dotenv import load_dotenv
 from backend.graph.workflow import app_graph
-from backend.graph.local_expert import get_local_answer
 
 # Enforce UTF-8 for regional script stability
 if sys.stdout.encoding != 'utf-8':
@@ -39,7 +39,7 @@ class ChatRequest(BaseModel):
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    # Primary entry point with multi-tier fail-safes
+    # DIRECT AND TRANSPARENT EXECUTION
     try:
         current_message = {"role": "user", "content": request.message}
         full_history = request.history + [current_message]
@@ -53,53 +53,30 @@ async def chat(request: ChatRequest):
             "next_node": ""
         }
         
-        # Level 1 Fail-Safe: Inside the Graph Engine
-        try:
-            result = app_graph.invoke(initial_state)
-            last_msg = result['messages'][-1]
-            return {
-                "response": last_msg['content'],
-                "points": result.get('points', 0),
-                "badges": result.get('badges', [])
-            }
-        except Exception as graph_err:
-            print(f"LEVEL 1 FAIL: GRAPH ENGINE CRASHED: {str(graph_err)}")
-            # Level 2 Fail-Safe: Emergency AI Bypass
-            from backend.graph.workflow import get_gemini_response
-            fallback_text = get_gemini_response(request.message, request.role, request.language)
-            return {
-                "response": fallback_text,
-                "points": request.points,
-                "badges": request.badges,
-                "status": "emergency_bypass"
-            }
+        # Invoke the graph engine directly. No more hiding errors.
+        result = app_graph.invoke(initial_state)
+        last_msg = result['messages'][-1]
+        
+        return {
+            "response": last_msg['content'],
+            "points": result.get('points', 0),
+            "badges": result.get('badges', [])
+        }
             
     except Exception as e:
-        # Level 3 Fail-Safe: Local Expert Catch-All
-        import traceback
-        print("LEVEL 3 CRITICAL ERROR (Attempting Local Expert):")
-        traceback.print_exc()
+        # ABSOLUTE TRANSPARENCY: Print and return the real technical error
+        error_trace = traceback.format_exc()
+        print(f"CRITICAL SYSTEM FAILURE:\n{error_trace}")
         
-        # Try to find a local answer first
-        local_answer = get_local_answer(request.message)
-        if local_answer:
-            return {
-                "response": local_answer,
-                "points": request.points,
-                "badges": request.badges,
-                "status": "local_expert_fallback"
-            }
-            
         return {
-            "response": "The Election Rover is experiencing cloud latency. Please verify your Form 6A status at voterportal.eci.gov.in or ask about 'NRIs', 'DEOs', or 'Eligibility'.",
+            "response": f"System Connection Error: {str(e)}. Please verify GOOGLE_API_KEY and Vertex AI settings.",
             "points": request.points,
             "badges": request.badges,
-            "status": "critical_error"
+            "error_detail": str(e)
         }
 
 @app.get("/api/v1/analysis/sentiment")
 def get_sentiment(region: str = "global"):
-    # Analytics-as-a-Service for regional election sentiment
     return {
         "status": "active",
         "region": region,
@@ -110,10 +87,8 @@ def get_sentiment(region: str = "global"):
 
 @app.get("/api/v1/sre/logs")
 def get_sre_logs():
-    # Production SRE Monitoring Bridge
     return [
-        {"timestamp": "2026-05-01T19:29:45Z", "event": "GRAPH_ENGINE_INVOKE", "status": "FAIL_SAFE_TRIGGERED"},
-        {"timestamp": "2026-05-01T19:30:00Z", "event": "MODEL_PIVOT", "status": "SUCCESS"}
+        {"timestamp": "2026-05-01T19:58:00Z", "event": "GRAPH_ENGINE_INVOKE", "status": "TRANSPARENT_MODE_ACTIVE"}
     ]
 
 @app.get("/health")
@@ -126,16 +101,11 @@ if os.path.exists("dist"):
     
     @app.get("/{full_path:path}")
     async def serve_frontend(full_path: str):
-        # Exclude API routes from catch-all
         if full_path.startswith("api/") or full_path == "chat" or full_path == "health":
             raise HTTPException(status_code=404)
-        
-        # Serve specific files if they exist (favicons, etc)
         file_path = os.path.join("dist", full_path)
         if os.path.isfile(file_path):
             return FileResponse(file_path)
-            
-        # Default to index.html for React SPA routing
         return FileResponse("dist/index.html")
 
 if __name__ == "__main__":
