@@ -28,8 +28,8 @@ def educator_node(state: AgentState):
     role = state['current_role']
     lang = state['language']
     
-    # Standardizing on Gemini 3.1 Flash Preview as requested
-    model_id = 'gemini-3.1-flash-live-preview'
+    # Using the latest stable Gemini 3 Flash for premium regional intelligence
+    model_id = 'gemini-3-flash-preview'
     
     system_prompt = f"You are the Educator Agent for Election Rover. " \
                     f"Provide expert guidance on the Indian election process for the role: {role}. " \
