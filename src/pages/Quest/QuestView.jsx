@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // eslint-disable-line no-unused-vars
+import React, { useState, useRef, useEffect } from 'react'; // eslint-disable-line no-unused-vars
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -17,6 +17,13 @@ export const QuestView = ({ quest, onComplete, role, language }) => {
   const [userMsg, setUserMsg] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatHistory, isTyping]);
 
   const nextStep = () => {
     if (currentStep < quest.steps.length - 1) {
@@ -141,7 +148,10 @@ export const QuestView = ({ quest, onComplete, role, language }) => {
                   className="overflow-hidden mb-12"
                 >
                   <div className="bg-black/40 border border-white/5 rounded-3xl p-4">
-                    <div className="max-h-40 overflow-y-auto mb-3 space-y-3 pr-2 custom-scrollbar">
+                    <div 
+                      ref={chatContainerRef}
+                      className="max-h-96 overflow-y-auto mb-3 space-y-3 pr-2 custom-scrollbar"
+                    >
                       {chatHistory.length === 0 && (
                         <div className="text-center py-4 text-slate-500 text-xs italic">
                           "{local.agent_welcome}"
@@ -178,6 +188,7 @@ export const QuestView = ({ quest, onComplete, role, language }) => {
                                   {['🤩', '🙂', '😐', '😕'].map((emoji, i) => (
                                     <button 
                                       key={i} 
+                                      aria-label={`Feedback ${emoji}`}
                                       onClick={() => {
                                         // Potential logic for updating Clarity Index
                                         console.log(`Feedback: ${emoji}`);
