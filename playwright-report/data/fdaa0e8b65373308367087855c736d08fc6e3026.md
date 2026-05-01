@@ -80,7 +80,7 @@ Call log:
         - generic [ref=e63]:
           - img [ref=e65]
           - generic [ref=e68]:
-            - generic [ref=e70]: Form 6A is used by Non-Resident Indians (NRIs) to register as "Overseas Electors." It allows Indian citizens living abroad, who have not acquired citizenship of another country, to include their names in the electoral roll of their home constituency so they can vote in Indian elections.
+            - generic [ref=e70]: "The Educator Agent is currently reviewing the latest Election Commission guidelines for your query: 'Why Form 6A is needed for NRI?'. Please verify your status via the official Form 6A portal in the meantime."
             - generic [ref=e71]:
               - generic [ref=e72]: Feedback?
               - generic [ref=e73]:
@@ -94,30 +94,27 @@ Call log:
         - generic [ref=e86]:
           - img [ref=e88]
           - generic [ref=e91]:
-            - generic [ref=e93]:
-              - text: If you are registered as an Overseas Elector, you can vote in person at your designated polling station during an election. You must present your
-              - strong [ref=e94]: original Indian Passport
-              - text: for identification at the booth. Note that NRIs currently cannot vote from abroad; physical presence in your constituency on polling day is mandatory.
-            - generic [ref=e95]:
-              - generic [ref=e96]: Feedback?
-              - generic [ref=e97]:
-                - button "Feedback 🤩" [ref=e98]: 🤩
-                - button "Feedback 🙂" [ref=e99]: 🙂
-                - button "Feedback 😐" [ref=e100]: 😐
-                - button "Feedback 😕" [ref=e101]: 😕
-      - generic [ref=e102]:
-        - textbox "Ask anything about this step..." [active] [ref=e103]
-        - button [ref=e104]:
-          - img [ref=e105]
-    - button "Proceed to Next Phase" [ref=e111]:
-      - generic [ref=e112]: Proceed to Next Phase
-      - img [ref=e113]
-  - contentinfo [ref=e115]:
-    - paragraph [ref=e117]: Election Rover 2026 Protocol
-    - generic [ref=e118]:
-      - link "Privacy" [ref=e119] [cursor=pointer]:
+            - generic [ref=e93]: "The Educator Agent is currently reviewing the latest Election Commission guidelines for your query: 'What happens if I visit India?'. Please verify your status via the official Form 6A portal in the meantime."
+            - generic [ref=e94]:
+              - generic [ref=e95]: Feedback?
+              - generic [ref=e96]:
+                - button "Feedback 🤩" [ref=e97]: 🤩
+                - button "Feedback 🙂" [ref=e98]: 🙂
+                - button "Feedback 😐" [ref=e99]: 😐
+                - button "Feedback 😕" [ref=e100]: 😕
+      - generic [ref=e101]:
+        - textbox "Ask anything about this step..." [active] [ref=e102]
+        - button [ref=e103]:
+          - img [ref=e104]
+    - button "Proceed to Next Phase" [ref=e110]:
+      - generic [ref=e111]: Proceed to Next Phase
+      - img [ref=e112]
+  - contentinfo [ref=e114]:
+    - paragraph [ref=e116]: Election Rover 2026 Protocol
+    - generic [ref=e117]:
+      - link "Privacy" [ref=e118] [cursor=pointer]:
         - /url: "#"
-      - link "Security" [ref=e120] [cursor=pointer]:
+      - link "Security" [ref=e119] [cursor=pointer]:
         - /url: "#"
 ```
 
