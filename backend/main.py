@@ -75,7 +75,9 @@ async def chat(request: ChatRequest):
             
     except Exception as e:
         # Level 3 Fail-Safe: Critical Runtime Catch-All
-        print(f"LEVEL 3 FAIL: CRITICAL RUNTIME ERROR: {str(e)}")
+        import traceback
+        print("LEVEL 3 CRITICAL ERROR:")
+        traceback.print_exc()
         return {
             "response": "The Election Rover is experiencing heavy volume. Please check your Form 6A status directly at voterportal.eci.gov.in.",
             "points": request.points,

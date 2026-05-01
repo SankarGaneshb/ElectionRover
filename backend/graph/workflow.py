@@ -18,9 +18,13 @@ class AgentState(TypedDict):
 
 def get_client():
     api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        raise ValueError("Missing GOOGLE_API_KEY / GEMINI_API_KEY")
     project_id = os.getenv("GCP_PROJECT_ID", "electionrover")
+    
+    # Vertex AI / Service Account Fallback
+    if not api_key:
+        print("NOTICE: No API Key found, attempting Vertex AI / Service Account auth...")
+        return genai.Client(vertex_ai=True, project=project_id, location="us-central1")
+        
     return genai.Client(api_key=api_key)
 
 # Node: Educator Agent with Intelligent Multi-Tier Fallback
@@ -38,13 +42,19 @@ def educator_node(state: AgentState):
                     f"When writing in regional scripts, DO NOT use any English/Latin characters. " \
                     f"If the user converses in English, reply in English. Keep responses concise."
     
-    # Parse history for Gemini SDK
+    # History Purifier: Ensure alternating user/model roles for Gemini compliance
     history = []
+    last_role = None
     for m in messages[:-1]:
+        current_role = "user" if m['role'] == 'user' else "model"
+        # Skip consecutive roles to prevent SDK crash
+        if current_role == last_role:
+            continue
         history.append({
-            "role": "user" if m['role'] == 'user' else "model",
-            "parts": [{"text": m['content']}]
+            "role": current_role,
+            "parts": [{"text": m.get('content', '')}]
         })
+        last_role = current_role
     
     prompt = f"System Context: {system_prompt}\n\nUser Question: {messages[-1]['content']}"
     
