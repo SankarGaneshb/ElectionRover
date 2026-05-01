@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ShieldAlert, Database, Brain, CheckCircle2, XCircle, 
-  AlertTriangle, BarChart3, Globe, Users, Clock,
-  Zap, TrendingUp, X
+  ShieldAlert, Database, CheckCircle2, XCircle, 
+  AlertTriangle, X
 } from 'lucide-react';
 
 const SIM_I18N = {

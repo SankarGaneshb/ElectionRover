@@ -117,6 +117,23 @@ async def trigger_sre_heal(request: SREHealRequest):
 def trigger_intentional_error():
     raise RuntimeError("Intentional Database connection timeout simulation.")
 
+from backend.utils.bigquery_service import bq_service
+from backend.utils.storage_service import storage_service
+from fastapi import UploadFile, File
+
+@app.get("/api/v1/analysis/sentiment")
+async def get_sentiment(region: str = "national"):
+    return bq_service.analyze_voter_sentiment(region)
+
+from backend.utils.test_validator import validator
+
+@app.post("/api/v1/test/audit")
+async def audit_ui_content(data: dict):
+    text = data.get("text", "")
+    role = data.get("role", "voter")
+    lang = data.get("lang", "en")
+    return await validator.audit_content(text, role, lang)
+
 if os.path.exists("dist"):
     @app.get("/{full_path:path}")
     async def serve_frontend(full_path: str):

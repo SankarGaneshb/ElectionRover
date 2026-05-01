@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -148,19 +148,43 @@ export const QuestView = ({ quest, onComplete, role, language }) => {
                           <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center border ${msg.role === 'user' ? 'bg-national-saffron/20 border-national-saffron/30 text-national-saffron' : 'bg-national-green/20 border-national-green/30 text-national-green'}`}>
                             {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
                           </div>
-                          <div className={`max-w-[80%] px-5 py-3 rounded-2xl text-sm leading-relaxed ${
-                            msg.role === 'user' 
-                              ? 'bg-national-saffron/10 border border-national-saffron/20 text-white rounded-tr-none' 
-                              : 'bg-white/5 border border-white/10 text-slate-200 rounded-tl-none shadow-[0_0_15px_rgba(255,255,255,0.02)]'
-                          }`}>
-                            <div className="whitespace-pre-wrap break-words">
-                              {msg.content.split(/(\*\*.*?\*\*)/g).map((part, i) => {
-                                if (part.startsWith('**') && part.endsWith('**')) {
-                                  return <strong key={i}>{part.slice(2, -2)}</strong>;
-                                }
-                                return part;
-                              })}
+                          <div className={`max-w-[80%] flex flex-col gap-2 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                            <div className={`px-5 py-3 rounded-2xl text-sm leading-relaxed ${
+                              msg.role === 'user' 
+                                ? 'bg-national-saffron/10 border border-national-saffron/20 text-white rounded-tr-none' 
+                                : 'bg-white/5 border border-white/10 text-slate-200 rounded-tl-none shadow-[0_0_15px_rgba(255,255,255,0.02)]'
+                            }`}>
+                              <div className="whitespace-pre-wrap break-words">
+                                {msg.content.split(/(\*\*.*?\*\*)/g).map((part, i) => {
+                                  if (part.startsWith('**') && part.endsWith('**')) {
+                                    return <strong key={i}>{part.slice(2, -2)}</strong>;
+                                  }
+                                  return part;
+                                })}
+                              </div>
                             </div>
+                            
+                            {msg.role === 'assistant' && (
+                              <div className="flex items-center gap-3 ml-2 mt-1">
+                                <span className="text-[8px] font-black uppercase tracking-widest text-slate-600">
+                                  {local.feedback_prompt || "Feedback?"}
+                                </span>
+                                <div className="flex gap-2">
+                                  {['🤩', '🙂', '😐', '😕'].map((emoji, i) => (
+                                    <button 
+                                      key={i} 
+                                      onClick={() => {
+                                        // Potential logic for updating Clarity Index
+                                        console.log(`Feedback: ${emoji}`);
+                                      }}
+                                      className="text-xs hover:scale-125 transition-transform opacity-40 hover:opacity-100"
+                                    >
+                                      {emoji}
+                                    </button>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
                       ))}

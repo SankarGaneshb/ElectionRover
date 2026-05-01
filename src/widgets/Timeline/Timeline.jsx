@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'; // eslint-disable-line no-unused-vars
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { CheckCircle2, Circle, Clock, Activity } from 'lucide-react';
+import { CheckCircle2, Circle, Activity } from 'lucide-react';
 
 const MILESTONES = [
   { id: 1, title_key: "timeline_prep", date_key: "timeline_m6", status: "completed" },

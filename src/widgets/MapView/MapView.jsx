@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react' // eslint-disable-line no-unused-vars
 import { useTranslation } from 'react-i18next'
-import { MapPin, Accessibility, Navigation, ShieldCheck, Maximize2, X } from 'lucide-react'
+import { MapPin, Accessibility, Navigation, ShieldCheck, X } from 'lucide-react'
 
 const MAP_CENTERS = {
   en: { lat: 28.6139, lng: 77.2090 },

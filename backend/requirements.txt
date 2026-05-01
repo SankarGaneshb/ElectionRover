@@ -7,3 +7,5 @@ google-cloud-secret-manager
 python-dotenv
 httpx
 google-cloud-firestore
+google-cloud-bigquery
+google-cloud-storage

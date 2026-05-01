@@ -95,3 +95,14 @@ def create_graph():
     return workflow.compile()
 
 app_graph = create_graph()
+
+async def get_gemini_response(prompt: str):
+    """
+    Direct helper to get a response from Gemini for non-graph tasks.
+    """
+    client = get_client()
+    response = client.models.generate_content(
+        model='gemini-2.0-flash',
+        contents=prompt
+    )
+    return response.text

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react' // eslint-disable-line no-unused-vars
+import { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
@@ -56,6 +57,13 @@ function App() {
       setBadges(prev => [...prev, quest.badge])
     }
   }
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const langParam = params.get('lang');
+    if (langParam && languages.some(l => l.code === langParam)) {
+      i18n.changeLanguage(langParam);
+    }
+  }, []);
 
   const submitFeedback = () => {
     console.log("Feedback submitted:", feedback)
