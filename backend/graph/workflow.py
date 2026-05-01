@@ -64,10 +64,9 @@ def educator_node(state: AgentState):
             if current_model == models_to_try[-1]:
                 # Final production-safe fallback to ensure user never sees a 'blank' or 'generic' failure
                 return {
-                    "messages": messages + [{"role": "assistant", "content": f"The Educator Agent is currently reviewing the latest Election Commission guidelines for your query: '{messages[-1]['content']}'. Please verify your status via the official Form 6A portal in the meantime."}],
+                    "messages": messages + [{"role": "assistant", "content": f"The Educator Agent is currently reviewing the latest Election Commission guidelines for your query. Please verify your status via the official Form 6A portal."}],
                     "next_node": "gamemaster"
                 }
-            time.sleep(1) # Brief pause before pivot
             continue
 
 # Node: GameMaster Agent
