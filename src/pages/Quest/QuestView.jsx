@@ -48,7 +48,11 @@ export const QuestView = ({ quest, onComplete, role, language }) => {
       });
       
       const data = await response.json();
-      setChatHistory(prev => [...prev, { role: 'assistant', content: data.response }]);
+      if (data.response) {
+        setChatHistory(prev => [...prev, { role: 'assistant', content: data.response }]);
+      } else {
+        throw new Error("Empty response from AI");
+      }
     } catch (error) {
       const fallbackMsg = (local.agent_welcome || "Protocol update:") + " — " + stepTitle + ": " + stepContent;
       setChatHistory(prev => [...prev, { role: 'assistant', content: fallbackMsg }]);
