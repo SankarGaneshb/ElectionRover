@@ -155,11 +155,12 @@ export const QuestView = ({ quest, onComplete, role, language }) => {
                                 : 'bg-white/5 border border-white/10 text-slate-200 rounded-tl-none shadow-[0_0_15px_rgba(255,255,255,0.02)]'
                             }`}>
                               <div className="whitespace-pre-wrap break-words">
-                                {msg.content.split(/(\*\*.*?\*\*)/g).map((part, i) => {
+                                {String(msg.content || "").split(/(\*\*.*?\*\*)/g).map((part, i) => {
+                                  if (!part) return null;
                                   if (part.startsWith('**') && part.endsWith('**')) {
                                     return <strong key={i}>{part.slice(2, -2)}</strong>;
                                   }
-                                  return part;
+                                  return <span key={i}>{part}</span>;
                                 })}
                               </div>
                             </div>

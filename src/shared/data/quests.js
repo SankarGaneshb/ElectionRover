@@ -35,6 +35,18 @@ export const QUESTS = {
       ],
       points: 75,
       badge: "Truth Guardian"
+    },
+    {
+      id: "voter-nri",
+      title: "NRI Global Voter",
+      description: "Guidance for Overseas Citizens of India to register via Form 6A.",
+      steps: [
+        { title: "Form 6A Eligibility", content: "Verify your status as an Indian citizen living abroad." },
+        { title: "Digital Submission", content: "Learn the protocols for uploading your passport and visa credentials." },
+        { title: "Voting Protocol", content: "Understand how to cast your vote at your designated polling station in India." }
+      ],
+      points: 60,
+      badge: "Global Elector"
     }
   ],
   candidate: [
