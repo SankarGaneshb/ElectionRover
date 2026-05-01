@@ -60,10 +60,11 @@ function App() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const langParam = params.get('lang');
+    console.log(`[i18n] URL Param: ${langParam}, Current: ${i18n.language}`);
     if (langParam && languages.some(l => l.code === langParam)) {
       i18n.changeLanguage(langParam);
     }
-  }, []);
+  }, [window.location.search, i18n]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const submitFeedback = () => {
     console.log("Feedback submitted:", feedback)

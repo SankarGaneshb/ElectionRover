@@ -59,10 +59,13 @@ test.describe('Voter Role - Semantic Integrity', () => {
         const screenshotPath = `screenshot-${lang.code}-${role.id}.png`;
         await page.screenshot({ path: screenshotPath });
         
+        // Wait for dashboard specific element to confirm hydration
+        await page.waitForSelector('h2');
+        
         // Extract text for AI audit
         const heroText = await page.locator('h2').first().innerText();
         
-        console.log(`Auditing [${lang.name}] ${role.id} - Hero: ${heroText}`);
+        console.log(`[AUDIT] Language: ${lang.name} | Role: ${role.id} | Content: "${heroText}"`);
         
         const audit = await checkSemanticMeaning(
           heroText, 
