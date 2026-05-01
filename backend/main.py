@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import List, Optional
 import os
@@ -103,6 +105,24 @@ def get_sre_logs():
 @app.get("/health")
 def health():
     return {"status": "green", "version": "1.0.0"}
+
+# Mount Static Files for Production UI
+if os.path.exists("dist"):
+    app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
+    
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        # Exclude API routes from catch-all
+        if full_path.startswith("api/") or full_path == "chat" or full_path == "health":
+            raise HTTPException(status_code=404)
+        
+        # Serve specific files if they exist (favicons, etc)
+        file_path = os.path.join("dist", full_path)
+        if os.path.isfile(file_path):
+            return FileResponse(file_path)
+            
+        # Default to index.html for React SPA routing
+        return FileResponse("dist/index.html")
 
 if __name__ == "__main__":
     import uvicorn
