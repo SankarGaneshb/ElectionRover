@@ -22,11 +22,14 @@ class AgentState(TypedDict):
 
 def get_client():
     api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
-    project_id = os.getenv("GCP_PROJECT_ID", "electionrover")
+    # Dynamically detect project ID from Cloud Run / Environment
+    project_id = os.getenv("GCP_PROJECT_ID") or os.getenv("GOOGLE_CLOUD_PROJECT")
     
     # Vertex AI / Service Account Fallback
     if not api_key:
-        print("NOTICE: No API Key found, attempting Vertex AI / Service Account auth...")
+        if not project_id:
+            raise ValueError("CRITICAL AUTH FAILURE: Neither GOOGLE_API_KEY nor GOOGLE_CLOUD_PROJECT found.")
+        print(f"NOTICE: Using Vertex AI for project: {project_id}")
         return genai.Client(vertex_ai=True, project=project_id, location="us-central1")
         
     return genai.Client(api_key=api_key)
@@ -69,7 +72,6 @@ def educator_node(state: AgentState):
 
 # Node: GameMaster Agent
 def gamemaster_node(state: AgentState):
-    # Simple logic to award points for engagement
     return {
         "points": state.get('points', 0) + 10,
         "next_node": END
