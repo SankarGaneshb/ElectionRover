@@ -3,6 +3,7 @@ uvicorn
 pydantic
 langgraph
 langchain-google-genai
+google-genai
 google-cloud-secret-manager
 python-dotenv
 httpx

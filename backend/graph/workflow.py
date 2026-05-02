@@ -22,14 +22,14 @@ class AgentState(TypedDict):
 
 def get_client():
     api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
-    # Dynamically detect project ID from Cloud Run / Environment
+    # Dynamically detect project ID
     project_id = os.getenv("GCP_PROJECT_ID") or os.getenv("GOOGLE_CLOUD_PROJECT")
     
     # Vertex AI / Service Account Fallback
     if not api_key:
         if not project_id:
-            raise ValueError("CRITICAL AUTH FAILURE: Neither GOOGLE_API_KEY nor GOOGLE_CLOUD_PROJECT found.")
-        print(f"NOTICE: Using Vertex AI for project: {project_id}")
+            print("CRITICAL: No API key found. Attempting default GCP auth...")
+            return genai.Client(vertex_ai=True, project=None, location="us-central1")
         return genai.Client(vertex_ai=True, project=project_id, location="us-central1")
         
     return genai.Client(api_key=api_key)
@@ -43,7 +43,7 @@ def educator_node(state: AgentState):
     # Expert Context
     system_prompt = f"You are the Educator Agent for Election Rover. " \
                     f"Provide expert guidance on the Indian election process for: {role}. " \
-                    f"Adapt to the user's script (Hindi/Tamil/English). Keep responses concise."
+                    f"Keep responses concise and helpful."
     
     # History Purifier
     history_text = ""
@@ -57,9 +57,9 @@ def educator_node(state: AgentState):
     full_prompt = f"System Context: {system_prompt}\n\nRecent History:\n{history_text}\nUser Question: {messages[-1]['content']}"
     
     try:
-        # Standard transparent generation
+        # FRONTIER UPGRADE: GEMINI 3 FLASH
         response = client.models.generate_content(
-            model='gemini-1.5-flash',
+            model='gemini-3-flash',
             contents=full_prompt
         )
         return {
@@ -92,7 +92,7 @@ app_graph = workflow.compile()
 def get_gemini_response(prompt: str, role: str = "Voter", lang: str = "en"):
     client = get_client()
     try:
-        resp = client.models.generate_content(model='gemini-1.5-flash', contents=prompt)
+        resp = client.models.generate_content(model='gemini-3-flash', contents=prompt)
         return resp.text
     except Exception as e:
         return f"Direct Connection Error: {str(e)}"
