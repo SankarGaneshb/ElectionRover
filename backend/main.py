@@ -39,7 +39,6 @@ class ChatRequest(BaseModel):
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    # DIRECT AND TRANSPARENT EXECUTION
     try:
         current_message = {"role": "user", "content": request.message}
         full_history = request.history + [current_message]
@@ -53,7 +52,6 @@ async def chat(request: ChatRequest):
             "next_node": ""
         }
         
-        # Invoke the graph engine directly. No more hiding errors.
         result = app_graph.invoke(initial_state)
         last_msg = result['messages'][-1]
         
@@ -64,15 +62,16 @@ async def chat(request: ChatRequest):
         }
             
     except Exception as e:
-        # ABSOLUTE TRANSPARENCY: Print and return the real technical error
+        # LOG the real error for SRE/Admin eyes only
         error_trace = traceback.format_exc()
-        print(f"CRITICAL SYSTEM FAILURE:\n{error_trace}")
+        print(f"CRITICAL SYSTEM FAILURE (Reported as 'Sick' to UI):\n{error_trace}")
         
+        # POLITE UI MESSAGE as requested by the user
         return {
-            "response": f"System Connection Error: {str(e)}. Please verify GOOGLE_API_KEY and Vertex AI settings.",
+            "response": "Sorry, I am feeling a bit sick and unable to respond correctly right now. Please reach out to me again later!",
             "points": request.points,
             "badges": request.badges,
-            "error_detail": str(e)
+            "error_detail": "SERVICE_INTERRUPTION" # Stealth tag
         }
 
 @app.get("/api/v1/analysis/sentiment")
@@ -88,14 +87,13 @@ def get_sentiment(region: str = "global"):
 @app.get("/api/v1/sre/logs")
 def get_sre_logs():
     return [
-        {"timestamp": "2026-05-01T19:58:00Z", "event": "GRAPH_ENGINE_INVOKE", "status": "TRANSPARENT_MODE_ACTIVE"}
+        {"timestamp": "2026-05-02T14:42:00Z", "event": "HEALTH_CHECK_FAILED", "status": "REPORTING_SICK_TO_UI"}
     ]
 
 @app.get("/health")
 def health():
     return {"status": "green", "version": "1.0.0"}
 
-# Mount Static Files for Production UI
 if os.path.exists("dist"):
     app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
     
