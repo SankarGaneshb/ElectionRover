@@ -21,7 +21,7 @@ class AgentState(TypedDict):
     next_node: str
 
 def get_client():
-    # Vertex AI Native Authentication (Corrected SDK Argument)
+    # Vertex AI Native Authentication
     project_id = os.getenv("GCP_PROJECT_ID") or os.getenv("GOOGLE_CLOUD_PROJECT")
     
     if not project_id:
@@ -30,7 +30,7 @@ def get_client():
             raise ValueError("CRITICAL: Both Project ID and API Key are missing.")
         return genai.Client(api_key=api_key)
 
-    # Corrected argument: vertexai (no underscore)
+    # Use us-central1 (standard for Gemini on Vertex)
     print(f"IDENTITY AUTH: Connecting to Vertex AI in project: {project_id}")
     return genai.Client(vertexai=True, project=project_id, location="us-central1")
 
@@ -57,9 +57,9 @@ def educator_node(state: AgentState):
     full_prompt = f"System Context: {system_prompt}\n\nRecent History:\n{history_text}\nUser Question: {messages[-1]['content']}"
     
     try:
-        # Standard Vertex model ID
+        # Use the explicit latest stable version for Vertex AI (fixes MODEL_NOT_FOUND)
         response = client.models.generate_content(
-            model='gemini-1.5-flash',
+            model='gemini-1.5-flash-002',
             contents=full_prompt
         )
         return {
@@ -92,7 +92,8 @@ app_graph = workflow.compile()
 def get_gemini_response(prompt: str, role: str = "Voter", lang: str = "en"):
     client = get_client()
     try:
-        resp = client.models.generate_content(model='gemini-1.5-flash', contents=prompt)
+        # Match the explicit version here as well
+        resp = client.models.generate_content(model='gemini-1.5-flash-002', contents=prompt)
         return resp.text
     except Exception as e:
         return f"Vertex Connection Error: {str(e)}"
