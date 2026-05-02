@@ -56,15 +56,17 @@ jobs:
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
       - name: 'Build and Push Docker Image'
         run: |
-          IMAGE_PATH="us-central1-docker.pkg.dev/electionrover/cloud-run-source-deploy/election-rover:${{ github.sha }}"
+          # Dynamically use the GCP_PROJECT_ID secret for the image path
+          IMAGE_PATH="us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/election-rover:${{ github.sha }}"
           docker build -t $IMAGE_PATH .
           docker push $IMAGE_PATH
       - name: 'Deploy to Cloud Run'
         run: |
-          IMAGE_PATH="us-central1-docker.pkg.dev/electionrover/cloud-run-source-deploy/election-rover:${{ github.sha }}"
+          IMAGE_PATH="us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/cloud-run-source-deploy/election-rover:${{ github.sha }}"
           gcloud run deploy election-rover \
             --image $IMAGE_PATH \
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
-            --project electionrover
+            --project ${{ secrets.GCP_PROJECT_ID }} \
+            --set-env-vars "GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }},GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}"
