@@ -21,19 +21,18 @@ class AgentState(TypedDict):
     next_node: str
 
 def get_client():
-    # Vertex AI Native Authentication (No Key Required)
+    # Vertex AI Native Authentication (Corrected SDK Argument)
     project_id = os.getenv("GCP_PROJECT_ID") or os.getenv("GOOGLE_CLOUD_PROJECT")
     
     if not project_id:
-        print("WARNING: No GCP_PROJECT_ID found. Falling back to API Key if present...")
         api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
         if not api_key:
             raise ValueError("CRITICAL: Both Project ID and API Key are missing.")
         return genai.Client(api_key=api_key)
 
-    # Institutional Grade: Use Vertex AI identity
+    # Corrected argument: vertexai (no underscore)
     print(f"IDENTITY AUTH: Connecting to Vertex AI in project: {project_id}")
-    return genai.Client(vertex_ai=True, project=project_id, location="us-central1")
+    return genai.Client(vertexai=True, project=project_id, location="us-central1")
 
 # Node: Educator Agent - Native & Stable
 def educator_node(state: AgentState):
@@ -58,7 +57,7 @@ def educator_node(state: AgentState):
     full_prompt = f"System Context: {system_prompt}\n\nRecent History:\n{history_text}\nUser Question: {messages[-1]['content']}"
     
     try:
-        # Using stable Vertex AI model ID
+        # Standard Vertex model ID
         response = client.models.generate_content(
             model='gemini-1.5-flash',
             contents=full_prompt
