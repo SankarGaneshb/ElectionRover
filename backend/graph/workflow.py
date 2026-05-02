@@ -30,11 +30,11 @@ def get_client():
             raise ValueError("CRITICAL: Both Project ID and API Key are missing.")
         return genai.Client(api_key=api_key)
 
-    # Use us-central1 (standard for Gemini on Vertex)
+    # Use us-central1 (Standard for Gemini 3.1 on Vertex)
     print(f"IDENTITY AUTH: Connecting to Vertex AI in project: {project_id}")
     return genai.Client(vertexai=True, project=project_id, location="us-central1")
 
-# Node: Educator Agent - Native & Stable
+# Node: Educator Agent - Frontier 3.1 Build
 def educator_node(state: AgentState):
     client = get_client()
     messages = state['messages']
@@ -43,7 +43,7 @@ def educator_node(state: AgentState):
     # Expert Context
     system_prompt = f"You are the Educator Agent for Election Rover. " \
                     f"Provide expert guidance on the Indian election process for: {role}. " \
-                    f"Keep responses concise and helpful."
+                    f"You are powered by Gemini 3.1. Be concise, precise, and helpful."
     
     # History Purifier
     history_text = ""
@@ -57,9 +57,9 @@ def educator_node(state: AgentState):
     full_prompt = f"System Context: {system_prompt}\n\nRecent History:\n{history_text}\nUser Question: {messages[-1]['content']}"
     
     try:
-        # Use the explicit latest stable version for Vertex AI (fixes MODEL_NOT_FOUND)
+        # UPGRADED TO GEMINI 3.1 FLASH (LATEST 2026 STABLE)
         response = client.models.generate_content(
-            model='gemini-1.5-flash-002',
+            model='gemini-3.1-flash',
             contents=full_prompt
         )
         return {
@@ -67,13 +67,13 @@ def educator_node(state: AgentState):
             "next_node": "gamemaster"
         }
     except Exception as e:
-        print(f"CRITICAL VERTEX AI ERROR: {str(e)}")
+        print(f"CRITICAL GEMINI 3.1 ERROR: {str(e)}")
         raise e
 
 # Node: GameMaster Agent
 def gamemaster_node(state: AgentState):
     return {
-        "points": state.get('points', 0) + 10,
+        "points": state.get('points', 0) + 15, # Bonus points for using Frontier AI
         "next_node": END
     }
 
@@ -92,8 +92,8 @@ app_graph = workflow.compile()
 def get_gemini_response(prompt: str, role: str = "Voter", lang: str = "en"):
     client = get_client()
     try:
-        # Match the explicit version here as well
-        resp = client.models.generate_content(model='gemini-1.5-flash-002', contents=prompt)
+        # Match the frontier version
+        resp = client.models.generate_content(model='gemini-3.1-flash', contents=prompt)
         return resp.text
     except Exception as e:
-        return f"Vertex Connection Error: {str(e)}"
+        return f"Frontier Connection Error: {str(e)}"
