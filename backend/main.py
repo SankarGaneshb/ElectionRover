@@ -62,16 +62,22 @@ async def chat(request: ChatRequest):
         }
             
     except Exception as e:
-        # LOG the real error for SRE/Admin eyes only
-        error_trace = traceback.format_exc()
-        print(f"CRITICAL SYSTEM FAILURE (Reported as 'Sick' to UI):\n{error_trace}")
+        error_str = str(e)
+        # Extract a compact error code if possible
+        error_code = "UNKNOWN_ERROR"
+        if "SERVICE_DISABLED" in error_str: error_code = "SERVICE_DISABLED"
+        elif "PERMISSION_DENIED" in error_str: error_code = "PERMISSION_DENIED"
+        elif "NOT_FOUND" in error_str: error_code = "MODEL_NOT_FOUND"
         
-        # POLITE UI MESSAGE as requested by the user
+        # LOG the full error
+        print(f"CRITICAL SYSTEM FAILURE:\n{traceback.format_exc()}")
+        
+        # SMART TRANSPARENCY: Polite message + Compact Token
         return {
-            "response": "Sorry, I am feeling a bit sick and unable to respond correctly right now. Please reach out to me again later!",
+            "response": f"Sorry, I am feeling a bit sick and unable to respond correctly right now. [Technical Code: {error_code}]",
             "points": request.points,
             "badges": request.badges,
-            "error_detail": "SERVICE_INTERRUPTION" # Stealth tag
+            "error_detail": error_str
         }
 
 @app.get("/api/v1/analysis/sentiment")
@@ -87,7 +93,7 @@ def get_sentiment(region: str = "global"):
 @app.get("/api/v1/sre/logs")
 def get_sre_logs():
     return [
-        {"timestamp": "2026-05-02T14:42:00Z", "event": "HEALTH_CHECK_FAILED", "status": "REPORTING_SICK_TO_UI"}
+        {"timestamp": "2026-05-02T14:58:00Z", "event": "HEALTH_CHECK", "status": "SMART_TRANSPARENCY_ACTIVE"}
     ]
 
 @app.get("/health")
