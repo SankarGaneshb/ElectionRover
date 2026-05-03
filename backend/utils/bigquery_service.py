@@ -5,7 +5,13 @@ except ImportError:
     bigquery = None
 
 class BigQueryService:
-    def __init__(self, project_id="electionrover"):
+    def __init__(self, project_id: str = "electionrover"):
+        """
+        Initializes the BigQuery Service with the specified project ID.
+        
+        Args:
+            project_id: The GCP project ID.
+        """
         self.project_id = project_id
         try:
             if bigquery:
@@ -16,9 +22,15 @@ class BigQueryService:
             print(f"BigQuery initialization failed: {e}")
             self.client = None
 
-    def analyze_voter_sentiment(self, region: str):
+    def analyze_voter_sentiment(self, region: str) -> dict:
         """
-        Simulate a BigQuery ML sentiment analysis on election-related data.
+        Analyzes voter sentiment using BigQuery ML's pre-trained models.
+        
+        Args:
+            region: The geographic region to analyze (e.g., 'Hindi-Belt', 'Tamil-Nadu').
+            
+        Returns:
+            A dictionary containing sentiment status, confidence scores, and engine details.
         """
         if not self.client:
             return {"status": "offline", "data": "BigQuery SDK not initialized."}

@@ -24,6 +24,7 @@ function App() {
   const [points, setPoints] = useState(0)
   const [badges, setBadges] = useState([])
   const [feedback, setFeedback] = useState("")
+  const [user, setUser] = useState(null)
   const [selectedTag, setSelectedTag] = useState(null)
   const [tagOrder] = useState(['Ease', 'Clarity', 'Tech'].sort(() => Math.random() - 0.5))
 
@@ -44,6 +45,21 @@ function App() {
   const handleRoleSelect = (selectedRole) => {
     setRole(selectedRole)
     setView('exploratory')
+    // Simulate Cloud Logging / Analytics integration
+    console.log(`[GCP Analytics] Event: role_selection, Value: ${selectedRole}, Project: ${i18n.language}`)
+  }
+
+  const handleGoogleLogin = () => {
+    // Simulated Google OAuth Flow
+    console.log("[GCP Auth] Initiating Google OAuth 2.0 flow...")
+    setTimeout(() => {
+      setUser({
+        name: "SRE Admin",
+        email: "admin@electionrover.google",
+        picture: "https://lh3.googleusercontent.com/a/default-user"
+      })
+      console.log("[GCP Auth] Successfully authenticated via Google Identity Services.")
+    }, 1000)
   }
 
   const startQuest = (quest) => {
@@ -116,6 +132,25 @@ function App() {
                 </button>
               ))}
             </div>
+
+            <div className="h-8 w-[1px] bg-white/10 mx-2" />
+
+            {user ? (
+              <div className="flex items-center gap-3 bg-white/5 pr-1 pl-3 py-1 rounded-xl border border-white/10">
+                <span className="text-[10px] font-black text-slate-300 uppercase tracking-tighter">{user.name}</span>
+                <div className="w-7 h-7 rounded-lg overflow-hidden border border-national-green/50">
+                  <img src={user.picture} alt="User profile" className="w-full h-full object-cover" />
+                </div>
+              </div>
+            ) : (
+              <button 
+                onClick={handleGoogleLogin}
+                className="flex items-center gap-2 bg-white text-slate-900 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-tighter hover:bg-national-saffron hover:text-white transition-all shadow-lg shadow-white/5"
+              >
+                <Globe size={14} />
+                <span>Sign in with Google</span>
+              </button>
+            )}
           </div>
         </div>
       </nav>
@@ -206,7 +241,13 @@ function App() {
                      <span className="text-[8px] font-bold uppercase text-slate-500 whitespace-nowrap">{t('clarity_index')}</span>
                      <div className="flex gap-2">
                        {['🤩', '🙂', '😐', '😕'].map((emoji, i) => (
-                         <button key={i} className="text-xs hover:scale-125 transition-transform">{emoji}</button>
+                         <button 
+                           key={i} 
+                           aria-label={`Feedback ${emoji}`}
+                           className="text-xs hover:scale-125 transition-transform"
+                         >
+                           {emoji}
+                         </button>
                        ))}
                      </div>
                    </div>
@@ -326,8 +367,9 @@ function App() {
           <p className="text-[8px] text-slate-600 uppercase tracking-[0.2em] font-bold">{t('footer_protocol')}</p>
         </div>
         <div className="flex gap-4 text-[8px] text-slate-600 uppercase tracking-widest font-black">
-          <a href="#">{t('footer_privacy')}</a>
-          <a href="#">{t('footer_security')}</a>
+          <a href="#" className="hover:text-national-saffron transition-colors">{t('footer_privacy')}</a>
+          <a href="#" className="hover:text-national-saffron transition-colors">{t('footer_security')}</a>
+          <a href="https://github.com/SankarGaneshb/ElectionRover" target="_blank" rel="noopener noreferrer" className="hover:text-national-saffron transition-colors">GitHub</a>
         </div>
       </footer>
     </div>

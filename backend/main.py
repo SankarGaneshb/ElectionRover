@@ -8,14 +8,14 @@ import os
 import sys
 import traceback
 from dotenv import load_dotenv
-from backend.graph.workflow import app_graph
+from backend.graph.workflow import app_graph, get_client
+from backend.sre_agent import sre_agent_instance, SREAuditLog, db
+from backend.utils.test_validator import validator
 
-# Enforce UTF-8 for regional script stability
+# Enforce UTF-8
 if sys.stdout.encoding != 'utf-8':
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except:
-        pass
+    try: sys.stdout.reconfigure(encoding='utf-8')
+    except: pass
 
 load_dotenv()
 
@@ -63,38 +63,73 @@ async def chat(request: ChatRequest):
             
     except Exception as e:
         error_str = str(e)
-        # Extract a compact error code if possible
-        error_code = "UNKNOWN_ERROR"
+        error_code = "DIAGNOSIS_NEEDED"
         if "SERVICE_DISABLED" in error_str: error_code = "SERVICE_DISABLED"
         elif "PERMISSION_DENIED" in error_str: error_code = "PERMISSION_DENIED"
-        elif "NOT_FOUND" in error_str: error_code = "MODEL_NOT_FOUND"
+        elif "MODEL_NOT_FOUND" in error_str: error_code = "MODEL_NOT_FOUND"
         
-        # LOG the full error
         print(f"CRITICAL SYSTEM FAILURE:\n{traceback.format_exc()}")
         
-        # SMART TRANSPARENCY: Polite message + Compact Token
         return {
-            "response": f"Sorry, I am feeling a bit sick and unable to respond correctly right now. [Technical Code: {error_code}]",
+            "response": f"Sorry, I am feeling a bit sick. [Code: {error_code}]. Visit /api/v1/sre/diagnostics for more info.",
             "points": request.points,
             "badges": request.badges,
             "error_detail": error_str
         }
 
-@app.get("/api/v1/analysis/sentiment")
-def get_sentiment(region: str = "global"):
+@app.get("/api/v1/sre/diagnostics")
+def get_diagnostics():
+    # SECURE DIAGNOSTICS: Check environment status
+    project_id = os.getenv("GCP_PROJECT_ID") or os.getenv("GOOGLE_CLOUD_PROJECT")
+    location = os.getenv("GCP_LOCATION", "us-central1")
+    
+    client = get_client()
+    model_list = []
+    auth_status = "FAILED"
+    if client:
+        auth_status = "SUCCESS"
+        try:
+            model_list = [m.name for m in client.models.list()]
+        except Exception as e:
+            model_list = [f"ERROR_LISTING: {str(e)}"]
+            
     return {
-        "status": "active",
-        "region": region,
-        "confidence_score": 0.94,
-        "sentiment": "Positive",
-        "last_updated": "2026-05-02T00:00:00Z"
+        "project_id": project_id,
+        "location": location,
+        "auth_status": auth_status,
+        "available_models": model_list,
+        "python_version": sys.version,
+        "env_vars_present": {
+            "GOOGLE_API_KEY": bool(os.getenv("GOOGLE_API_KEY")),
+            "GCP_SA_KEY": bool(os.getenv("GCP_SA_KEY"))
+        },
+        "firestore_status": "CONNECTED" if db else "OFFLINE"
     }
+
+@app.post("/api/v1/test/audit")
+async def audit_test(request: dict):
+    # This endpoint is specifically for the E2E test suite to verify semantic integrity
+    text = request.get("text", "")
+    role = request.get("role", "voter")
+    lang = request.get("lang", "en")
+    return await validator.audit_content(text, role, lang)
 
 @app.get("/api/v1/sre/logs")
 def get_sre_logs():
-    return [
-        {"timestamp": "2026-05-02T14:58:00Z", "event": "HEALTH_CHECK", "status": "SMART_TRANSPARENCY_ACTIVE"}
-    ]
+    return sre_agent_instance.get_logs()
+
+class HealRequest(BaseModel):
+    service: str
+    issue: str
+
+@app.post("/api/v1/sre/heal")
+def sre_heal(request: HealRequest):
+    return sre_agent_instance.simulate_heal(request.service, request.issue)
+
+@app.get("/api/v1/sre/trigger_error")
+def trigger_error():
+    sre_agent_instance.log_real_issue("Database", "Intentional Database connection timeout simulation.")
+    raise HTTPException(status_code=500, detail="Intentional Runtime Error for Chaos Engineering")
 
 @app.get("/health")
 def health():
@@ -102,14 +137,12 @@ def health():
 
 if os.path.exists("dist"):
     app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
-    
     @app.get("/{full_path:path}")
     async def serve_frontend(full_path: str):
         if full_path.startswith("api/") or full_path == "chat" or full_path == "health":
             raise HTTPException(status_code=404)
         file_path = os.path.join("dist", full_path)
-        if os.path.isfile(file_path):
-            return FileResponse(file_path)
+        if os.path.isfile(file_path): return FileResponse(file_path)
         return FileResponse("dist/index.html")
 
 if __name__ == "__main__":

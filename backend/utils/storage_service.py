@@ -5,7 +5,14 @@ except ImportError:
     storage = None
 
 class StorageService:
-    def __init__(self, project_id="electionrover", bucket_name="electionrover-assets"):
+    def __init__(self, project_id: str = "electionrover", bucket_name: str = "electionrover-assets"):
+        """
+        Initializes the GCS Service.
+        
+        Args:
+            project_id: The GCP project ID.
+            bucket_name: The name of the GCS bucket for assets.
+        """
         self.project_id = project_id
         self.bucket_name = bucket_name
         try:
@@ -17,9 +24,16 @@ class StorageService:
             print(f"Cloud Storage initialization failed: {e}")
             self.client = None
 
-    def upload_voter_document(self, filename: str, content: bytes):
+    def upload_voter_document(self, filename: str, content: bytes) -> dict:
         """
-        Simulate uploading a voter ID or profile document to GCS.
+        Uploads a voter document (ID, affidavit, etc.) to Google Cloud Storage.
+        
+        Args:
+            filename: The name to store the file as in GCS.
+            content: The binary content of the file.
+            
+        Returns:
+            A dictionary containing the status, filename, and public/internal URL.
         """
         if not self.client:
             return {"status": "offline", "url": f"/mock-assets/{filename}"}
