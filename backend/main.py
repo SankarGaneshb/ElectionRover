@@ -11,6 +11,8 @@ from dotenv import load_dotenv
 from backend.graph.workflow import app_graph, get_client
 from backend.sre_agent import sre_agent_instance, SREAuditLog, db
 from backend.utils.test_validator import validator
+from backend.utils.bigquery_service import bq_service
+from backend.utils.storage_service import storage_service
 
 # Enforce UTF-8
 if sys.stdout.encoding != 'utf-8':
@@ -105,6 +107,18 @@ def get_diagnostics():
         },
         "firestore_status": "CONNECTED" if db else "OFFLINE"
     }
+
+@app.get("/api/v1/analysis/sentiment")
+def analyze_sentiment(region: str = "national"):
+    return bq_service.analyze_voter_sentiment(region)
+
+class UploadRequest(BaseModel):
+    filename: str
+    content: str  # Base64 or plain string for mock
+
+@app.post("/api/v1/storage/upload")
+def upload_asset(request: UploadRequest):
+    return storage_service.upload_voter_document(request.filename, request.content.encode())
 
 @app.post("/api/v1/test/audit")
 async def audit_test(request: dict):
