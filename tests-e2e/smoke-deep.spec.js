@@ -45,7 +45,7 @@ test('Deep Interactive Smoke Test - Feeling the User Pain', async ({ page }) => 
   await expect(indicator).toBeVisible({ timeout: 10000 });
   await expect(indicator).toBeHidden({ timeout: 45000 });
   
-  const allBubbles = page.locator('div.bg-white\\/5');
+  const allBubbles = page.locator('.custom-scrollbar div.bg-white\\/5');
   await expect(allBubbles).toHaveCount(2, { timeout: 15000 });
   
   // 4. Move to Next Step
