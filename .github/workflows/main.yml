@@ -69,7 +69,7 @@ jobs:
           python backend/main.py > backend.log 2>&1 &
           
           echo "Waiting for backend to be ready on port 8000..."
-          npx wait-on http://127.0.0.1:8000/health --timeout 60000 || (cat backend.log && exit 1)
+          npx wait-on http-get://127.0.0.1:8000/health --timeout 60000 || (cat backend.log && exit 1)
           
           # Update baseURL for playwright in CI to 8000 (backend port)
           npx playwright test --config playwright.config.js --project chromium

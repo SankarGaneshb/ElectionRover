@@ -145,7 +145,7 @@ def trigger_error():
     sre_agent_instance.log_real_issue("Database", "Intentional Database connection timeout simulation.")
     raise HTTPException(status_code=500, detail="Intentional Runtime Error for Chaos Engineering")
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health():
     return {"status": "green", "version": "1.0.0"}
 
